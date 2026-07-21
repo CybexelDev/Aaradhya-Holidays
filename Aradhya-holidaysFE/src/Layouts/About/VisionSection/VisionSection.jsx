@@ -18,7 +18,6 @@ export default function VisionSection() {
               Dissolving the borders between Traveler &amp; Nature.
             </h2>
 
-            {/* Description */}
             <p className="text-[#5B6B79] text-sm sm:text-base leading-relaxed mb-8 max-w-lg inter ">
               At Oceania Travels, we don't just book trips; we curate moments
               of profound connection with the wild. Our vision is to create
