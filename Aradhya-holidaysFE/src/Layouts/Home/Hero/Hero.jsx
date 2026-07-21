@@ -10,7 +10,7 @@ import "./hero.css";
 export default function Hero() {
   const [selectedDate, setSelectedDate] = useState(null);
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative  overflow-hidden pt-4">
       {/* Background Video */}
       <video
         autoPlay
@@ -144,10 +144,10 @@ export default function Hero() {
         </div>
 
         {/* Stats bar */}
-<div className="inter mx-4 md:mx-26 mb-8 bg-[#FFFFFF33] backdrop-blur-[12px] rounded-2xl shadow-xl px-4 md:px-12 py-6 md:py-8 grid grid-cols-2 md:flex md:flex-nowrap md:justify-between items-center text-center gap-6">
+<div className="inter mx-6 lg:mx-26 mb-8 bg-[#FFFFFF33] backdrop-blur-[12px] rounded-2xl shadow-xl px-4 md:px-12 py-6 md:py-8 grid grid-cols-2 md:flex md:flex-nowrap md:justify-between items-center text-center gap-6">
 
   <div className="flex flex-col items-center">
-    <h3 className="text-[20px] md:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
+    <h3 className="text-[20px] md:text-[25px]  lg:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
       10+ Years
     </h3>
     <p className="text-[#42474E] text-[12px] sm:text-[14px] md:text-[16px] leading-[22px] md:leading-[24px] font-[400]">
@@ -156,7 +156,7 @@ export default function Hero() {
   </div>
 
   <div className="flex flex-col items-center">
-    <h3 className="text-[20px] md:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
+    <h3 className="text-[20px] md:text-[25px]  lg:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
       5000+
     </h3>
     <p className="text-[#42474E] text-[12px] sm:text-[14px] md:text-[16px] leading-[22px] md:leading-[24px] font-[400]">
@@ -165,7 +165,7 @@ export default function Hero() {
   </div>
 
   <div className="flex flex-col items-center">
-    <h3 className="text-[20px] md:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
+    <h3 className="text-[20px] md:text-[25px]  lg:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
       120+
     </h3>
     <p className="text-[#42474E] text-[12px] sm:text-[14px] md:text-[16px] leading-[22px] md:leading-[24px] font-[400]">
@@ -174,7 +174,7 @@ export default function Hero() {
   </div>
 
   <div className="flex flex-col items-center">
-    <h3 className="text-[20px] md:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
+    <h3 className="text-[20px] md:text-[25px]  lg:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">
       24/7
     </h3>
     <p className="text-[#42474E] text-[12px] sm:text-[14px] md:text-[16px] leading-[22px] md:leading-[24px] font-[400]">
