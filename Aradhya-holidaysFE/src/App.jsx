@@ -4,6 +4,9 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import Home from './Pages/Home/Home'
+import AboutHero from './Layouts/About/Hero/AboutHero'
+import About from './Pages/About/About'
+import TourPlan from './Pages/TourPlan/TourPlan'
 
 function App() {
 
@@ -11,7 +14,9 @@ function App() {
     <>
 
     <div>
-      <Home />
+      {/* <Home /> */}
+      {/* <About/> */}
+      <TourPlan />
     </div>
      
     </>

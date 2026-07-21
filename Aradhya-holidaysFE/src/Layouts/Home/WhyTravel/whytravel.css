@@ -1,0 +1,68 @@
+/* Desktop (Keep exactly as it is) */
+.activeproperty-cta-container {
+  --r: 30px;
+  --s: 30px;
+  --x: 740px; /* Don't change */
+  --y: 2px;
+
+  width: 100%;
+  min-height: 500px;
+  background: #00263F;
+  border-radius: 30px 0 0 0;
+
+  --_m: /calc(2 * var(--r)) calc(2 * var(--r))
+    radial-gradient(#000 70%, #0000 72%);
+  --_g: conic-gradient(at var(--r) var(--r), #000 75%, #0000 0);
+  --_d: calc(var(--s) + var(--r));
+
+  -webkit-mask:
+    calc(var(--_d) + var(--x)) 0 var(--_m),
+    0 calc(var(--_d) + var(--y)) var(--_m),
+    radial-gradient(var(--s) at 0 0, #0000 99%, #000 calc(100% + 1px))
+      calc(var(--r) + var(--x))
+      calc(var(--r) + var(--y)),
+    var(--_g) calc(var(--_d) + var(--x)) 0,
+    var(--_g) 0 calc(var(--_d) + var(--y));
+
+  mask:
+    calc(var(--_d) + var(--x)) 0 var(--_m),
+    0 calc(var(--_d) + var(--y)) var(--_m),
+    radial-gradient(var(--s) at 0 0, #0000 99%, #000 calc(100% + 1px))
+      calc(var(--r) + var(--x))
+      calc(var(--r) + var(--y)),
+    var(--_g) calc(var(--_d) + var(--x)) 0,
+    var(--_g) 0 calc(var(--_d) + var(--y));
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  transform: scaleX(-1);
+}
+
+.activeproperty-cta-content {
+  transform: scaleX(-1);
+  width: 100%;
+  min-height: 500px;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .activeproperty-cta-container {
+    --x: 500px;
+  }
+
+  .activeproperty-cta-content {
+    min-height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .activeproperty-cta-container {
+    --x: 180px;
+  }
+
+  .activeproperty-cta-content {
+    min-height: auto;
+  }
+}

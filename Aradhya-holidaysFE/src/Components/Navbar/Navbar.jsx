@@ -16,15 +16,15 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex items-center justify-between px-5 md:px-10 py-4 mt-4 mx-4 md:mx-[60px] rounded-[50px] bg-[#919191B2]  shadow-[0px_17px_23px_0px_rgba(0,0,0,0.25)]">
+      <nav className="flex items-center justify-between px-5 lg:px-10 py-4 mt-0 mx-4 md:mx-[20px] lg:mx-[41px] xl:mx-[60px] rounded-[50px] bg-[#919191B2]  shadow-[0px_17px_23px_0px_rgba(0,0,0,0.25)]">
 
         {/* Logo */}
-        <div className="text-white text-[19px] sm:text-[24px] md:text-[30px] leading-[30px] md:leading-[40px] tracking-[-0.93px] font-[700] inter">
+        <div className="text-white text-[19px] sm:text-[24px] lg:text-[30px] leading-[30px] lg:leading-[40px] tracking-[-0.93px] font-[700] inter">
           Aaradhya <span className="text-sky-400">Holidays</span>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-2 inter leading-[24px] text-[16px]">
+        <div className="hidden md:flex items-center gap-[1px] lg:gap-2 inter leading-[24px] text-[16px] md:text-[11px] lg:text-[16px]">
           {navItems.map((item) => (
             <button
               key={item}
@@ -58,7 +58,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Call Button */}
-        <button className="hidden md:flex inter items-center gap-2 bg-gradient-to-r from-[#FF7A00] to-[#FF4E7A] text-white text-[16px] font-[700] leading-[24px] px-7 py-2 rounded-[30px] hover:opacity-90 transition">
+        <button className="hidden md:flex inter items-center bg-gradient-to-r from-[#FF7A00] to-[#FF4E7A] text-white md:text-[14px] lg:text-[16px] font-[700] leading-[24px] md:px-6 lg:px-7 md:py-[6px] lg:py-2 rounded-[30px] hover:opacity-90 transition">
           Call Now
         </button>
 
