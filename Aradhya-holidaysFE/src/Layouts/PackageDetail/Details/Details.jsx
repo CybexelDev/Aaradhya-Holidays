@@ -12,25 +12,25 @@ export default function Details() {
       day: "DAY 01",
       title: "Perito Moreno Glacier",
       text: "Witness the raw power of ice. Private boat navigation brings you inches from the crystalline walls of this advancing giant.",
-      side: "right",
+      // side: "right",
     },
     {
       day: "DAY 02",
       title: "Perito Moreno Glacier",
       text: "Witness the raw power of ice. Private boat navigation brings you inches from the crystalline walls of this advancing giant.",
-      side: "left",
+      // side: "left",
     },
     {
       day: "DAY 03",
       title: "Perito Moreno Glacier",
       text: "Witness the raw power of ice. Private boat navigation brings you inches from the crystalline walls of this advancing giant.",
-      side: "right",
+      // side: "right",
     },
     {
       day: "DAY 04",
       title: "Perito Moreno Glacier",
       text: "Witness the raw power of ice. Private boat navigation brings you inches from the crystalline walls of this advancing giant.",
-      side: "left",
+      // side: "left",
     },
   ];
 
@@ -116,39 +116,46 @@ export default function Details() {
           <div className="absolute left-4 top-0 h-full w-px bg-[#D8DEE4] sm:left-1/2 sm:-translate-x-1/2" />
 
           <div className="flex flex-col gap-10 sm:gap-14">
-            {timelineData.map((item, idx) => (
-              <div
-                key={idx}
-                className={`relative flex items-start gap-5 sm:gap-0 ${
-                  item.side === "left" ? "sm:flex-row" : "sm:flex-row-reverse"
-                }`}
-              >
-                {/* Dot */}
-                <span className="absolute left-4 top-0 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-[4px] border-[#00639A] bg-white sm:left-1/2" />
+           {timelineData.map((item, idx) => {
+  const isRight = idx % 2 === 0; // 1st, 3rd, 5th... on right
+  // const isRight = idx % 2 !== 0; // Use this instead if you want 2nd, 4th... on right
 
-                {/* Content */}
-                <div
-                  className={`w-full pl-10 sm:w-1/2 sm:pl-0 ${
-                    item.side === "left"
-                      ? "sm:pr-14 sm:text-right"
-                      : "sm:pl-14 sm:text-left"
-                  }`}
-                >
-                  <p className="inter text-[17px] font-[400] uppercase tracking-[1.73px] text-[#00639A]">
-                    {item.day}
-                  </p>
-                  <h3 className="inter mt-2 text-[20px] sm:text-[29px] font-[400] text-[#00263F]">
-                    {item.title}
-                  </h3>
-                  <p className="inter mt-2 text-[15px] sm:text-[19px] font-[300] leading-8 text-[#42474E]">
-                    {item.text}
-                  </p>
-                </div>
+  return (
+    <div
+      key={idx}
+      className={`relative flex items-start gap-5 sm:gap-0 ${
+        isRight ? "sm:flex-row-reverse" : "sm:flex-row"
+      }`}
+    >
+      {/* Dot */}
+      <span className="absolute left-4 top-0 z-10 h-4 w-4 -translate-x-1/2 rounded-full border-[4px] border-[#00639A] bg-white sm:left-1/2" />
 
-                {/* Empty spacer for the opposite column on desktop */}
-                <div className="hidden sm:block sm:w-1/2" />
-              </div>
-            ))}
+      {/* Content */}
+      <div
+        className={`w-full pl-10 sm:w-1/2 sm:pl-0 ${
+          isRight
+            ? "sm:pl-14 sm:text-left"
+            : "sm:pr-14 sm:text-right"
+        }`}
+      >
+        <p className="inter text-[17px] font-[400] uppercase tracking-[1.73px] text-[#00639A]">
+          {item.day}
+        </p>
+
+        <h3 className="inter mt-2 text-[20px] sm:text-[29px] font-[400] text-[#00263F]">
+          {item.title}
+        </h3>
+
+        <p className="inter mt-2 text-[15px] sm:text-[19px] font-[300] leading-8 text-[#42474E]">
+          {item.text}
+        </p>
+      </div>
+
+      {/* Empty spacer */}
+      <div className="hidden sm:block sm:w-1/2" />
+    </div>
+  );
+})}
           </div>
         </div>
       </section>

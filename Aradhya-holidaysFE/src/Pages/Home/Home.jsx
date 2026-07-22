@@ -12,7 +12,7 @@ import TestimonialSection from '../../Layouts/Home/Testimonials/Testimonials'
 function Home() {
   return (
     <div>
-        {/* <Hero /> */}
+        <Hero />
         <ExploreDestinations />
         <WhyTravel/>
         <Contact />

@@ -8,6 +8,7 @@ import AboutHero from './Layouts/About/Hero/AboutHero'
 import About from './Pages/About/About'
 import TourPlan from './Pages/TourPlan/TourPlan'
 import PackageDetail from './Pages/PackageDetail/PackageDetail'
+import VehicleDetail from './Pages/VehicleDetail/VehicleDetail'
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
     <div>
       {/* <Home /> */}
       {/* <TourPlan /> */}
-      <PackageDetail />
+      {/* <PackageDetail /> */}
       {/* <About/> */}
+      <VehicleDetail />
     </div>
      
     </>
