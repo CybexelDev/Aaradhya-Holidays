@@ -1,30 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
-import Home from './Pages/Home/Home'
-import AboutHero from './Layouts/About/Hero/AboutHero'
-import About from './Pages/About/About'
 import TourPlan from './Pages/TourPlan/TourPlan'
-import PackageDetail from './Pages/PackageDetail/PackageDetail'
-import VehicleDetail from './Pages/VehicleDetail/VehicleDetail'
+import Home from "./Pages/Home/Home";
+import About from "./Pages/About/About"
+import PackageDetail from "./Pages/PackageDetail/PackageDetail";
+import Services from "./Pages/Services/Services";
+import VehcileDetail from "./Pages/VehcileDetail/VehcileDetail";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-
   return (
-    <>
-
-    <div>
-      {/* <Home /> */}
-      {/* <TourPlan /> */}
-      {/* <PackageDetail /> */}
-      {/* <About/> */}
-      <VehicleDetail />
-    </div>
-     
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+         <Route path="/tourDetail" element={<PackageDetail/>}/>
+         <Route path="/service" element={<Services/>}/>
+         <Route path="/vehciledetail" element={<VehcileDetail/>}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

@@ -81,7 +81,7 @@ export default function PremiumCard({
         <button
           type="button"
           onClick={onBookNow}
-          className="w-full bg-white text-slate-900 text-[15px] sm:text-base font-semibold py-3 sm:py-3.5 rounded-full hover:bg-slate-100 transition-colors"
+          className="w-full bg-white text-[#0056CD] text-[15px] sm:text-base font-semibold py-3 sm:py-3.5 rounded-full hover:bg-slate-100 transition-colors"
         >
           Book Now
         </button>
