@@ -25,14 +25,20 @@ export default function Hero() {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#00263F99] via-[#00263F66] to-[#F7F9FB]"></div>
 
+
+   <div className="relative z-10">
+  {/* Navbar */}
+  <Navbar />
+
+
       {/* Content wrapper */}
       <div className="relative z-10 flex flex-col gap-[40px] md:gap-[150px]">
         {/* Navbar */}
-        <Navbar />
+        {/* <Navbar /> */}
 
         {/* Hero Text */}
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-         <h1 className="poppins text-white text-[32px] sm:text-[42px] md:text-[64px] font-[500] leading-[40px] sm:leading-[52px] md:leading-[72px] mb-4 md:mb-5 text-center">
+         <h1 className="poppins mt-10 text-white text-[32px] sm:text-[42px] md:text-[64px] font-[500] leading-[40px] sm:leading-[52px] md:leading-[72px] mb-4 md:mb-5 text-center">
   Chase Sunsets Around the World
 </h1>
 
@@ -183,6 +189,7 @@ export default function Hero() {
   </div>
 
 </div>
+      </div>
       </div>
     </div>
   );

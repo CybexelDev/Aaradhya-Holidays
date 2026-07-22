@@ -15,8 +15,10 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
-      <nav className="flex items-center justify-between px-5 lg:px-10 py-4 mt-0 mx-4 md:mx-[20px] lg:mx-[41px] xl:mx-[60px] rounded-[50px] bg-[#919191B2]  shadow-[0px_17px_23px_0px_rgba(0,0,0,0.25)]">
+    // 1. Wrap everything in a relative container so the mobile menu
+    //    can be absolutely positioned against it.
+    <div className="relative z-50">
+      <nav className="flex items-center justify-between px-5 lg:px-10 py-2 sm:py-4 mt-0 mx-4 md:mx-[20px] lg:mx-[41px] xl:mx-[60px] rounded-[50px] bg-[#919191B2]  shadow-[0px_17px_23px_0px_rgba(0,0,0,0.25)]">
 
         {/* Logo */}
         <div className="text-white text-[19px] sm:text-[24px] lg:text-[30px] leading-[30px] lg:leading-[40px] tracking-[-0.93px] font-[700] inter">
@@ -71,7 +73,8 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — now absolutely positioned so it overlays content
+          instead of pushing it down */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -79,7 +82,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -25 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden mx-4 mt-[-24px] rounded-[30px] bg-[#919191E6] backdrop-blur-[23px] p-5 shadow-lg"
+            className="md:hidden absolute top-full left-0 right-0 mx-4 mt-[10px] rounded-[30px] bg-[#919191E6] backdrop-blur-[23px] p-5 shadow-lg z-50"
           >
             <div className="flex flex-col gap-3">
 
@@ -108,6 +111,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

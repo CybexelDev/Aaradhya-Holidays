@@ -65,7 +65,7 @@ export default function TourplanHero() {
 
       {/* Search bar card */}
       <div className="relative z-10 mt-14 sm:mt-16 md:mt-20 px-4 sm:px-6 pb-10 sm:pb-0 top-8">
-  <div className="mx-auto flex w-full max-w-[1025px] flex-col gap-2 md:gap-4 lg:gap-6 rounded-[32px] sm:rounded-[32px] bg-white/50 backdrop-blur-md border border-[#FFFFFF33] py-4 px-7 sm:py-5 sm:px-10 shadow-2xl md:flex-row md:flex-wrap lg:flex-nowrap md:items-center md:justify-between">
+  <div className="mx-auto flex w-full max-w-[1025px] flex-col gap-2 md:gap-4 lg:gap-6 rounded-[32px] sm:rounded-[32px] bg-white/50 backdrop-blur-md border border-[#FFFFFF33] py-4 px-7 sm:py-5 sm:px-10 shadow-sm md:flex-row md:flex-wrap lg:flex-nowrap md:items-center md:justify-between">
     
     {/* Destination */}
     <div className="relative flex-1 min-w-[45%] md:min-w-[45%] lg:min-w-[100px]">
@@ -77,7 +77,7 @@ export default function TourplanHero() {
         onClick={() => setOpenField(openField === "destination" ? null : "destination")}
         className="flex w-full items-center justify-between gap-2 rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
       >
-        <span className="inter text-[15px] sm:text-[16px] font-[500] text-[#00263F] truncate">
+        <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
           {destination}
         </span>
         <ChevronDown
@@ -119,7 +119,7 @@ export default function TourplanHero() {
         onClick={() => setOpenField(openField === "duration" ? null : "duration")}
         className="flex w-full items-center justify-between gap-2 rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
       >
-        <span className="inter text-[15px] sm:text-[16px] font-[500] text-[#00263F] truncate">
+        <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
           {duration}
         </span>
         <ChevronDown
@@ -161,7 +161,7 @@ export default function TourplanHero() {
         onClick={() => setOpenField(openField === "budget" ? null : "budget")}
         className="flex w-full items-center justify-between rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
       >
-        <span className="inter text-[15px] sm:text-[16px] font-[500] text-[#00263F] truncate">
+        <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
           {budget}
         </span>
         <ChevronDown
