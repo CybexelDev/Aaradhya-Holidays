@@ -15,7 +15,7 @@ export default function RelatedCars() {
 
   return (
     <section className="bg-[#F7F8FA] py-16 lg:py-20 px-4 sm:px-6 lg:px-15">
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-[28px] sm:text-[36px] font-[600] text-[#00263F] poppins">

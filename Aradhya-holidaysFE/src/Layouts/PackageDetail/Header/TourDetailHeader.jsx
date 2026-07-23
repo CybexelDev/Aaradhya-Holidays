@@ -30,7 +30,7 @@ export default function PackageDetailHeader() {
             Patagonian Peaks
           </h1>
 
-          <p className="inter text-white max-w-[652px] mx-auto text-[14px] sm:text-[16px] md:text-[18px] leading-[22px] sm:leading-[26px] md:leading-[28px] font-[400] mb-10 px-4 md:px-0 text-center">
+          <p className="inter text-white max-w-[652px] mx-auto text-[14px] sm:text-[16px] md:text-[20px] leading-[22px] sm:leading-[26px] md:leading-[28px] font-[400] mb-10 px-4 md:px-0 text-center">
           Rare expeditions designed for the refined soul, blending absolute luxury with
 raw natural wonder.
           </p>
