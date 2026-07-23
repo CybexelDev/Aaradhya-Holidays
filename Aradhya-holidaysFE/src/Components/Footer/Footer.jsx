@@ -137,9 +137,9 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-12 lg:gap-8 mb-12 sm:mb-16">
 
           {/* Left Column: Logo & Branding Headline */}
-          <div className="w-full lg:w-1/3 max-w-md mt-6 lg:-mt-22">
+<div className="w-full lg:w-1/3 max-w-md mt-6 lg:-mt-22 text-center lg:text-left mx-auto lg:mx-0">
             {/* Mountain Styled Logo */}
-           <div className="mb-6">
+  <div className="mb-6 flex justify-center lg:justify-start">
   <img
     src={logo}
     alt="Aaradhya Holidays"
@@ -147,15 +147,15 @@ export default function Footer() {
   />
 </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4">
               <span className="text-orange-500">Curating</span> Seamless Journeys and Global Experiences
             </h2>
-            <p className="text-white/70 text-sm leading-relaxed mb-6 max-w-xs">
+  <p className="text-white/70 text-sm leading-relaxed mb-6 max-w-xs mx-auto lg:mx-0">
               Explore stunning destinations, unique experiences and unforgettable journey with Voyara.
             </p>
 
             {/* Social Media Links */}
-          <div className="flex items-center gap-4 flex-wrap">
+<div className="flex items-center justify-center lg:justify-start gap-4 flex-wrap">
   {socials.map(({ icon, label }) => (
     <a
       key={label}
@@ -170,7 +170,7 @@ export default function Footer() {
           </div>
 
           {/* Right Column: Links Grid */}
-          <div className="w-full lg:w-2/5 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8 sm:gap-8 poppins">
+          <div className="w-full lg:w-2/5 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8 sm:gap-8 poppins px-5 lg:px-0">
             {linkColumns.map((col) => (
               <div key={col.title}>
                 <h3 className="text-orange-500 font-semibold text-sm sm:text-base mb-[6px] tracking-wide">

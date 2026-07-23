@@ -13,13 +13,15 @@ function Home() {
   return (
     <div>
         <Hero />
+                <Trending/>
+        <Premiumfleet/>
+
         <ExploreDestinations />
         <WhyTravel/>
-        <Contact />
-        <Trending/>
-        <Premiumfleet/>
         <TestimonialSection/>
         <CTASection/>
+                <Contact />
+
         <Footer/>
     </div>
   )

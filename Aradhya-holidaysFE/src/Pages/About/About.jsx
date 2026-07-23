@@ -10,8 +10,9 @@ function About() {
     <div>
         <AboutHero />
                 <VisionSection/>
+                        <ArchitectureSection/>
+
         <CorePhilosophySection/>
-        <ArchitectureSection/>
         <Footer/>
     </div>
   )
