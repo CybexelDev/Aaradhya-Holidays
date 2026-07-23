@@ -33,19 +33,19 @@ const features = [
 
 function QuickSpec({ icon, label, value }) {
   return (
-    <div className="flex items-start gap-[24px] min-w-[150px]">
+    <div className="flex items-start gap-3 sm:gap-[24px] lg:min-w-[150px]">
       {/* Icon */}
-      <div className="w-10 h-10 rounded-[8px] bg-[#FDECEC] flex items-center justify-center shrink-0">
+      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[8px] bg-[#FDECEC] flex items-center justify-center shrink-0">
         {icon}
       </div>
 
       {/* Text */}
       <div className="flex flex-col">
-        <p className="text-[18px] leading-[16px] font-[400] text-[#6B7280] inter mb-[5px]">
+        <p className="text-sm sm:text-[18px] leading-[16px] font-[400] text-[#6B7280] inter mb-[5px]">
           {label}
         </p>
 
-        <p className="mt-1 text-[20px] leading-[22px] font-[600] text-[#1A1A1A] inter">
+        <p className="mt-1 text-base sm:text-[20px] leading-[22px] font-[600] text-[#1A1A1A] inter">
           {value}
         </p>
       </div>
@@ -71,7 +71,7 @@ export default function CarDetail() {
             </h1>
 
             {/* Quick Specs */}
-       <div className="grid grid-cols-3 w-full pb-6 border-b border-[#E4E7EC]">
+       <div className="grid grid-cols-1 xs:grid-cols-3 sm:grid-cols-3 gap-y-4 gap-x-4 w-full pb-6 border-b border-[#E4E7EC]">
   {quickSpecs.map((spec) => (
     <QuickSpec key={spec.label} {...spec} />
   ))}
@@ -81,10 +81,10 @@ export default function CarDetail() {
             <h2 className="text-lg sm:text-[33px] font-[500] text-[#101828] mt-8 mb-4 inter">
               All You Need to Know About the Rolls-Royce Ghost
             </h2>
-            <p className="text-[#000000] text-[19px]  mb-4 inter tracking-[-0.32px] leading-[39.54px]">
+            <p className="text-[#000000] text-sm leading-relaxed mb-4 inter sm:text-[19px] sm:tracking-[-0.32px] sm:leading-[39.54px]">
             The Rolls-Royce Ghost represents the pinnacle of modern luxury, seamlessly blending timeless craftsmanship with effortless performance. Meticulously handcrafted using the finest materials every detail is designed to deliver unparalleled comfort, sophistication and exclusivity.
             </p>
-            <p className="text-[#000000] text-[19px]  inter tracking-[-0.32px] leading-[39.54px]">
+            <p className="text-[#000000] text-sm leading-relaxed inter sm:text-[19px] sm:tracking-[-0.32px] sm:leading-[39.54px]">
            Its powerful V12 engine provides a smooth yet commanding drive, while advanced engineering ensures a whisper-quiet cabin for a truly serene experience. From its iconic illuminated grille and elegant silhouette to its exquisitely crafted interior and cutting-edge technology, the Rolls-Royce Ghost redefines automotive excellence. Every journey becomes an expression of prestige, refinement and uncompromising luxury, creating an unforgettable driving experience for those who demand nothing but the very best.
             </p>
 
@@ -92,7 +92,7 @@ export default function CarDetail() {
             <h2 className="text-lg sm:text-[33px] font-[500] text-[#111827] mt-10 mb-5 poppins">
               Features
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-[24px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 sm:gap-y-[24px]">
               {[...leftFeatures, ...rightFeatures].map((feature, i) => (
                 <div key={feature} className="flex items-center gap-3">
                   <span className="w-5 h-5 rounded-full bg-[#E7F7EE] flex items-center justify-center shrink-0">
@@ -101,7 +101,7 @@ export default function CarDetail() {
 </svg>
 
                   </span>
-                  <span className="text-[#344054] text-[24px] inter font-[400]">{feature}</span>
+                  <span className="text-[#344054] text-base sm:text-[24px] inter font-[400]">{feature}</span>
                 </div>
               ))}
             </div>
@@ -112,9 +112,9 @@ export default function CarDetail() {
           </div>
 
           {/* Right Column: Booking Card */}
-          <div className="w-full bg-white rounded-2xl shadow-[0px_8px_10px_-6px_rgba(0,0,0,0.1),0px_20px_25px_-5px_rgba(0,0,0,0.1)] py-6 px-10 lg:sticky lg:top-6">
+          <div className="w-full bg-white rounded-2xl shadow-[0px_8px_10px_-6px_rgba(0,0,0,0.1),0px_20px_25px_-5px_rgba(0,0,0,0.1)] py-6 px-5 sm:px-8 lg:px-10 lg:sticky lg:top-6">
             <div className="flex items-center justify-between mb-5">
-              <h3 className="text-[#FF6B35] text-[32px] font-semibold poppins">
+              <h3 className="text-[#FF6B35] text-xl sm:text-2xl lg:text-[32px] font-semibold poppins">
                 Services
               </h3>
               <div className="flex items-center gap-1 text-xs text-[#101828] manrope">
@@ -154,19 +154,19 @@ export default function CarDetail() {
 
             {/* Rate Info Box */}
             <div className="bg-[#D3E4FE] rounded-xl px-4 py-4 mb-6 space-y-2.5 manrope">
-              <div className="flex items-center justify-between text-[16px]">
+              <div className="flex items-center justify-between text-sm sm:text-[16px]">
                 <span className="text-[#0B1C30]">Rate per km:</span>
                 <span className="text-[#0B1C30] font-semibold">₹4500</span>
               </div>
-              <div className="flex items-center justify-between text-[16px]">
+              <div className="flex items-center justify-between text-sm sm:text-[16px]">
                 <span className="text-[#0B1C30]">Advance Required:</span>
                 <span className="text-[#0B1C30] font-semibold">25%</span>
               </div>
-              <div className="flex items-center justify-between text-[16px]">
+              <div className="flex items-center justify-between text-sm sm:text-[16px]">
                 <span className="text-[#0B1C30]">Cancellation:</span>
                 <span className="text-[#0B1C30] font-semibold">Flexible</span>
               </div>
-              <div className="flex items-center justify-between text-[16px]">
+              <div className="flex items-center justify-between text-sm sm:text-[16px]">
                 <span className="text-[#0B1C30]">Toll:</span>
                 <span className="text-[#0B1C30] font-semibold">Extra</span>
               </div>
