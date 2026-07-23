@@ -2,6 +2,7 @@ import React from 'react'
 import Details from '../../Layouts/PackageDetail/Details/Details'
 import PackageDetailHeader from '../../Layouts/PackageDetail/Header/TourDetailHeader'
 import DiscoverMore from '../../Layouts/PackageDetail/DiscoverMoreSection/DiscoverMoreSection'
+import Footer from '../../Components/Footer/Footer'
 
 function PackageDetail() {
   return (
@@ -9,6 +10,7 @@ function PackageDetail() {
         <PackageDetailHeader/>
             <Details />
         <DiscoverMore/>
+        <Footer />
     </div>
   )
 }
