@@ -1,18 +1,22 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { getVehicles } from "../../../Api/userapi";
+import { useNavigate } from "react-router-dom";
 
-import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
-import { fleetData } from "../../Service/CarSection/CarSection";
-
-export default function RelatedCars() {
-  const prevRef = useRef(null);
+export default function RelatedCars({ cars, allCars, currentId }) {
+  const navigate = useNavigate()
+    const prevRef = useRef(null);
   const nextRef = useRef(null);
-
+  const displayCars =
+  cars.length > 0
+    ? cars
+    : allCars.filter((car) => car._id !== currentId);
   return (
     <section className="bg-[#F7F8FA] py-16 lg:py-20 px-4 sm:px-6 lg:px-15">
       <div className="">
@@ -70,11 +74,38 @@ export default function RelatedCars() {
             },
           }}
         >
-          {fleetData.map((car) => (
-            <SwiperSlide key={car.id}>
-              <PremiumCard {...car} />
-            </SwiperSlide>
-          ))}
+          {displayCars.map((car) => (
+  <SwiperSlide key={car._id}>
+     <PremiumCard
+            key={car._id}
+            image={car.Image?.[0]}
+            category={car.Location}
+            title={car.vehicleName}
+            favorited={car.Premium}
+            features={[
+              {
+                icon: "seater",
+                label: `${car.SeatCapacity} Seater`,
+              },
+              {
+                icon: "ac",
+                label: car.AC ? "A/C Available" : "No A/C",
+              },
+              {
+                icon: "tv",
+                label: car.TV ? "TV Available" : "No TV",
+              },
+              {
+                icon: "music",
+                label: car.MusicSystem
+                  ? "Music System / Bluetooth"
+                  : "No Music System",
+              },
+            ]}
+            onClick={() => navigate(`/vehicle/${car._id}`)}
+          />
+  </SwiperSlide>
+))}
         </Swiper>
       </div>
     </section>

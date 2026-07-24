@@ -1,11 +1,12 @@
 import { Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function DestinationCard({
+export default function DestinationCard({id,
   image,
   duration,
   title,
-  price,
 }) {
+  const navigate = useNavigate()
   return (
     <div className="relative w-full h-[420px] sm:h-[537px] rounded-[24px] sm:rounded-[32px] overflow-hidden group shrink-0 inter shadow-[0_10px_40px_-10px_rgba(11,60,93,0.10)]">
       {/* Background */}
@@ -43,17 +44,10 @@ export default function DestinationCard({
         </h3>
 
         <div className="mt-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <p className="text-white/60 text-[13px] sm:text-[14px]">
-              Starting from
-            </p>
+        
 
-            <p className="text-white text-[18px] sm:text-[20px] font-bold">
-              {price}
-            </p>
-          </div>
-
-          <button className="w-full sm:w-auto bg-white text-[#1A1A1A] rounded-full px-5 sm:px-4 py-3 sm:py-2 font-semibold text-[15px] sm:text-base transition hover:bg-orange-50">
+          <button onClick={() => navigate(`/package/${id}`)}
+                className="w-full sm:w-auto bg-white text-[#1A1A1A] rounded-full px-5 sm:px-4 py-3 sm:py-2 font-semibold text-[15px] sm:text-base transition hover:bg-orange-50">
             View Journey
           </button>
         </div>

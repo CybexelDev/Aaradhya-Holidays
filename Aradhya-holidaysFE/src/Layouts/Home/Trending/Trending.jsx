@@ -1,52 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
-import img1 from "../../../assets/Home/destinationcards/11.png";
-import img2 from "../../../assets/Home/destinationcards/12.png";
-import img3 from "../../../assets/Home/destinationcards/13.png";
+import { useNavigate } from "react-router-dom";
+import { getPackages } from "../../../Api/userapi";
 
-const destinations = [
-  {
-    id: 1,
-    image: img1,
-    duration: "7 Days / 6 Nights",
-    title: (
-      <>
-        Aegean Luxury
-        <br />
-        Escape
-      </>
-    ),
-    price: "₹2,450",
-  },
-  {
-    id: 2,
-    image: img2,
-    duration: "5 Days / 4 Nights",
-    title: (
-      <>
-        Kerala Backwater
-        <br />
-        Serenity
-      </>
-    ),
-    price: "₹1,200",
-  },
-  {
-    id: 3,
-    image: img3,
-    duration: "10 Days / 9 Nights",
-    title: (
-      <>
-        Alpine Adventure
-        <br />
-        Peaks
-      </>
-    ),
-    price: "₹3,800",
-  },
-];
+
 
 export default function Trending() {
+  const [destinations, setDestinations] = useState([]);
+const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+  const fetchPackages = async () => {
+  try {
+    const data = await getPackages();
+    console.log("Packages:", data);
+    setDestinations(data.slice(0, 3));
+  } catch (error) {
+    console.error("Error fetching packages:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+  fetchPackages();
+}, []);
+
+ if (loading) {
+    return (
+      <section className="py-20 text-center">
+        Loading...
+      </section>
+    );
+  }
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">
@@ -58,7 +45,7 @@ export default function Trending() {
             </p>
 
             <h2 className="text-[28px] sm:text-[32px] font-bold text-[#00263F] tracking-[-0.32px] mb-3">
-              Trending Getaways
+              Packages
             </h2>
 
             <p className="text-[#42474E] text-[15px] sm:text-[16px] max-w-[500px]">
@@ -67,8 +54,8 @@ export default function Trending() {
           </div>
 
           <a
-            href="#"
-            className="inline-flex items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
+              onClick={() => navigate("/tour-plan")}
+            className="inline-flex cursor-pointer items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
           >
             View All Destinations
 
@@ -92,11 +79,19 @@ export default function Trending() {
           </a>
         </div>
 
+        
+
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {destinations.map((d) => (
-            <DestinationCard key={d.id} {...d} />
-          ))}
+          {destinations.map((item) => (
+  <DestinationCard
+    key={item._id}
+    id={item._id}
+    image={item.Image?.[0]}
+    duration={item.Duration}
+    title={item.packageName}
+  />
+))}
         </div>
       </div>
     </section>

@@ -1,58 +1,45 @@
-import React from "react";
-import img1 from "../../../assets/Home/cars/1.png";
-import img2 from "../../../assets/Home/cars/2.png";
-import img3 from "../../../assets/Home/cars/3.png";
+import React, { useEffect, useState } from "react";
 import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
+import { getVehicles } from "../../../Api/userapi";
+import { useNavigate } from "react-router-dom";
 
-export const fleetData = [
-  {
-    id: 1,
-    image: img1,
-    category: "Convertible",
-    title: "Rolls-Royce Ghost",
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 2,
-    image: img2,
-    category: "SUV",
-    title: "Range Rover",
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 3,
-    image: img3,
-    category: "Traveller",
-    title: (
-      <>
-        Mercedes Benz
-        <br />
-        V-Class
-      </>
-    ),
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-];
 
 export default function PremiumFleet() {
+
+
+  const [fleetData, setFleetData] = useState([]);
+const [loading, setLoading] = useState(true);
+const navigate = useNavigate()
+
+useEffect(() => {
+  const fetchVehicles = async () => {
+    try {
+      const vehicles = await getVehicles();
+
+      // Shuffle randomly
+      const randomVehicles = [...vehicles]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+
+      setFleetData(randomVehicles);
+    } catch (error) {
+      console.error("Error fetching vehicles:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchVehicles();
+}, []);
+
+
+if (loading) {
+  return (
+    <section className="py-20 text-center">
+      Loading...
+    </section>
+  );
+}
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">
@@ -64,11 +51,11 @@ export default function PremiumFleet() {
             </p>
 
             <h2 className="text-[28px] sm:text-[32px] font-bold text-[#00263F] tracking-[-0.32px] mb-3">
-              Our Premium Fleet
+              Our Vehicles
             </h2>
 
             <p className="text-[#42474E] text-[15px] sm:text-[16px] max-w-[520px]">
-              Choose from our curated selection of premium vehicles for your
+              Choose from our curated selection of vehicles for your
               journey.
             </p>
           </div>
@@ -101,9 +88,36 @@ export default function PremiumFleet() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {fleetData.map((d) => (
-            <PremiumCard key={d.id} {...d} />
-          ))}
+          {fleetData.map((vehicle) => (
+  <PremiumCard
+    key={vehicle._id}
+    image={vehicle.Image?.[0]}
+    category={vehicle.Location}
+    title={vehicle.vehicleName}
+    favorited={vehicle.Premium}
+    features={[
+      {
+        icon: "seater",
+        label: `${vehicle.SeatCapacity} Seater`,
+      },
+      {
+        icon: "ac",
+        label: vehicle.AC ? "A/C Available" : "No A/C",
+      },
+      {
+        icon: "tv",
+        label: vehicle.TV ? "TV Available" : "No TV",
+      },
+      {
+        icon: "music",
+        label: vehicle.MusicSystem
+          ? "Music System / Bluetooth"
+          : "No Music System",
+      },
+    ]}
+        onClick={() => navigate(`/vehicle/${vehicle._id}`)}
+  />
+))}
         </div>
       </div>
     </section>

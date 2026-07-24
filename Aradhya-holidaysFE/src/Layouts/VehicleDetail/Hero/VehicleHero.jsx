@@ -4,26 +4,35 @@ import car1 from "../../../assets/VehicleDetail/car1.png";
 import car2 from "../../../assets/VehicleDetail/car2.png";
 import car3 from "../../../assets/VehicleDetail/car3.png";
 
-const slides = [
-  {
-    id: 1,
-    image: car1,
-    alt: "Luxury convertible driving along coastal cliff road at sunset",
-  },
-  {
-    id: 2,
-    image: car2,
-    alt: "Coastal highway winding along the cliffs",
-  },
-  {
-    id: 3,
-    image: car3,
-    alt: "Convertible parked with ocean sunset backdrop",
-  },
-];
+// const slides = [
+//   {
+//     id: 1,
+//     image: car1,
+//     alt: "Luxury convertible driving along coastal cliff road at sunset",
+//   },
+//   {
+//     id: 2,
+//     image: car2,
+//     alt: "Coastal highway winding along the cliffs",
+//   },
+//   {
+//     id: 3,
+//     image: car3,
+//     alt: "Convertible parked with ocean sunset backdrop",
+//   },
+// ];
 
-export default function HeroSection() {
+export default function HeroSection({ vehicle }) {
   const [active, setActive] = useState(0);
+
+  const slides =
+    vehicle?.Image?.map((img, index) => ({
+      id: index,
+      image: img,
+      alt: vehicle.vehicleName,
+    })) || [];
+
+  if (!slides.length) return null;
 
   const goPrev = () =>
     setActive((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -32,13 +41,15 @@ export default function HeroSection() {
     setActive((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
 
   return (
-    <section className="relative w-full h-[255px] sm:h-screen overflow-hidden bg-slate-900">
+    <section className="relative w-full h-[255px] sm:h-screen  bg-slate-900">
       {/* Background — normal flow on mobile so it sets its own height, absolute-fill from sm: up */}
-      <img
-        key={slides[active].id}
-        src={slides[active].image}
-        alt={slides[active].alt}
-className="absolute inset-0 w-full h-full object-cover object-center sm:object-cover transition-opacity duration-500"      />
+     <div className="relative w-full h-full overflow-hidden">
+  <img
+    key={slides[active].id}
+    src={slides[active].image}
+    alt={slides[active].alt}
+className="absolute inset-0 w-full h-full object-cover object-bottom sm:object-center transition-opacity duration-500"  />
+</div>
 
       {/* Navbar */}
       <div className="absolute top-0 left-0 right-0 z-30 pt-4">

@@ -133,7 +133,7 @@ export default function Hero() {
 
           {/* Popular tags */}
           <div className="flex items-center gap-1 sm:gap-2 mt-5 font-[300] text-white text-sm inter">
-            <span className="text-white/80 inter  text-[16px] leading-[24px]">Popular:</span>
+            <span className="text-white/80 inter  text-[16px] leading-[24px]">Places:</span>
             {["Goa", "Coorg", "Kerala", "Leh Ladakh"].map((place) => (
               <button
                 key={place}
