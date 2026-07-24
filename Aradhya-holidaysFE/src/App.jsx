@@ -9,6 +9,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from './Pages/Contact/Contact';
 import AdminLogin from './Admin/Pages/AdminLogin';
 import AdminDashboard from './Admin/Pages/AdminDashboard';
+import AdminPackage from './Admin/Pages/AdminPackage';
+import AdminVehcile from './Admin/Pages/AdminVehcile';
+import AdminCategory from './Admin/Pages/AdminCategory';
+import AdminTestimonials from './Admin/Pages/AdminTestimonials';
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
          {/* admin path */}
          <Route path='/admin-login' element={<AdminLogin/>}/>
          <Route path='/dashboard' element={<AdminDashboard/>}/>
+         <Route path='/admin-package' element={<AdminPackage/>}/>
+         <Route path='/admin-vehicle' element={<AdminVehcile/>}/>
+         <Route path='/admin-category' element={<AdminCategory/>}/>
+         <Route path='/admin-testimonials' element={<AdminTestimonials/>}/>
       </Routes>
     </BrowserRouter>
   );
