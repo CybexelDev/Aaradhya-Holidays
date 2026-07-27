@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Plus,
   Search,
@@ -10,8 +10,11 @@ import {
   AlertCircle,
   User,
   Building,
+  Loader2
 } from "lucide-react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import { getTestimonials,  addTestimonial,
+  deleteTestimonial, } from "../../../Api/adminApi";
 // Initial Testimonials Data
 const INITIAL_TESTIMONIALS = [
   {
@@ -41,9 +44,9 @@ const INITIAL_TESTIMONIALS = [
 ];
 
 export default function TestimonialsManagement() {
-  const [testimonials, setTestimonials] = useState(INITIAL_TESTIMONIALS);
+const [testimonials, setTestimonials] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+const [loading, setLoading] = useState(true);
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [deletingTestimonial, setDeletingTestimonial] = useState(null);
@@ -53,73 +56,74 @@ export default function TestimonialsManagement() {
     name: "",
     position: "",
     content: "",
-    rating: "5",
   });
   const [imageFile, setImageFile] = useState(null);
 
+useEffect(() => {
+  fetchTestimonials();
+}, []);
+const fetchTestimonials = async () => {
+  try {
+    setLoading(true);
+
+    const res = await getTestimonials();
+    setTestimonials(res.testimonials);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
   // Input Handler
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Add Testimonial Handler
-  const handleAddTestimonial = async (e) => {
-    e.preventDefault();
+const handleAddTestimonial = async (e) => {
+  e.preventDefault();
 
-    /* UNCOMMENT WHEN BACKEND IS READY (USING FORM-DATA FOR IMAGE):
+  try {
     const payload = new FormData();
+
     payload.append("name", formData.name);
     payload.append("position", formData.position);
     payload.append("content", formData.content);
-    payload.append("rating", formData.rating);
-    if (imageFile) payload.append("image", imageFile);
 
-    try {
-      const response = await fetch("http://localhost:8080/admin/addTestimonial", {
-        method: "POST",
-        body: payload,
-      });
-      const data = await response.json();
-    } catch (err) {
-      console.error(err);
+    if (imageFile) {
+      payload.append("image", imageFile);
     }
-    */
 
-    const newTestimonial = {
-      _id: Date.now().toString(),
-      ...formData,
-      rating: parseInt(formData.rating),
-      image: imageFile
-        ? URL.createObjectURL(imageFile)
-        : "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=60",
-    };
+    await addTestimonial(payload);
 
-    setTestimonials([newTestimonial, ...testimonials]);
+    await fetchTestimonials();
+
     setIsAddModalOpen(false);
 
-    // Reset Form
-    setFormData({ name: "", position: "", content: "", rating: "5" });
+    setFormData({
+      name: "",
+      position: "",
+      content: "",
+    });
+
     setImageFile(null);
-  };
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   // Delete Testimonial Handler
-  const handleDeleteTestimonial = async () => {
-    if (!deletingTestimonial) return;
+ const handleDeleteTestimonial = async () => {
+  try {
+    await deleteTestimonial(deletingTestimonial._id);
 
-    /* UNCOMMENT WHEN BACKEND IS READY:
-    try {
-      await fetch(`http://localhost:8080/admin/deleteTestimonial/${deletingTestimonial._id}`, {
-        method: "DELETE",
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    */
+    await fetchTestimonials();
 
-    setTestimonials(testimonials.filter((t) => t._id !== deletingTestimonial._id));
     setDeletingTestimonial(null);
-  };
-
+  } catch (err) {
+    console.log(err);
+  }
+};
   // Filtered List
   const filteredTestimonials = testimonials.filter((t) =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -174,8 +178,14 @@ export default function TestimonialsManagement() {
       </div>
 
       {/* Testimonial Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredTestimonials.map((item) => (
+{loading ? (
+  <div className="flex justify-center items-center py-20">
+    <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
+  </div>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {filteredTestimonials.map((item) => (
+
           <div
             key={item._id}
             className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-md transition-all flex flex-col justify-between relative group"
@@ -188,7 +198,7 @@ export default function TestimonialsManagement() {
                 {/* Delete Button */}
                 <button
                   onClick={() => setDeletingTestimonial(item)}
-                  className="p-2 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
+                  className="p-2 text-shadow-red-700 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
                   title="Delete Testimonial"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -205,7 +215,7 @@ export default function TestimonialsManagement() {
             <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src={item.image}
+                  src={item.Image?.[0]}
                   alt={item.name}
                   className="w-10 h-10 rounded-full object-cover border border-slate-200"
                 />
@@ -216,22 +226,12 @@ export default function TestimonialsManagement() {
               </div>
 
               {/* Star Rating */}
-              <div className="flex items-center gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-3 h-3 ${
-                      i < item.rating
-                        ? "text-amber-400 fill-amber-400"
-                        : "text-slate-200"
-                    }`}
-                  />
-                ))}
-              </div>
+             
             </div>
           </div>
         ))}
       </div>
+      )}
 
       {/* ========================================================= */}
       {/* 1. ADD TESTIMONIAL MODAL                                  */}
@@ -284,24 +284,6 @@ export default function TestimonialsManagement() {
                 />
               </div>
 
-              {/* Star Rating Selection */}
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">
-                  Star Rating (1 to 5)
-                </label>
-                <select
-                  name="rating"
-                  value={formData.rating}
-                  onChange={handleInputChange}
-                  className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
-                >
-                  <option value="5">5 Stars (Excellent)</option>
-                  <option value="4">4 Stars (Very Good)</option>
-                  <option value="3">3 Stars (Good)</option>
-                  <option value="2">2 Stars (Average)</option>
-                  <option value="1">1 Star (Poor)</option>
-                </select>
-              </div>
 
               {/* Content Field */}
               <div>

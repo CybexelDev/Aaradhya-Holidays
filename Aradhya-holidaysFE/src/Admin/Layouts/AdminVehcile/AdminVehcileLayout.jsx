@@ -17,7 +17,8 @@ import {
   ChevronRight,
   ShieldAlert,
   IndianRupee,
-Pencil
+Pencil,
+Loader2
 } from "lucide-react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 // Sample Initial Vehicles matching your backend API keys
@@ -73,7 +74,7 @@ const [vehicles, setVehicles] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 const [categories, setCategories] = useState([]);
-
+const [loading, setLoading] = useState(true);
 useEffect(() => {
   fetchCategories();
   fetchVehicles();
@@ -143,13 +144,14 @@ const categoryMap = categories.reduce((acc, category) => {
 }, {});
 const fetchVehicles = async () => {
   try {
+    setLoading(true);
+
     const data = await getVehicle();
-
-    console.log(data);
-
     setVehicles(data.vehicleData);
   } catch (err) {
     console.error(err);
+  } finally {
+    setLoading(false);
   }
 };
   const handleSubmit = async (e) => {
@@ -295,8 +297,13 @@ const fetchVehicles = async () => {
       </div>
 
       {/* Vehicle Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredVehicles.map((v) => (
+     {loading ? (
+  <div className="flex items-center justify-center py-20">
+    <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
+  </div>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {filteredVehicles.map((v) => (
           <div
             key={v._id}
             onClick={() => setSelectedVehicle(v)}
@@ -427,6 +434,7 @@ src={v.Image?.[0] || "/placeholder.png"}
           </div>
         ))}
       </div>
+)}
 
       {/* ========================================================= */}
       {/* 1. VEHICLE DETAIL MODAL (WHEN TOUCHING/CLICKING A VEHICLE) */}

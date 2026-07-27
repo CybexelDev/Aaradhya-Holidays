@@ -94,3 +94,23 @@ export const adminLogin = async (data) => {
   const response = await api.post("/admin/adminLogin", data);
   return response.data;
 };
+
+export const getTestimonials = async () => {
+  const response = await adminApi.get("/admin/getTestimonials");
+  return response.data;
+};
+
+export const addTestimonial = async (data) => {
+  const response = await adminApi.post("/admin/addTestimonial", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};
+
+export const deleteTestimonial = async (id) => {
+  const response = await adminApi.delete(`/admin/deleteTestimonial/${id}`);
+  return response.data;
+};

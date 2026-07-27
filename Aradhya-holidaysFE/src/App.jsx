@@ -13,6 +13,7 @@ import AdminPackage from './Admin/Pages/AdminPackage';
 import AdminVehcile from './Admin/Pages/AdminVehcile';
 import AdminCategory from './Admin/Pages/AdminCategory';
 import AdminTestimonials from './Admin/Pages/AdminTestimonials';
+import AdminEnquiry from './Admin/Pages/AdminEnquiry';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
          <Route path='/admin-vehicle' element={<AdminVehcile/>}/>
          <Route path='/admin-category' element={<AdminCategory/>}/>
          <Route path='/admin-testimonials' element={<AdminTestimonials/>}/>
+         <Route path="/admin-enquiry" element={<AdminEnquiry/>}/>
       </Routes>
     </BrowserRouter>
   );

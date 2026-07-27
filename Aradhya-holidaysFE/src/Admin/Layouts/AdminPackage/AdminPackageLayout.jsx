@@ -12,6 +12,7 @@ import {
   Calendar,
   Layers,
   ChevronRight,
+  Loader2,
   Sparkles,
 } from "lucide-react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -41,7 +42,7 @@ const INITIAL_PACKAGES = [
     ],
   },
   {
-    _id: "2",
+    _id: "2", 
     packageName: "Goa Beach Gateway",
     subTitle: "Ultimate Coastal Escape",
     Location: "Goa",
@@ -72,7 +73,7 @@ const [packages, setPackages] = useState([]);
 const [editingPackage, setEditingPackage] = useState(null);
 const [existingImages, setExistingImages] = useState([]);
 const [previewImage, setPreviewImage] = useState(null);
-
+const [loading, setLoading] = useState(true);
 const removeExistingImage = (index) => {
   setExistingImages((prev) => prev.filter((_, i) => i !== index));
 };
@@ -130,18 +131,18 @@ const removeExistingImage = (index) => {
 
   setImages(files);
 };
- const fetchPackages = async () => {
+const fetchPackages = async () => {
   try {
+    setLoading(true);
+
     const res = await getPackage();
-
-    console.log(res);
-
     setPackages(res.data);
   } catch (err) {
     console.log(err);
+  } finally {
+    setLoading(false);
   }
 };
-
 useEffect(() => {
   fetchPackages();
 }, []);
@@ -271,8 +272,13 @@ onClick={() => {
       </div>
 
       {/* Packages Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPackages.map((pkg) => (
+     {loading ? (
+  <div className="flex items-center justify-center py-20">
+    <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
+  </div>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {filteredPackages.map((pkg) => (
           <div
             key={pkg._id}
             onClick={() => setSelectedPackage(pkg)}
@@ -349,7 +355,7 @@ onClick={() => {
           </div>
         ))}
       </div>
-
+)}
       {/* ========================================================= */}
       {/* 1. PACKAGE DETAIL MODAL (WHEN TOUCHING/CLICKING A PACKAGE) */}
       {/* ========================================================= */}

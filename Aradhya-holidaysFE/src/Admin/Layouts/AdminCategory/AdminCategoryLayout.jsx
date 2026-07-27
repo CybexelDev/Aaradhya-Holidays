@@ -12,6 +12,7 @@ import {
   Check,
   AlertCircle,
   Layers,
+  Loader2
 } from "lucide-react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 // Initial Category Data
@@ -31,6 +32,7 @@ const [categories, setCategories] = useState([]);
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null); // Category object being edited
+  const [loading, setLoading] = useState(true);
   const [deletingCategory, setDeletingCategory] = useState(null); // Category object being deleted
 
   // Form State
@@ -41,13 +43,14 @@ useEffect(() => {
 
 const fetchCategories = async () => {
   try {
+    setLoading(true);
+
     const data = await getCategory();
-
-    console.log(data);
-
     setCategories(data.categoryData);
   } catch (err) {
     console.error(err);
+  } finally {
+    setLoading(false);
   }
 };
   // Handle Create Category
@@ -156,8 +159,13 @@ const fetchCategories = async () => {
       </div>
 
       {/* Categories Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredCategories.map((category) => (
+      {loading ? (
+  <div className="flex items-center justify-center py-20">
+    <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
+  </div>
+) : (
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {filteredCategories.map((category) => (
           <div
             key={category._id}
             className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-md transition-all flex items-center justify-between group"
@@ -200,6 +208,7 @@ setCategoryName(category.categoryName);
           </div>
         ))}
       </div>
+)}
 
       {/* ========================================================= */}
       {/* 1. ADD CATEGORY MODAL                                      */}

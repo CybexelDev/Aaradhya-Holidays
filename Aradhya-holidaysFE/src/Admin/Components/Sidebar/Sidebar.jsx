@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -10,16 +11,23 @@ import {
   ListSortDescending,
 } from "lucide-react";
 
-export default function Sidebar({ activeTab, setActiveTab }) {
-  const navItems = [
-    { name: "Dashboard", icon: LayoutDashboard },
-    { name: "Packages", icon: Package },
-    { name: "Vehicles", icon: Car },
-    { name: "Enquiries", icon: MessageSquare },
-    { name: "Testimonials", icon: Quote },
-    { name: "Category", icon: ListSortDescending },
-  ];
+export default function Sidebar() {
+const navItems = [
+  { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+  { name: "Packages", path: "/admin-package", icon: Package },
+  { name: "Vehicles", path: "/admin-vehicle", icon: Car },
+  { name: "Enquiries", path: "/admin-enquiry", icon: MessageSquare },
+  { name: "Testimonials", path: "/admin-testimonials", icon: Quote },
+  { name: "Category", path: "/admin-category", icon: ListSortDescending },
+];
+const navigate = useNavigate();
+const location = useLocation();
+const handleLogout = () => {
+  localStorage.removeItem("adminToken");
+  localStorage.removeItem("admin");
 
+  navigate("/admin-login");
+};
   return (
     <>
       {/* ================= Desktop Sidebar ================= */}
@@ -45,12 +53,11 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             <nav className="space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = activeTab === item.name;
-
+const isActive = location.pathname === item.path;
                 return (
                   <button
                     key={item.name}
-                    onClick={() => setActiveTab(item.name)}
+onClick={() => navigate(item.path)}
                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                       isActive
                         ? "bg-slate-900 text-white shadow-md"
@@ -77,7 +84,8 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             Settings
           </button>
 
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-500 hover:bg-rose-50">
+          <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-500 hover:bg-rose-50"   onClick={handleLogout}
+>
             <LogOut className="w-4 h-4" />
             Log Out
           </button>
@@ -90,12 +98,11 @@ export default function Sidebar({ activeTab, setActiveTab }) {
           <div className="flex items-center justify-between">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.name;
-
+const isActive = location.pathname === item.path;
               return (
                 <button
                   key={item.name}
-                  onClick={() => setActiveTab(item.name)}
+onClick={() => navigate(item.path)}
                   className={`flex flex-col items-center justify-center flex-1 py-2 rounded-xl transition-all ${
                     isActive
                       ? "bg-sky-500 text-white"
