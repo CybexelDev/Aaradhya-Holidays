@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPackageDetails } from "../../Api/userapi";
+import {
+  getPackageDetails,
+  getPackages,
+} from "../../Api/userapi";
 
 import Details from "../../Layouts/PackageDetail/Details/Details";
 import PackageDetailHeader from "../../Layouts/PackageDetail/Header/TourDetailHeader";
@@ -11,13 +14,24 @@ function PackageDetail() {
   const { id } = useParams();
 
   const [packageData, setPackageData] = useState(null);
+  const [discoverPackages, setDiscoverPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPackage = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getPackageDetails(id);
-        setPackageData(data);
+        const [currentPackage, allPackages] = await Promise.all([
+          getPackageDetails(id),
+          getPackages(),
+        ]);
+
+        setPackageData(currentPackage);
+
+        const filtered = allPackages
+          .filter((item) => item._id !== currentPackage._id)
+          .slice(0, 3);
+
+        setDiscoverPackages(filtered);
       } catch (error) {
         console.log(error);
       } finally {
@@ -25,7 +39,7 @@ function PackageDetail() {
       }
     };
 
-    fetchPackage();
+    fetchData();
   }, [id]);
 
   if (loading) {
@@ -36,7 +50,7 @@ function PackageDetail() {
     <>
       <PackageDetailHeader packageData={packageData} />
       <Details packageData={packageData} />
-      <DiscoverMore />
+      <DiscoverMore packages={discoverPackages} />
       <Footer />
     </>
   );

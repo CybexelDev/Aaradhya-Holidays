@@ -29,7 +29,7 @@ export default function CTASection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-auto px-8 h-12 rounded-full bg-gradient-to-r from-[#FF7A00] to-[#FF4E7A] text-white font-semibold hover:scale-105 transition">
+              <button className="w-full sm:w-auto px-8 h-12 rounded-full bg-[#D11115] text-white font-semibold hover:scale-105 transition">
                 Plan My Trip
               </button>
 

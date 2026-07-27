@@ -60,3 +60,14 @@ export const getPackageDetails = async (id) => {
     throw error.response?.data || error.message;
   }
 };
+
+
+export const getSearchData = async () => {
+  try {
+    const response = await api.get("/users/getDurationAndLocation");
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    throw error.response?.data || error.message;
+  }
+};

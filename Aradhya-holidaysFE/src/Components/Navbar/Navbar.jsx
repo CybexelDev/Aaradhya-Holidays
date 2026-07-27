@@ -51,8 +51,8 @@ const location = useLocation();
 
     <span
       className={`relative z-10 transition-colors duration-300 ${
-location.pathname === item.path          ? "text-[#FF7A00] font-[600]"
-          : "text-white hover:text-orange-300 font-[300]"
+location.pathname === item.path          ? "text-[#D11115] font-[600]"
+          : "text-white hover:text-[#D11115] font-[300]"
       }`}
     >
       {item.name}
@@ -62,7 +62,7 @@ location.pathname === item.path          ? "text-[#FF7A00] font-[600]"
         </div>
 
         {/* Desktop Call Button */}
-        <button className="hidden md:flex inter items-center bg-gradient-to-r from-[#FF7A00] to-[#FF4E7A] text-white md:text-[14px] lg:text-[16px] font-[700] leading-[24px] md:px-6 lg:px-7 md:py-[6px] lg:py-2 rounded-[30px] hover:opacity-90 transition" onClick={()=>navigate("/contact")}>
+        <button className="hidden md:flex inter items-center bg-[#D11115] text-white md:text-[14px] lg:text-[16px] font-[700] leading-[24px] md:px-6 lg:px-7 md:py-[6px] lg:py-2 rounded-[30px] hover:opacity-90 transition" onClick={()=>navigate("/contact")}>
           Call Now
         </button>
 
@@ -96,7 +96,7 @@ location.pathname === item.path          ? "text-[#FF7A00] font-[600]"
       navigate(item.path);
     }}
     className={`py-3 rounded-full transition-all duration-300 ${
-location.pathname === item.path        ? "bg-[#FFFFFF1A] border border-[#FFFFFF80] text-[#FF7A00] font-[600]"
+location.pathname === item.path        ? "bg-[#FFFFFF1A] border border-[#FFFFFF80] text-[#D11115] font-[600]"
         : "text-white hover:bg-white/10"
     }`}
   >
@@ -104,7 +104,7 @@ location.pathname === item.path        ? "bg-[#FFFFFF1A] border border-[#FFFFFF8
   </button>
 ))}
 
-              <button className="mt-2 flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF7A00] to-[#FF4E7A] py-3 text-white font-[700]">
+              <button className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#D11115] py-3 text-white font-[700]">
                 Call Now
               </button>
 

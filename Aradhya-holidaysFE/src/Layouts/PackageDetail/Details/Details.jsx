@@ -87,7 +87,7 @@ const slides = galleryImages.map((img) => ({
       {/* ============ SECTION 2: The Journey Timeline ============ */}
       <section className="px-4 sm:px-10 py-10 sm:py-20 md:py-6 lg:py-24">
         <div className="mx-auto max-w-[700px] text-center">
-          <p className="inter text-[16px] font-[400] uppercase tracking-[3.2px] text-[#FF7A00]">
+          <p className="inter text-[16px] font-[400] uppercase tracking-[3.2px] text-[#D11115]">
             The Journey
           </p>
           <h2 className="poppins mt-2 text-[28px] sm:text-[36px] md:text-[48px] font-[600] text-[#00263F]">
@@ -144,7 +144,7 @@ const slides = galleryImages.map((img) => ({
         <div className="mx-auto">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="inter text-[12px] font-[500] uppercase text-[#FF7A00]">
+              <p className="inter text-[12px] font-[500] uppercase text-[#D11115]">
                 Visual Journey
               </p>
               <h2 className="poppins mt-3 text-[26px] sm:text-[32px] md:text-[35px] font-[600] text-[#00263F]">

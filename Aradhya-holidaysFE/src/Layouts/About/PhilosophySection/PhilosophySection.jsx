@@ -124,7 +124,7 @@ export default function CorePhilosophySection() {
   return (
     <section className="w-full bg-[#F7F8FA] py-16 sm:py-20 inter ">
       <div className="   text-center mb-10 sm:mb-14">
-        <p className="text-[#FF7A00] text-xs font-[500] tracking-widest mb-3">
+        <p className="text-[#D11115] text-xs font-[500] tracking-widest mb-3">
           TRUST
         </p>
         <h2 className="text-3xl sm:text-4xl font-semibold text-[#00263F] mb-3 poppins">

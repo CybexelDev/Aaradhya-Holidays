@@ -20,13 +20,7 @@ const durations = [
   "1 Month+",
 ];
 
-const budgets = [
-  "Any Budget",
-  "Budget (Under $1,000)",
-  "Mid-range ($1,000–$3,000)",
-  "Premium ($3,000–$7,000)",
-  "Luxury ($7,000+)",
-];
+
 
 export default function TourplanHero() {
     const [openField, setOpenField] = useState(null); // "destination" | "duration" | "budget" | null
@@ -151,47 +145,7 @@ export default function TourplanHero() {
       )}
     </div>
 
-    {/* Budget */}
-    <div className="relative flex-1 min-w-[45%] md:min-w-[45%] lg:min-w-[200px]">
-      <label className="inter block text-[16px] font-[400] text-[#42474E] mb-2">
-        Budget
-      </label>
-      <button
-        type="button"
-        onClick={() => setOpenField(openField === "budget" ? null : "budget")}
-        className="flex w-full items-center justify-between rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
-      >
-        <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
-          {budget}
-        </span>
-        <ChevronDown
-          size={18}
-          className={`shrink-0 text-[#8A94A0] transition-transform ${
-            openField === "budget" ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-
-      {openField === "budget" && (
-        <div className="absolute left-0 right-0 top-full z-20 mt-2 rounded-2xl bg-white p-2 shadow-xl transition-all duration-200 ease-out">
-          {budgets.map((opt) => (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => {
-                setBudget(opt);
-                setOpenField(null);
-              }}
-              className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                opt === budget ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
-              }`}
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+ 
 
     <button className="inter cursor-pointer mt-2 md:mt-4 lg:mt-0 flex w-full md:w-full lg:w-auto items-center justify-center border border-white rounded-full bg-gradient-to-r from-[#0056CD] to-[#00E5FF] px-10 py-4 text-[18px] font-[600] text-white whitespace-nowrap">
       Search

@@ -74,7 +74,7 @@ export default function AboutHero() {
           </div>
 
           {/* Orange Text */}
-          <p className="mt-5 text-[11px] sm:text-[12px] font-[500] uppercase tracking-[0.7px] text-[#FF7A00]">
+          <p className="mt-5 text-[11px] sm:text-[12px] font-[500] uppercase tracking-[0.7px] text-[#D11115]">
             WELCOME TO AARADHYA HOLIDAYS
           </p>
 
@@ -123,7 +123,7 @@ export default function AboutHero() {
             </p>
 
             <h3
-              className="mt-3 text-[26px] sm:text-[29px] md:text-[32px] font-[400] italic text-[#FF7A00]"
+              className="mt-3 text-[26px] sm:text-[29px] md:text-[32px] font-[400] italic text-[#D11115]"
               style={{ fontFamily: "Arizonia" }}
             >
               John Doe
