@@ -56,7 +56,6 @@ const Bookings = [
     ),
     title: "Flight Booking",
     desc: "Access exclusive first-class and business-class deals globally.",
-    cta: "Enquire",
   },
   {
     icon: (
@@ -67,7 +66,6 @@ const Bookings = [
     ),
     title: "Hotel Stays",
     desc: "Vetted villas and boutique resorts with curated amenities.",
-    cta: "Explore",
   },
   {
     icon: (
@@ -78,7 +76,6 @@ const Bookings = [
     ),
     title: "Honeymoon Planning",
     desc: "Romantic escapes designed with attention to every detail.",
-    cta: "View Packages",
   },
   {
     icon: (
@@ -89,7 +86,6 @@ const Bookings = [
     ),
     title: "Adventure Tours",
     desc: "Guided treks and high-adrenaline experiences in the wild.",
-    cta: "Learn More",
   },
 ];
 
@@ -145,14 +141,14 @@ export default function WhyTravel() {
         </div>
       </div>
 
-       <div className="activeproperty-cta-container px-7 sm:px-[60px] py-12">
+       <div className="activeproperty-cta-container px-7 md:px-[60px] py-12">
 <div className="activeproperty-cta-content flex flex-col ">
     <div className="pb-4 sm:pb-10 inline-block">
   <p className="inter text-white text-[10px] sm:text-[12px] font-[700] uppercase tracking-[1.2px]">
     OUR FLEET
   </p>
 
-  <h2 className="poppins mt-[6px] text-[#FF7A00] text-2xl sm:text-3xl lg:text-[30px] font-[600] leading-[-0.3px]">
+  <h2 className="poppins mt-[6px] text-[#D11115] text-2xl sm:text-3xl lg:text-[30px] font-[600] leading-[-0.3px]">
     Beyond Just Booking
   </h2>
 </div>
@@ -164,7 +160,7 @@ export default function WhyTravel() {
       className="bg-[#FFFFFF1A] border border-[#FFFFFF0D] rounded-[24px]
       p-6 sm:p-7 lg:p-8
       flex flex-col h-full
-      min-h-[220px] sm:min-h-[240px] lg:min-h-[260px]"
+      min-h-[200px] sm:min-h-[200px] lg:min-h-[200px]"
     >
       {/* Icon */}
       <div className="mb-4">
@@ -196,34 +192,7 @@ export default function WhyTravel() {
       </p>
 
       {/* CTA */}
-      <a
-        href="#"
-        className="
-          mt-5 lg:mt-6
-          flex items-center gap-2
-          inter text-white font-[700]
-          text-[15px] lg:text-[16px]
-          leading-6
-          hover:text-sky-400 transition-colors
-          w-fit
-        "
-      >
-        {item.cta}
-
-        <svg
-          width="8"
-          height="12"
-          viewBox="0 0 8 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="shrink-0"
-        >
-          <path
-            d="M4.6 6L0 1.4L1.4 0L7.4 6L1.4 12L0 10.6L4.6 6Z"
-            fill="white"
-          />
-        </svg>
-      </a>
+     
     </div>
   ))}
 </div>

@@ -1,148 +1,38 @@
-import React from "react";
-import img1 from "../../../assets/Home/cars/1.png";
-import img2 from "../../../assets/Home/cars/2.png";
-import img3 from "../../../assets/Home/cars/3.png";
+import React, { useEffect, useState } from "react";
 import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
-
-export const fleetData = [
-  {
-    id: 1,
-    image: img1,
-    category: "Convertible",
-    title: "Rolls-Royce Ghost",
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 2,
-    image: img2,
-    category: "SUV",
-    title: "Range Rover",
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 3,
-    image: img3,
-    category: "Traveller",
-    title: (
-      <>
-        Mercedes Benz
-        <br />
-        V-Class
-      </>
-    ),
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-   {
-    id: 1,
-    image: img1,
-    category: "Convertible",
-    title: "Rolls-Royce Ghost",
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 2,
-    image: img2,
-    category: "SUV",
-    title: "Range Rover",
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 3,
-    image: img3,
-    category: "Traveller",
-    title: (
-      <>
-        Mercedes Benz
-        <br />
-        V-Class
-      </>
-    ),
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-   {
-    id: 1,
-    image: img1,
-    category: "Convertible",
-    title: "Rolls-Royce Ghost",
-    favorited: true,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 2,
-    image: img2,
-    category: "SUV",
-    title: "Range Rover",
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-  {
-    id: 3,
-    image: img3,
-    category: "Traveller",
-    title: (
-      <>
-        Mercedes Benz
-        <br />
-        V-Class
-      </>
-    ),
-    favorited: false,
-    features: [
-      { icon: "seater", label: "4 seater" },
-      { icon: "ac", label: "A/C Available" },
-      { icon: "tv", label: "TV Available" },
-      { icon: "music", label: "Music System / Bluetooth" },
-    ],
-  },
-];
+import { getVehicles } from "../../../Api/userapi";
+import { useNavigate } from "react-router-dom";
 
 export default function CarSection() {
+    const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      try {
+        const vehicle = await getVehicles();
+
+        setVehicles(vehicle);
+      } catch (error) {
+        console.error("Error fetching vehicles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchVehicles();
+  }, []);
+
+  if (loading) {
+  return (
+    <section className="py-20 text-center">
+      Loading...
+    </section>
+  );
+}
+
   return (
     <section className="w-full bg-[#F7F8FA] py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-15 inter">
       <div className=" mx-auto">
@@ -176,8 +66,35 @@ export default function CarSection() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
-          {fleetData.map((item) => (
-            <PremiumCard key={item.id} {...item} />
+          {vehicles.map((vehicle) => (
+            <PremiumCard
+              key={vehicle._id}
+              image={vehicle.Image?.[0]}
+              category={vehicle.Location}
+              title={vehicle.vehicleName}
+              favorited={vehicle.Premium}
+              features={[
+                {
+                  icon: "seater",
+                  label: `${vehicle.SeatCapacity} Seater`,
+                },
+                {
+                  icon: "ac",
+                  label: vehicle.AC ? "A/C Available" : "No A/C",
+                },
+                {
+                  icon: "tv",
+                  label: vehicle.TV ? "TV Available" : "No TV",
+                },
+                {
+                  icon: "music",
+                  label: vehicle.MusicSystem
+                    ? "Music System / Bluetooth"
+                    : "No Music System",
+                },
+              ]}
+                  onClick={() => navigate(`/vehicle/${vehicle._id}`)}
+            />
           ))}
         </div>
 

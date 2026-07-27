@@ -65,7 +65,7 @@ export default function ArchitectureSection() {
         {/* Header Row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
           <div>
-            <p className="text-[#FF7A00] text-xs font-semibold tracking-widest mb-3">
+            <p className="text-[#D11115] text-xs font-semibold tracking-widest mb-3">
               VOYARA TEAM
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#00263F] mb-3 poppins">

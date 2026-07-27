@@ -1,37 +1,12 @@
 import React, { useState, useEffect } from "react";
 import bgImage from "../../../assets/Home/testimonial/bgimage.jpg"
-const testimonials = [
-  {
-    id: 1,
-    quote:
-      '"AetherTravel transformed our vision of a perfect honeymoon into a living reality. The attention to detail in Bali was unmatched, and every sunset felt like it was staged just for us. Truly a premium experience from start to finish."',
-    name: "Sarah & James Miller",
-    role: "Adventurers from New York",
-    avatar:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    quote:
-      '"From the moment we landed, every detail was taken care of. The team curated an itinerary that felt personal, seamless, and effortlessly luxurious. We\'ve never traveled better."',
-    name: "Ravi & Meera Nair",
-    role: "Explorers from Kochi",
-    avatar:
-      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=200&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    quote:
-      '"Our Alpine getaway was flawless. Every recommendation, from the boutique stays to the hidden trails, felt tailor-made. This is how travel should always feel."',
-    name: "Emily Carter",
-    role: "Solo traveler from London",
-    avatar:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
-  },
-];
+import { getTestimonials } from "../../../Api/userapi";
+
 
 function TestimonialCard({ testimonial, variant, setIsPaused }) {
   const isCenter = variant === "center";
+
+  if (!testimonial) return null;
 
   return (
     <div
@@ -67,12 +42,12 @@ function TestimonialCard({ testimonial, variant, setIsPaused }) {
             : "text-[#00263F] text-[13.5px] italic"
         }`}
       >
-        {testimonial.quote}
+        {testimonial.content}
       </p>
 
       <div className="flex items-center justify-center gap-3">
         <img
-          src={testimonial.avatar}
+          src={testimonial.Image}
           alt={testimonial.name}
           className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover"
         />
@@ -80,7 +55,7 @@ function TestimonialCard({ testimonial, variant, setIsPaused }) {
           <p className="text-slate-900 font-semibold text-xs sm:text-sm">
             {testimonial.name}
           </p>
-          <p className="text-slate-500 text-[11px] sm:text-xs">{testimonial.role}</p>
+          <p className="text-slate-500 text-[11px] sm:text-xs">{testimonial.position}</p>
         </div>
       </div>
     </div>
@@ -88,15 +63,32 @@ function TestimonialCard({ testimonial, variant, setIsPaused }) {
 }
 
 export default function TestimonialSection() {
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
-  const count = testimonials.length;
-
-  const prevIndex = (index - 1 + count) % count;
-  const nextIndex = (index + 1) % count;
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (isPaused) return;
+    const fetchTestimonials = async () => {
+      try {
+        const data = await getTestimonials();
+        setTestimonials(data || []);
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  const count = testimonials.length;
+  const prevIndex = count ? (index - 1 + count) % count : 0;
+  const nextIndex = count ? (index + 1) % count : 0;
+
+  useEffect(() => {
+    if (isPaused || count === 0) return;
 
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % count);
@@ -125,50 +117,58 @@ export default function TestimonialSection() {
           compass that guides us.
         </p>
 
-        {/* Carousel */}
-        <div className="relative flex items-center justify-center">
-          <div
-            className="hidden md:block absolute left-0 -translate-x-1/4"
-            onClick={() => setIndex(prevIndex)}
-          >
-            <TestimonialCard
-              testimonial={testimonials[prevIndex]}
-              variant="side"
-              setIsPaused={setIsPaused}
-            />
-          </div>
+        {loading ? (
+          <p className="text-slate-500 text-sm">Loading...</p>
+        ) : count === 0 ? (
+          <p className="text-slate-500 text-sm">No testimonials available.</p>
+        ) : (
+          <>
+            {/* Carousel */}
+            <div className="relative flex items-center justify-center">
+              <div
+                className="hidden md:block absolute left-0 -translate-x-1/4 cursor-pointer"
+                onClick={() => setIndex(prevIndex)}
+              >
+                <TestimonialCard
+                  testimonial={testimonials[prevIndex]}
+                  variant="side"
+                  setIsPaused={setIsPaused}
+                />
+              </div>
 
-          <TestimonialCard
-            testimonial={testimonials[index]}
-            variant="center"
-            setIsPaused={setIsPaused}
-          />
+              <TestimonialCard
+                testimonial={testimonials[index]}
+                variant="center"
+                setIsPaused={setIsPaused}
+              />
 
-          <div
-            className="hidden md:block absolute right-0 translate-x-1/4"
-            onClick={() => setIndex(nextIndex)}
-          >
-            <TestimonialCard
-              testimonial={testimonials[nextIndex]}
-              variant="side"
-              setIsPaused={setIsPaused}
-            />
-          </div>
-        </div>
+              <div
+                className="hidden md:block absolute right-0 translate-x-1/4 cursor-pointer"
+                onClick={() => setIndex(nextIndex)}
+              >
+                <TestimonialCard
+                  testimonial={testimonials[nextIndex]}
+                  variant="side"
+                  setIsPaused={setIsPaused}
+                />
+              </div>
+            </div>
 
-        {/* Dots */}
-        <div className="flex items-center justify-center gap-2 mt-8 md:mt-10">
-          {testimonials.map((t, i) => (
-            <button
-              key={t.id}
-              onClick={() => setIndex(i)}
-              aria-label={`Go to testimonial ${i + 1}`}
-              className={`h-2 rounded-full transition-all ${
-                i === index ? "w-6 bg-orange-500" : "w-2 bg-slate-300"
-              }`}
-            />
-          ))}
-        </div>
+            {/* Dots */}
+            <div className="flex items-center justify-center gap-2 mt-8 md:mt-10">
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.id ?? i}
+                  onClick={() => setIndex(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  className={`h-2 rounded-full transition-all ${
+                    i === index ? "w-6 bg-orange-500" : "w-2 bg-slate-300"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

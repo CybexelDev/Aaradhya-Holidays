@@ -1,5 +1,12 @@
 import React from "react";
-import { Star, Car, Users, Snowflake, Tv, Music2 } from "lucide-react";
+import {
+  Star,
+  Car,
+  Users,
+  Snowflake,
+  Tv,
+  Music2,
+} from "lucide-react";
 
 const iconMap = {
   seater: Users,
@@ -9,31 +16,29 @@ const iconMap = {
 };
 
 function FeaturePill({ icon, label }) {
-  const Icon = iconMap[icon];
+  const Icon = iconMap[icon] || Car;
 
   return (
-    <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white text-[11px] sm:text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-full">
-      <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" strokeWidth={2} />
+    <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-medium px-3 py-2 rounded-full">
+      <Icon className="w-4 h-4 shrink-0" />
       <span>{label}</span>
     </div>
   );
 }
 
 export default function PremiumCard({
-  image = "",
-  category = "Convertible",
-  title = "Rolls-Royce Ghost",
-  features = [
-    { icon: "seater", label: "4 seater" },
-    { icon: "ac", label: "A/C Available" },
-    { icon: "tv", label: "TV Available" },
-    { icon: "music", label: "Music System / Bluetooth" },
-  ],
-  favorited = true,
-  onBookNow = () => {},
+  image,
+  category,
+  title,
+  features = [],
+  favorited = false,
+  onBookNow,
+  onClick
 }) {
   return (
-    <div className="relative w-full h-[430px] sm:h-[537px] rounded-[24px] sm:rounded-[32px] overflow-hidden shrink-0 shadow-[0_10px_40px_-10px_rgba(11,60,93,0.10)]">
+    <div
+      onClick={onClick}
+     className="relative w-full h-[430px] sm:h-[537px] rounded-[24px] sm:rounded-[32px] overflow-hidden shrink-0 shadow-[0_10px_40px_-10px_rgba(11,60,93,0.10)]">
       {/* Background image */}
       <img
         src={image}

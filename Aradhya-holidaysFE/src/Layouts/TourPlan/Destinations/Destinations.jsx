@@ -1,79 +1,89 @@
-import aegeanImg from "../../../assets/Home/destinationcards/11.png";
-import keralaImg from "../../../assets/Home/destinationcards/12.png";
-import alpineImg from "../../../assets/Home/destinationcards/13.png";
+import { useEffect, useState } from "react";
+import { getPackages } from "../../../Api/userapi";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
-
-const journeys = [
-  {
-    id: 1,
-    title: "Aegean Luxury Escape",
-    duration: "7 Days / 6 Nights",
-    price: "₹2,450",
-    image: aegeanImg,
-  },
-  {
-    id: 2,
-    title: "Kerala Backwater Serenity",
-    duration: "5 Days / 4 Nights",
-    price: "₹1,200",
-    image: keralaImg,
-  },
-  {
-    id: 3,
-    title: "Alpine Adventure Peaks",
-    duration: "10 Days / 9 Nights",
-    price: "₹3,800",
-    image: alpineImg,
-  },
-  {
-    id: 4,
-    title: "Aegean Luxury Escape",
-    duration: "7 Days / 6 Nights",
-    price: "₹2,450",
-    image: aegeanImg,
-  },
-  {
-    id: 5,
-    title: "Kerala Backwater Serenity",
-    duration: "5 Days / 4 Nights",
-    price: "₹1,200",
-    image: keralaImg,
-  },
-  {
-    id: 6,
-    title: "Alpine Adventure Peaks",
-    duration: "10 Days / 9 Nights",
-    price: "₹3,800",
-    image: alpineImg,
-  },
-];
+import { useSearchParams } from "react-router-dom";
 
 export default function Destinations() {
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [searchParams] = useSearchParams();
+
+  const selectedLocation = searchParams.get("location") || "";
+  const selectedDuration = searchParams.get("duration") || "";
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const data = await getPackages();
+        console.log("Packages:", data);
+        setDestinations(data);
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPackages();
+  }, []);
+
+  // Filter packages
+  const filteredPackages = destinations.filter((item) => {
+    const locationMatch =
+      !selectedLocation || item.Location === selectedLocation;
+
+    const durationMatch =
+      !selectedDuration || item.Duration === selectedDuration;
+
+    return locationMatch && durationMatch;
+  });
+
+  if (loading) {
+    return (
+      <section className="py-20 text-center">
+        Loading...
+      </section>
+    );
+  }
+
   return (
     <section className="px-4 py-10 md:px-[60px] sm:pt-32 sm:pb-20">
-      <div className="mx-auto grid  grid-cols-1 gap-x-5 gap-y-11 sm:grid-cols-2 lg:grid-cols-3">
-        {journeys.map((journey) => (
-          <DestinationCard
-            key={journey.id}
-            image={journey.image}
-            duration={journey.duration}
-            title={journey.title}
-            price={journey.price}
-          />
-        ))}
+      <div className="mx-auto grid grid-cols-1 gap-x-5 gap-y-11 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredPackages.length > 0 ? (
+          filteredPackages.map((item) => (
+            <DestinationCard
+              key={item._id}
+              id={item._id}
+              image={item.Image?.[0]}
+              duration={item.Duration}
+              title={item.packageName}
+            />
+          ))
+        ) : (
+          <div className="col-span-full text-center py-20">
+            <h3 className="text-2xl font-semibold text-[#00263F]">
+              No Packages Found
+            </h3>
+            <p className="mt-2 text-gray-500">
+              Try selecting a different destination or duration.
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* Load more */}
-      <div className="mx-auto mt-10 sm:mt-20 flex max-w-[1200px] items-center justify-center gap-4">
-        <span className="h-[1px] w-12 bg-[#72777E]" />
-        <button
-          type="button"
-          className="inter text-[16px] font-[400] uppercase tracking-[1.6px] text-[#42474E] hover:text-[#00263F]"
-        >
-          Load More Journeys
-        </button>
-        <span className="h-[1px] w-12 bg-[#72777E]" />
-      </div>
+      {filteredPackages.length > 0 && (
+        <div className="mx-auto mt-10 sm:mt-20 flex max-w-[1200px] items-center justify-center gap-4">
+          <span className="h-[1px] w-12 bg-[#72777E]" />
+          <button
+            type="button"
+            className="inter text-[16px] font-[400] uppercase tracking-[1.6px] text-[#42474E] hover:text-[#00263F]"
+          >
+            Load More Journeys
+          </button>
+          <span className="h-[1px] w-12 bg-[#72777E]" />
+        </div>
+      )}
     </section>
   );
 }

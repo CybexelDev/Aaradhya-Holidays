@@ -127,8 +127,9 @@ export default function Footer() {
         <div className="hidden lg:flex items-center justify-end w-full mb-6 ">
           <div className="w-[45%] flex items-center">
 <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.947 8L12 0H14L11.474 8H16.834L18.5 5H20L19 9.5L20 14H18.5L16.833 11H11.473L14 19H12L6.947 11H1.5C1.10218 11 0.720644 10.842 0.43934 10.5607C0.158035 10.2794 0 9.89782 0 9.5C0 9.10218 0.158035 8.72064 0.43934 8.43934C0.720644 8.15804 1.10218 8 1.5 8H6.947Z" fill="#FF7215"/>
+<path d="M6.947 8L12 0H14L11.474 8H16.834L18.5 5H20L19 9.5L20 14H18.5L16.833 11H11.473L14 19H12L6.947 11H1.5C1.10218 11 0.720644 10.842 0.43934 10.5607C0.158035 10.2794 0 9.89782 0 9.5C0 9.10218 0.158035 8.72064 0.43934 8.43934C0.720644 8.15804 1.10218 8 1.5 8H6.947Z" fill="#D11115"/>
 </svg>
+
             <div className="flex-1 border-t border-[#D4AF37] ml-1" />
           </div>
         </div>
@@ -148,7 +149,7 @@ export default function Footer() {
 </div>
 
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4">
-              <span className="text-orange-500">Curating</span> Seamless Journeys and Global Experiences
+              <span className="text-[#D11115]">Curating</span> Seamless Journeys and Global Experiences
             </h2>
   <p className="text-white/70 text-sm leading-relaxed mb-6 max-w-xs mx-auto lg:mx-0">
               Explore stunning destinations, unique experiences and unforgettable journey with Voyara.
@@ -173,7 +174,7 @@ export default function Footer() {
           <div className="w-full lg:w-2/5 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8 sm:gap-8 poppins px-5 lg:px-0">
             {linkColumns.map((col) => (
               <div key={col.title}>
-                <h3 className="text-orange-500 font-semibold text-sm sm:text-base mb-[6px] tracking-wide">
+                <h3 className="text-[#D11115] font-semibold text-sm sm:text-base mb-[6px] tracking-wide">
                   {col.title}
                 </h3>
                 <ul className="space-y-[6px]">
@@ -216,7 +217,7 @@ Stay Inspired. Travel Smarter.    </h2>
         />
       </div>
 
-      <button className="bg-[#53A9F5] hover:bg-[#4199e6] rounded-full px-8 py-3 font-medium shrink-0">
+      <button className="bg-[#D11115] hover:bg-[#ae0b0e] rounded-full px-8 py-3 font-medium shrink-0">
         Subscribe
       </button>
     </div>
@@ -236,8 +237,9 @@ Stay Inspired. Travel Smarter.    </h2>
 <div className="w-full mb-4 flex items-center">
   <div className="flex-1 border-t border-[#D4AF37] mr-1" />
  <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.053 11L8 19H6L8.526 11H3.166L1.5 14H0L1 9.5L0 5H1.5L3.167 8H8.527L6 0H8L13.053 8H18.5C18.8978 8 19.2794 8.15804 19.5607 8.43934C19.842 8.72064 20 9.10218 20 9.5C20 9.89782 19.842 10.2794 19.5607 10.5607C19.2794 10.842 18.8978 11 18.5 11H13.053Z" fill="#FF7215"/>
+<path d="M13.053 11L8 19H6L8.526 11H3.166L1.5 14H0L1 9.5L0 5H1.5L3.167 8H8.527L6 0H8L13.053 8H18.5C18.8978 8 19.2794 8.15804 19.5607 8.43934C19.842 8.72064 20 9.10218 20 9.5C20 9.89782 19.842 10.2794 19.5607 10.5607C19.2794 10.842 18.8978 11 18.5 11H13.053Z" fill="#D11115"/>
 </svg>
+
 
 </div>
 

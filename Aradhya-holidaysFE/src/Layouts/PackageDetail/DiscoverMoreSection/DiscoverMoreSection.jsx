@@ -3,57 +3,19 @@ import DestinationCard from "../../../Components/DestinationCard/DestinationCard
 import img1 from "../../../assets/Home/destinationcards/11.png";
 import img2 from "../../../assets/Home/destinationcards/12.png";
 import img3 from "../../../assets/Home/destinationcards/13.png";
+import { useNavigate } from "react-router-dom";
 
-const destinations = [
-  {
-    id: 1,
-    image: img1,
-    duration: "7 Days / 6 Nights",
-    title: (
-      <>
-        Aegean Luxury
-        <br />
-        Escape
-      </>
-    ),
-    price: "₹2,450",
-  },
-  {
-    id: 2,
-    image: img2,
-    duration: "5 Days / 4 Nights",
-    title: (
-      <>
-        Kerala Backwater
-        <br />
-        Serenity
-      </>
-    ),
-    price: "₹1,200",
-  },
-  {
-    id: 3,
-    image: img3,
-    duration: "10 Days / 9 Nights",
-    title: (
-      <>
-        Alpine Adventure
-        <br />
-        Peaks
-      </>
-    ),
-    price: "₹3,800",
-  },
-];
 
-export default function DiscoverMore() {
+
+export default function DiscoverMore({packages}) {
+  const navigate = useNavigate()
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
           <div>
-            <p className="text-[#FF7A00] text-[11px] sm:text-xs font-medium tracking-[0.25em] mb-2 poppins">
+            <p className="text-[#D11115] text-[11px] sm:text-xs font-medium tracking-[0.25em] mb-2 poppins">
 Recommended EXperiences
             </p>
 
@@ -66,8 +28,8 @@ Driven by curiosity and a passion for service, our team is the heartbeat of ever
           </div>
 
           <a
-            href="#"
-            className="inline-flex items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
+                  onClick={() => navigate("/tour-plan")}
+            className="inline-flex cursor-pointer items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
           >
             View All Destinations
 
@@ -93,8 +55,14 @@ Driven by curiosity and a passion for service, our team is the heartbeat of ever
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {destinations.map((d) => (
-            <DestinationCard key={d.id} {...d} />
+          {packages.map((item) => (
+            <DestinationCard
+              key={item._id}
+              id={item._id}
+              image={item.Image?.[0]}
+              duration={item.Duration}
+              title={item.packageName}
+            />
           ))}
         </div>
       </div>
