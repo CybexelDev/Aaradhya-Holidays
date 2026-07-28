@@ -10,7 +10,13 @@ export default function Trending() {
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-
+const handleNavigate = (path) => {
+  navigate(path);
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // or "auto"
+  });
+};
 
   useEffect(() => {
   const fetchPackages = async () => {
@@ -54,7 +60,7 @@ const [loading, setLoading] = useState(true);
           </div>
 
           <a
-              onClick={() => navigate("/tour-plan")}
+              onClick={() => handleNavigate("/tour-plan")}
             className="inline-flex cursor-pointer items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
           >
             View All Destinations

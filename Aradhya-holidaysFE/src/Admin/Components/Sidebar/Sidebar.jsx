@@ -77,13 +77,8 @@ onClick={() => navigate(item.path)}
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="space-y-1 pt-6 border-t border-slate-100">
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50">
-            <Settings className="w-4 h-4" />
-            Settings
-          </button>
-
+     
           <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-500 hover:bg-rose-50"   onClick={handleLogout}
 >
             <LogOut className="w-4 h-4" />
@@ -92,7 +87,6 @@ onClick={() => navigate(item.path)}
         </div>
       </aside>
 
-      {/* ================= Mobile Floating Bottom Nav ================= */}
       <div className="md:hidden fixed bottom-2 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-md">
         <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl px-2 py-2">
           <div className="flex items-center justify-between">

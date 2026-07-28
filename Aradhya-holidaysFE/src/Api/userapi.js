@@ -71,3 +71,16 @@ export const getSearchData = async () => {
     throw error.response?.data || error.message;
   }
 };
+
+export const bookVehicle = async (data) => {
+  const response = await api.post("/users/bookingVehicle", data);
+  return response.data;
+};
+
+export const sendEnquiry = async (data) => {
+  const response = await api.post("/users/sentEnquiry", data);
+  return response.data;
+};
+
+
+

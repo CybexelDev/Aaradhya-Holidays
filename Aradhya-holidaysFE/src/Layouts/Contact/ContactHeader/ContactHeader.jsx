@@ -8,15 +8,17 @@ import {
 
 import bgImage from "../../../assets/Contact/contact1.jpg"; // Change to your image
 import Navbar from "../../../Components/Navbar/Navbar";
+import { sendEnquiry } from "../../../Api/userapi";
 
 export default function ContactHeader() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    date: "",
-    message: "",
-  });
+const [formData, setFormData] = useState({
+  name: "",
+  phoneNumber: "",
+  destination: "",
+  startDate: "",
+  endDate: "",
+  message: "",
+});
 
   const handleChange = (e) => {
     setFormData({
@@ -24,7 +26,37 @@ export default function ContactHeader() {
       [e.target.name]: e.target.value,
     });
   };
+const handleSubmit = async () => {
+  try {
+    if (
+      !formData.name ||
+      !formData.phoneNumber ||
+      !formData.destination ||
+      !formData.startDate ||
+      !formData.endDate ||
+      !formData.message
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
 
+    const res = await sendEnquiry(formData);
+
+    alert(res.message);
+
+    setFormData({
+      name: "",
+      phoneNumber: "",
+      destination: "",
+      startDate: "",
+      endDate: "",
+      message: "",
+    });
+  } catch (err) {
+    console.log(err);
+    alert(err?.response?.data?.message || "Failed to send enquiry");
+  }
+};
   return (
     <section className="relative pt-4 min-h-screen overflow-hidden">
         <Navbar />
@@ -157,8 +189,8 @@ export default function ContactHeader() {
               <h3 className="text-2xl sm:text-[28px] lg:text-[32px]  font-[700] text-white tracking-[-0.32px] mb-6 lg:mb-[32px]">
                 Enquiry Form
               </h3>
-
-             <div className="grid sm:grid-cols-2 gap-5 inter">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-5 inter">
+  {/* Name */}
   <div>
     <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
       Full Name
@@ -170,25 +202,11 @@ export default function ContactHeader() {
       value={formData.name}
       onChange={handleChange}
       placeholder="John Doe"
-      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] font-[400] text-[16px] text-[#050c16] border border-[#FFFFFF33] outline-none"
+      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] border border-[#FFFFFF33] outline-none"
     />
   </div>
 
-  <div>
-    <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
-      Email Address
-    </label>
-
-    <input
-      type="email"
-      name="email"
-      value={formData.email}
-      onChange={handleChange}
-      placeholder="john@example.com"
-      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] font-[400] text-[16px] text-[#050c16] border border-[#FFFFFF33] outline-none"
-    />
-  </div>
-
+  {/* Phone */}
   <div>
     <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
       Phone Number
@@ -196,26 +214,57 @@ export default function ContactHeader() {
 
     <input
       type="tel"
-      name="phone"
-      value={formData.phone}
+      name="phoneNumber"
+      value={formData.phoneNumber}
       onChange={handleChange}
-      placeholder="+1 (555) 000-0000"
-      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] font-[400] text-[16px] text-[#050c16] border border-[#FFFFFF33] outline-none"
+      placeholder="+91 9876543210"
+      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] border border-[#FFFFFF33] outline-none"
     />
   </div>
 
-  <div>
+  {/* Destination */}
+  <div className="sm:col-span-2">
     <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
-      Travel Dates
+      Destination
     </label>
 
     <input
       type="text"
-      name="date"
-      value={formData.date}
+      name="destination"
+      value={formData.destination}
       onChange={handleChange}
-      placeholder="e.g. June 2026"
-      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] font-[400] text-[16px] text-[#050c16] border border-[#FFFFFF33] outline-none"
+      placeholder="e.g. Munnar"
+      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] border border-[#FFFFFF33] outline-none"
+    />
+  </div>
+
+  {/* Start Date */}
+  <div>
+    <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
+      Start Date
+    </label>
+
+    <input
+      type="date"
+      name="startDate"
+      value={formData.startDate}
+      onChange={handleChange}
+      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] border border-[#FFFFFF33] outline-none"
+    />
+  </div>
+
+  {/* End Date */}
+  <div>
+    <label className="block mb-2 text-[12px] font-[600] text-[#42474E]">
+      End Date
+    </label>
+
+    <input
+      type="date"
+      name="endDate"
+      value={formData.endDate}
+      onChange={handleChange}
+      className="w-full px-4 py-[14px] rounded-[12px] bg-[#FFFFFF66] border border-[#FFFFFF33] outline-none"
     />
   </div>
 </div>
@@ -236,7 +285,7 @@ export default function ContactHeader() {
                 />
               </div>
 
-              <button className="w-full cursor-pointer text-[16px] mt-6 py-4 rounded-[12px] bg-[#D11115] shadow-[0_0_20px_0_rgba(255,126,95,0.3)] text-white font-[600] ">
+              <button className="w-full cursor-pointer text-[16px] mt-6 py-4 rounded-[12px] bg-[#D11115] shadow-[0_0_20px_0_rgba(255,126,95,0.3)] text-white font-[600] " onClick={handleSubmit}>
                 Send Message
               </button>
 

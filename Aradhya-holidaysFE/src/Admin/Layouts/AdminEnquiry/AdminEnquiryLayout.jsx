@@ -15,7 +15,8 @@ import {
   Loader2
 } from "lucide-react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
-
+import { useEffect} from "react";
+import { getEnquiries,carEnquries } from "../../../Api/adminApi";
 // Initial Dummy Data
 const CAR_ENQUIRIES = [
   {
@@ -69,8 +70,8 @@ const PACKAGE_ENQUIRIES = [
 
 export default function EnquiryManagement() {
   const [activeTab, setActiveTab] = useState("car"); // 'car' or 'package'
-  const [carEnquiries, setCarEnquiries] = useState(CAR_ENQUIRIES);
-  const [packageEnquiries, setPackageEnquiries] = useState(PACKAGE_ENQUIRIES);
+const [carEnquiries, setCarEnquiries] = useState([]);
+const [packageEnquiries, setPackageEnquiries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 const [loading, setLoading] = useState(true);
   // Update Status
@@ -89,17 +90,45 @@ const [loading, setLoading] = useState(true);
       );
     }
   };
+  useEffect(() => {
+  const fetchEnquiries = async () => {
+    try {
+      setLoading(true);
+
+      const [carRes, packageRes] = await Promise.all([
+        carEnquries(),
+        getEnquiries(),
+      ]);
+
+      console.log("Car Enquiries:", carRes);
+      console.log("Package Enquiries:", packageRes);
+
+      setCarEnquiries(carRes.bookings || []);
+      setPackageEnquiries(packageRes.enquiryData || []);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchEnquiries();
+}, []);
 
   // Filtered dataset
   const currentList = activeTab === "car" ? carEnquiries : packageEnquiries;
   const filteredList = currentList.filter((item) => {
     const term = searchQuery.toLowerCase();
-    return (
+   return activeTab === "car"
+  ? (
+      item.customerName.toLowerCase().includes(term) ||
+      item.customerPhone.toLowerCase().includes(term) ||
+      item.vehicleId?.vehicleName.toLowerCase().includes(term)
+    )
+  : (
       item.name.toLowerCase().includes(term) ||
-      item.phone.toLowerCase().includes(term) ||
-      item.email.toLowerCase().includes(term) ||
-      (item.carBooked && item.carBooked.toLowerCase().includes(term)) ||
-      (item.packageName && item.packageName.toLowerCase().includes(term))
+      item.phoneNumber.toLowerCase().includes(term) ||
+      item.destination.toLowerCase().includes(term)
     );
   });
 
@@ -182,6 +211,11 @@ const [loading, setLoading] = useState(true);
       </div>
 
       {/* Cards List */}
+      {loading ? (
+  <div className="flex justify-center items-center py-20">
+    <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
+  </div>
+) : (
       <div className="space-y-4">
         {filteredList.map((item) => (
           <div
@@ -194,17 +228,17 @@ const [loading, setLoading] = useState(true);
               {/* ID & Selected Item Title */}
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-500">
-                  {item._id}
+                  {item._id.slice(0,10)}
                 </span>
 
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-1.5">
                   {activeTab === "car" ? (
                     <>
-                      <Car className="w-4 h-4 text-sky-500" /> {item.carBooked}
+                      <Car className="w-4 h-4 text-sky-500" /> {`${item.vehicleId?.vehicleName} (${item.vehicleId?.vehicleNumber})`}
                     </>
                   ) : (
                     <>
-                      <Package className="w-4 h-4 text-amber-500" /> {item.packageName}
+                      <Package className="w-4 h-4 text-amber-500" /> {item.destination}
                     </>
                   )}
                 </h3>
@@ -214,28 +248,36 @@ const [loading, setLoading] = useState(true);
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-600">
                 <div className="flex items-center gap-2">
                   <User className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="font-semibold">{item.name}</span>
+                  <span className="font-semibold">{activeTab === "car" ? item.customerName : item.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-slate-400" />
-                  <span>{item.phone}</span>
+                  <span>{activeTab === "car" ? item.customerPhone : item.phoneNumber}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
-                  <span>{item.email}</span>
-                </div>
+               
               </div>
 
               {/* Travel Dates */}
               <div className="flex items-center gap-4 text-xs bg-slate-50 p-2.5 rounded-xl border border-slate-100 w-fit">
                 <div className="flex items-center gap-1.5 text-slate-700 font-medium">
                   <Calendar className="w-3.5 h-3.5 text-sky-500" />
-                  <span>Start: <strong className="text-slate-900">{item.startDate}</strong></span>
+                <span>
+  Start:{" "}
+  <strong className="text-slate-900">
+    {activeTab === "car"
+      ? new Date(item.pickupDate).toLocaleDateString()
+      : new Date(item.startDate).toLocaleDateString()}
+  </strong>
+</span>
                 </div>
                 <span className="text-slate-300">|</span>
                 <div className="flex items-center gap-1.5 text-slate-700 font-medium">
                   <Calendar className="w-3.5 h-3.5 text-amber-500" />
-                  <span>End: <strong className="text-slate-900">{item.endDate}</strong></span>
+                  <span>End: <strong className="text-slate-900">
+                     {activeTab === "car"
+      ? new Date(item.returnDate).toLocaleDateString()
+      : new Date(item.endDate).toLocaleDateString()}
+                 </strong></span>
                 </div>
               </div>
 
@@ -249,25 +291,15 @@ const [loading, setLoading] = useState(true);
             </div>
 
             {/* Right: Status Action Dropdown */}
-            <div className="w-full lg:w-auto flex items-center justify-between lg:flex-col lg:items-end gap-3 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-100">
-              <span className="text-[11px] font-semibold text-slate-400">Update Status</span>
-              
-              <select
-                value={item.status}
-                onChange={(e) => handleStatusChange(item._id, e.target.value)}
-                className={`text-xs font-bold px-3 py-2 rounded-xl outline-none cursor-pointer transition-all ${
-                  item.status === "New"
-                    ? "bg-amber-100 text-amber-800 border border-amber-200"
-                    : item.status === "Contacted"
-                    ? "bg-sky-100 text-sky-800 border border-sky-200"
-                    : "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                }`}
-              >
-                <option value="New">🟡 New Lead</option>
-                <option value="Contacted">🔵 Contacted</option>
-                <option value="Closed">🟢 Closed / Booked</option>
-              </select>
-            </div>
+          {activeTab === "car" && (
+  <div className="w-full lg:w-64 flex justify-center">
+    <img
+      src={item.vehicleId?.Image?.[0]}
+      alt={item.vehicleId?.vehicleName}
+      className="w-56 h-36 object-cover rounded-2xl shadow-md border"
+    />
+  </div>
+)}
           </div>
         ))}
 
@@ -278,6 +310,7 @@ const [loading, setLoading] = useState(true);
           </div>
         )}
       </div>
+      )}
 </main>
     </div>
   );

@@ -47,6 +47,7 @@ export default function TestimonialsManagement() {
 const [testimonials, setTestimonials] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 const [loading, setLoading] = useState(true);
+
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [deletingTestimonial, setDeletingTestimonial] = useState(null);

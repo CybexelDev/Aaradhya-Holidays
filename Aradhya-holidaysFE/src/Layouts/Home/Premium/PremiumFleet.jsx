@@ -10,7 +10,13 @@ export default function PremiumFleet() {
   const [fleetData, setFleetData] = useState([]);
 const [loading, setLoading] = useState(true);
 const navigate = useNavigate()
-
+const handleNavigate = (path) => {
+  navigate(path);
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // or "auto"
+  });
+};
 useEffect(() => {
   const fetchVehicles = async () => {
     try {
@@ -61,7 +67,7 @@ if (loading) {
           </div>
 
           <a
-            href="#"
+            onClick={()=>handleNavigate("/service")}
             className="inline-flex items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
           >
             View All Destinations

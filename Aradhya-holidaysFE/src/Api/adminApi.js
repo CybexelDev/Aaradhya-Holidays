@@ -114,3 +114,18 @@ export const deleteTestimonial = async (id) => {
   const response = await adminApi.delete(`/admin/deleteTestimonial/${id}`);
   return response.data;
 };
+
+export const getEnquiries = async () => {
+  const response = await adminApi.get("/admin/getEnquiries");
+  return response.data;
+};
+
+export const carEnquries =async()=>{
+  const response = await adminApi.get("/admin/vehiclebooking");
+  return response.data
+}
+
+export const getDashboardData = async () => {
+  const res = await adminApi.get("/admin/getDashboard");
+  return res.data;
+};
