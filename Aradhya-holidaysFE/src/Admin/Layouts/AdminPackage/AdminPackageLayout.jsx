@@ -77,15 +77,15 @@ const [loading, setLoading] = useState(true);
 const removeExistingImage = (index) => {
   setExistingImages((prev) => prev.filter((_, i) => i !== index));
 };
-  // Form State matching Postman key values
-  const [formData, setFormData] = useState({
-    packageName: "",
-    subTitle: "",
-    Location: "",
-    Duration: "",
-    category: "Honeymoon",
-    Description: "",
-  });
+const [formData, setFormData] = useState({
+  packageName: "",
+  subTitle: "",
+  Location: "",
+  Duration: "",
+  type: "",
+  state: "",
+  Description: "",
+});
   const [days, setDays] = useState([{ day: 1, title: "", description: "" }]);
   const [images, setImages] = useState([]);
 
@@ -158,6 +158,8 @@ const handleSubmit = async (e) => {
   payload.append("Location", formData.Location);
   payload.append("Duration", formData.Duration);
   payload.append("Description", formData.Description);
+  payload.append("type", formData.type);
+payload.append("state", formData.state);
   payload.append("Days", JSON.stringify(days));
 
   try {
@@ -185,14 +187,15 @@ const handleSubmit = async (e) => {
     setIsAddModalOpen(false);
     setEditingPackage(null);
 
-    setFormData({
-      packageName: "",
-      subTitle: "",
-      Location: "",
-      Duration: "",
-      category: "Honeymoon",
-      Description: "",
-    });
+  setFormData({
+  packageName: pkg.packageName,
+  subTitle: pkg.subTitle,
+  Location: pkg.Location,
+  Duration: pkg.Duration,
+  type: pkg.type,
+  state: pkg.state,
+  Description: pkg.Description,
+});
 
     setDays([{ day: 1, title: "", description: "" }]);
 
@@ -239,6 +242,8 @@ onClick={() => {
     Location: "",
     Duration: "",
     Description: "",
+    type: "",
+state: "",
   });
 
   setDays([{ day: 1, title: "", description: "" }]);
@@ -568,7 +573,35 @@ onClick={() => {
                   ))}
                 </div>
               </div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Type
+    </label>
+    <input
+      type="text"
+      name="type"
+      value={formData.type}
+      onChange={handleInputChange}
+      placeholder="e.g. Hill Station"
+      className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
 
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      State
+    </label>
+    <input
+      type="text"
+      name="state"
+      value={formData.state}
+      onChange={handleInputChange}
+      placeholder="e.g. Kerala"
+      className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+</div>
               {/* Multi-file Image Upload */}
               {editingPackage && existingImages.length > 0 && (
   <div className="mb-4">
