@@ -71,3 +71,17 @@ export const getSearchData = async () => {
     throw error.response?.data || error.message;
   }
 };
+
+
+export const getSearchResults = async (filters) => {
+  try {
+    const response = await api.get("/users/getSearchResults", {
+      params: filters,
+    });
+
+    return response.data.packages;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

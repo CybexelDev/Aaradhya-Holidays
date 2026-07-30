@@ -1,32 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import heroBg from "../../../assets/TourPlan/tourplan.jpg";
 import Navbar from "../../../Components/Navbar/Navbar";
+import { getSearchData } from "../../../Api/userapi";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const destinations = [
-  "All Destinations",
-  "Bali, Indonesia",
-  "Paris, France",
-  "Santorini, Greece",
-  "Tokyo, Japan",
-];
+// const destinations = [
+//   "All Destinations",
+//   "Bali, Indonesia",
+//   "Paris, France",
+//   "Santorini, Greece",
+//   "Tokyo, Japan",
+// ];
 
-const durations = [
-  "Any Length",
-  "Weekend (1–3 days)",
-  "Short Trip (4–6 days)",
-  "1 Week",
-  "2 Weeks",
-  "1 Month+",
-];
+// const durations = [
+//   "Any Length",
+//   "Weekend (1–3 days)",
+//   "Short Trip (4–6 days)",
+//   "1 Week",
+//   "2 Weeks",
+//   "1 Month+",
+// ];
 
 
 
 export default function TourplanHero() {
     const [openField, setOpenField] = useState(null); // "destination" | "duration" | "budget" | null
-  const [destination, setDestination] = useState("All Destinations");
-  const [duration, setDuration] = useState("Any Length");
-  const [budget, setBudget] = useState("Any Budget");
+ const [states, setStates] = useState([]);
+const [durations, setDurations] = useState([]);
+const [categories, setCategories] = useState([]);
+
+const [selectedState, setSelectedState] = useState("");
+const [selectedDuration, setSelectedDuration] = useState("");
+const [selectedCategory, setSelectedCategory] = useState("");
+
+
+const navigate = useNavigate();
+const [searchParams] = useSearchParams();
+
+const handleSearch = () => {
+  const params = new URLSearchParams();
+
+  if (selectedState) params.append("state", selectedState);
+  if (selectedDuration) params.append("duration", selectedDuration);
+  if (selectedCategory) params.append("packageType", selectedCategory);
+
+  navigate(`/tour-plan?${params.toString()}`);
+};
+
+useEffect(() => {
+  const fetchSearchData = async () => {
+    try {
+      const data = await getSearchData();
+
+      setStates(data.State);
+
+      const uniqueDurations = Array.from(
+        new Map(data.duration.map(item => [item.Duration, item])).values()
+      );
+
+      const uniqueCategories = Array.from(
+        new Map(data.packageType.map(item => [item.packageType, item])).values()
+      );
+
+      setDurations(uniqueDurations);
+      setCategories(uniqueCategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchSearchData();
+}, []);
+
+
+useEffect(() => {
+    setSelectedState(searchParams.get("state") || "");
+    setSelectedDuration(searchParams.get("duration") || "");
+    setSelectedCategory(searchParams.get("packageType") || "");
+  }, [searchParams]);
+
+  
   return (
 <section className="relative  pt-4">      {/* Background image */}
       <img
@@ -72,7 +126,7 @@ export default function TourplanHero() {
         className="flex w-full items-center justify-between gap-2 rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
       >
         <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
-          {destination}
+          {selectedState || "All Destinations"}
         </span>
         <ChevronDown
           size={18}
@@ -84,19 +138,19 @@ export default function TourplanHero() {
 
       {openField === "destination" && (
         <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
-          {destinations.map((opt) => (
+          {states.map((item) => (
             <button
-              key={opt}
+              key={item.State}
               type="button"
               onClick={() => {
-                setDestination(opt);
+                setSelectedState(item.State);
                 setOpenField(null);
               }}
               className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                opt === destination ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
+                item.State === selectedState ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
               }`}
             >
-              {opt}
+              {item.State}
             </button>
           ))}
         </div>
@@ -114,7 +168,7 @@ export default function TourplanHero() {
         className="flex w-full items-center justify-between gap-2 rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
       >
         <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
-          {duration}
+          {selectedDuration || "Any Length"}
         </span>
         <ChevronDown
           size={18}
@@ -126,19 +180,62 @@ export default function TourplanHero() {
 
       {openField === "duration" && (
         <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
-          {durations.map((opt) => (
+          {durations.map((item) => (
             <button
-              key={opt}
+              key={item.Duration}
               type="button"
               onClick={() => {
-                setDuration(opt);
-                setOpenField(null);
+                setSelectedDuration(item.Duration);
+               setOpenField(null);
               }}
               className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                opt === duration ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
+                item.Duration === selectedDuration? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
               }`}
             >
-              {opt}
+              {item.Duration
+              }
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+
+    <div className="relative flex-1 min-w-[45%] md:min-w-[45%] lg:min-w-[200px]">
+      <label className="inter block text-[16px] font-[400] text-[#42474E] mb-2">
+        PackageType
+      </label>
+      <button
+        type="button"
+        onClick={() =>   setOpenField(openField === "category" ? null : "category")}
+        className="flex w-full items-center justify-between gap-2 rounded-full border border-[#C2C7CE] bg-[#FFFFFF66] px-4 py-3"
+      >
+        <span className="inter text-[15px] sm:text-[16px] font-[400] text-[#191C1E] truncate">
+          {selectedCategory || "Any Package"}
+        </span>
+        <ChevronDown
+          size={18}
+          className={`shrink-0 text-[#8A94A0] transition-transform ${
+            openField === "category" ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {openField === "category" && (
+        <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
+          {categories.map((item) => (
+            <button
+              key={item.packageType}
+              type="button"
+              onClick={() => {
+                setSelectedCategory(item.packageType);
+               setOpenField(null);
+              }}
+              className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+                item.packageType === selectedCategory ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
+              }`}
+            >
+              {item.packageType}
             </button>
           ))}
         </div>
@@ -147,7 +244,8 @@ export default function TourplanHero() {
 
  
 
-    <button className="inter cursor-pointer mt-2 md:mt-4 lg:mt-0 flex w-full md:w-full lg:w-auto items-center justify-center border border-white rounded-full bg-gradient-to-r from-[#0056CD] to-[#00E5FF] px-10 py-4 text-[18px] font-[600] text-white whitespace-nowrap">
+    <button onClick={handleSearch}
+     className="inter cursor-pointer mt-2 md:mt-4 lg:mt-0 flex w-full md:w-full lg:w-auto items-center justify-center border border-white rounded-full bg-gradient-to-r from-[#0056CD] to-[#00E5FF] px-10 py-4 text-[18px] font-[600] text-white whitespace-nowrap">
       Search
     </button>
   </div>

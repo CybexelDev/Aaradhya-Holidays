@@ -45,7 +45,7 @@ const [loading, setLoading] = useState(true);
             </p>
 
             <h2 className="text-[28px] sm:text-[32px] font-bold text-[#00263F] tracking-[-0.32px] mb-3">
-              Packages
+              Our Packages
             </h2>
 
             <p className="text-[#42474E] text-[15px] sm:text-[16px] max-w-[500px]">
