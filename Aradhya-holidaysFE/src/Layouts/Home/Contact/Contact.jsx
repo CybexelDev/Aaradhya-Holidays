@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import contact from "../../../assets/Home/contact/contact.jpg";
-
+import { sendEnquiry } from "../../../Api/userapi";
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
-    phone: "",
+    phoneNumber: "",
     destination: "",
-    date: "",
+    startDate: "",
+    endDate: "",
     message: "",
   });
 
@@ -15,10 +16,27 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Enquiry submitted:", form);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await sendEnquiry(form);
+
+    alert(res.message);
+
+    setForm({
+      name: "",
+      phoneNumber: "",
+      destination: "",
+      startDate: "",
+      endDate: "",
+      message: "",
+    });
+  } catch (err) {
+    console.log(err);
+    alert(err?.response?.data?.message || "Failed to send enquiry");
+  }
+};
 
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden flex items-start lg:items-center justify-center px-4 sm:px-6 md:px-10 lg:px-[112px] py-10 md:py-2">
@@ -78,16 +96,16 @@ export default function Contact() {
               </div>
               <div className="flex flex-col flex-1 min-w-0 mb-4 sm:mb-4">
                 <label
-                  htmlFor="phone"
+                  htmlFor="phoneNumber"
                   className="text-[14px] font-[400] text-[#42474E] mb-1"
                 >
                   Phone
                 </label>
                 <input
                   type="tel"
-                  id="phone"
+                  id="phoneNumber"
                   placeholder="+1 234 567 890"
-                  value={form.phone}
+                  value={form.phoneNumber}
                   onChange={handleChange}
                   className="w-full min-w-0 box-border border-[0.88px] border-[#191C1E1A] rounded-[14px] px-4 py-3.5 sm:px-[21px] sm:py-[16px] text-sm text-gray-800 placeholder-gray-400 outline-none"
                 />
@@ -125,19 +143,35 @@ export default function Contact() {
               </div>
               <div className="flex flex-col flex-1 min-w-0 mb-4 sm:mb-4">
                 <label
-                  htmlFor="date"
+                  htmlFor="startDate"
                   className="text-[14px] font-[400] text-[#42474E] mb-1"
                 >
-                  Date of Travel
+  Start Date
                 </label>
                 <input
                   type="date"
-                  id="date"
-                  value={form.date}
-                  onChange={handleChange}
+  id="startDate"
+  value={form.startDate}
+  onChange={handleChange}
                   className="w-full min-w-0 box-border border-[0.88px] border-[#191C1E1A] rounded-[14px] px-4 py-3.5 sm:px-[21px] sm:py-[16px] text-sm text-gray-800 placeholder-gray-400 outline-none"
                 />
               </div>
+              <div className="flex flex-col flex-1 min-w-0 mb-4 sm:mb-4">
+  <label
+    htmlFor="endDate"
+    className="text-[14px] font-[400] text-[#42474E] mb-1"
+  >
+    End Date
+  </label>
+
+  <input
+    type="date"
+    id="endDate"
+    value={form.endDate}
+    onChange={handleChange}
+    className="w-full min-w-0 box-border border-[0.88px] border-[#191C1E1A] rounded-[14px] px-4 py-3.5 sm:px-[21px] sm:py-[16px] text-sm text-gray-800 outline-none"
+  />
+</div>
             </div>
 
             <div className="flex flex-col mb-6">

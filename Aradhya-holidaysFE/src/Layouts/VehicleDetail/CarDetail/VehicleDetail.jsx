@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Star, Calendar, Check, Music, Snowflake } from "lucide-react";
-
+import { Star, Calendar, Check, Music, Snowflake,X } from "lucide-react";
+import { bookVehicle } from "../../../Api/userapi";
 
 function QuickSpec({ icon, label, value }) {
   return (
@@ -26,7 +26,12 @@ function QuickSpec({ icon, label, value }) {
 export default function CarDetail({vehicle}) {
   const [pickupDate, setPickupDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+const [showBookingModal, setShowBookingModal] = useState(false);
 
+const [bookingData, setBookingData] = useState({
+  name: "",
+  phone: "",
+});
   const quickSpecs = [
   {
     icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +61,46 @@ const features = vehicle?.Features || [];
 const half = Math.ceil(features.length / 2);
 const leftFeatures = features.slice(0, half);
 const rightFeatures = features.slice(half);
+const handleBooking = async () => {
+  try {
+    if (!bookingData.name.trim() || !bookingData.phone.trim()) {
+      alert("Please fill all fields");
+      return;
+    }
 
+    if (!pickupDate || !returnDate) {
+      alert("Please select pickup and return dates");
+      return;
+    }
+
+    const payload = {
+      vehicleId: vehicle._id,
+      pickupDate,
+      returnDate,
+      customerName: bookingData.name,
+      customerPhone: bookingData.phone,
+    };
+
+    const res = await bookVehicle(payload);
+
+    alert(res.message);
+
+    setShowBookingModal(false);
+
+    setBookingData({
+      name: "",
+      phone: "",
+    });
+
+    setPickupDate("");
+    setReturnDate("");
+  } catch (err) {
+    console.error(err);
+    alert(
+      err?.response?.data?.message || "Booking failed"
+    );
+  }
+};
   return (
     <section className="w-full bg-[#f7f8fa] py-10 sm:py-14 inter">
       <div className=" px-4 sm:px-15">
@@ -167,12 +211,79 @@ const rightFeatures = features.slice(half);
               </div>
             </div>
 
-            <button className="w-full bg-[#D11115] hover:bg-[#e61215] cursor-pointer transition-colors text-white font-semibold text-sm py-3 rounded-full">
+            <button className="w-full bg-[#D11115] hover:bg-[#e61215] cursor-pointer transition-colors text-white font-semibold text-sm py-3 rounded-full"
+              onClick={() => setShowBookingModal(true)}
+            >
               Book Now
             </button>
           </div>
         </div>
       </div>
+      {showBookingModal && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 manrope">
+    <div className="bg-white rounded-2xl w-full max-w-md p-6 relative">
+
+      <button
+        onClick={() => setShowBookingModal(false)}
+        className="absolute top-4 right-4"
+      >
+        <X className="w-5 h-5 text-gray-600" />
+      </button>
+
+      <h2 className="text-2xl font-bold mb-6">
+        Book Vehicle
+      </h2>
+
+      <div className="space-y-4">
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Name
+          </label>
+          <input
+            type="text"
+            value={bookingData.name}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                name: e.target.value,
+              })
+            }
+            className="w-full border rounded-lg px-4 py-3 outline-none focus:border-red-500"
+            placeholder="Enter your name"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            value={bookingData.phone}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                phone: e.target.value,
+              })
+            }
+            className="w-full border rounded-lg px-4 py-3 outline-none focus:border-red-500"
+            placeholder="Enter phone number"
+          />
+        </div>
+
+        <button
+          className="w-full bg-[#D11115] text-white py-3 rounded-full font-semibold hover:bg-red-700 transition"
+            onClick={handleBooking}
+
+        >
+          Submit
+        </button>
+
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }

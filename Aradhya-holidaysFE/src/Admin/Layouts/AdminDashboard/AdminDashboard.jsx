@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   LayoutDashboard,
   Package,
@@ -14,13 +14,26 @@ import {
   Users,
   Calendar,
   ChevronRight,
-  MoreHorizontal
+  MoreHorizontal,
+  Loader2
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
 import Sidebar from "../../Components/Sidebar/Sidebar";
-
+import { getEnquiries ,getDashboardData} from "../../../Api/adminApi";
 export default function AdminDashboardLayout() {
   const [activeTab, setActiveTab] = useState("Dashboard");
-
+  const [dashboardData, setDashboardData] = useState(null);
+const [recentEnquiries, setRecentEnquiries] = useState([]);
+const [dashboardLoading, setDashboardLoading] = useState(true);
+const [enquiriesLoading, setEnquiriesLoading] = useState(true);
   const navItems = [
     { name: "Dashboard", icon: LayoutDashboard },
     { name: "Packages", icon: Package },
@@ -29,37 +42,58 @@ export default function AdminDashboardLayout() {
     { name: "Testimonials", icon: Quote },
   ];
 
-  const recentEnquiries = [
-    {
-      id: "ENQ-1024",
-      name: "Emma Ryan",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60",
-      package: "Kerala Honeymoon Special",
-      date: "Jul 22, 2026",
-      status: "Pending",
-      statusBg: "bg-amber-100 text-amber-700",
-    },
-    {
-      id: "ENQ-1023",
-      name: "Justin Weber",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60",
-      package: "Munnar & Alleppey Tour",
-      date: "Jul 21, 2026",
-      status: "Confirmed",
-      statusBg: "bg-emerald-100 text-emerald-700",
-    },
-    {
-      id: "ENQ-1022",
-      name: "Roxanne Hills",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60",
-      package: "Wayanad Adventure Trip",
-      date: "Jul 20, 2026",
-      status: "Confirmed",
-      statusBg: "bg-emerald-100 text-emerald-700",
-    },
-  ];
 
+useEffect(() => {
+    fetchDashboard();
+  fetchEnquiries();
+}, []);
+
+
+const fetchDashboard = async () => {
+  try {
+    setDashboardLoading(true);
+
+    const res = await getDashboardData();
+    setDashboardData(res.data);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setDashboardLoading(false);
+  }
+};
+const fetchEnquiries = async () => {
+  try {
+    setEnquiriesLoading(true);
+
+    const res = await getEnquiries();
+    setRecentEnquiries(res.enquiryData);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setEnquiriesLoading(false);
+  }
+};
+const months = [
+  { month: "Jan", enquiries: 0 },
+  { month: "Feb", enquiries: 0 },
+  { month: "Mar", enquiries: 0 },
+  { month: "Apr", enquiries: 0 },
+  { month: "May", enquiries: 0 },
+  { month: "Jun", enquiries: 0 },
+  { month: "Jul", enquiries: 0 },
+  { month: "Aug", enquiries: 0 },
+  { month: "Sep", enquiries: 0 },
+  { month: "Oct", enquiries: 0 },
+  { month: "Nov", enquiries: 0 },
+  { month: "Dec", enquiries: 0 },
+];
+
+dashboardData?.monthlyEnquiries?.forEach((item) => {
+  months[item._id - 1].enquiries = item.enquiries;
+});
+const loading = dashboardLoading || enquiriesLoading;
   return (
+    
     <div className="flex h-screen bg-[#f3f5f9] text-slate-800 inter overflow-hidden inter">
       
       {/* SIDEBAR */}
@@ -70,7 +104,12 @@ export default function AdminDashboardLayout() {
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 flex flex-col overflow-y-auto p-8">
-        
+            {loading ? (
+        <div className="flex h-full items-center justify-center">
+          <Loader2 className="w-10 h-10 animate-spin text-sky-500" />
+        </div>
+      ) : (
+        <>
         {/* Top Header */}
         <header className="flex items-center justify-between mb-8">
           <div>
@@ -119,18 +158,13 @@ export default function AdminDashboardLayout() {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <span className="text-xs font-medium text-slate-400">Total Enquiries</span>
-                <h3 className="text-2xl font-bold text-slate-900 mt-1">1,284</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mt-1">{dashboardData?.bookingCount}</h3>
               </div>
               <div className="p-2.5 bg-sky-50 rounded-2xl text-sky-500">
                 <MessageSquare className="w-5 h-5" />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-emerald-600 font-medium">
-              <span className="bg-emerald-50 px-2 py-0.5 rounded-full flex items-center gap-1">
-                <TrendingUp className="w-3 h-3" /> +12%
-              </span>
-              <span className="text-slate-400">vs last month</span>
-            </div>
+           
           </div>
 
           {/* Card 2 */}
@@ -138,16 +172,13 @@ export default function AdminDashboardLayout() {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <span className="text-xs font-medium text-slate-400">Active Packages</span>
-                <h3 className="text-2xl font-bold text-slate-900 mt-1">48</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mt-1">{dashboardData?.packageCount}</h3>
               </div>
               <div className="p-2.5 bg-indigo-50 rounded-2xl text-indigo-500">
                 <Package className="w-5 h-5" />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <span className="font-semibold text-slate-700">12</span>
-              <span>custom itineraries created</span>
-            </div>
+        
           </div>
 
           {/* Card 3 */}
@@ -155,16 +186,13 @@ export default function AdminDashboardLayout() {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <span className="text-xs font-medium text-slate-400">Available Fleet</span>
-                <h3 className="text-2xl font-bold text-slate-900 mt-1">24</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mt-1">{dashboardData?.vehicleCount}</h3>
               </div>
               <div className="p-2.5 bg-amber-50 rounded-2xl text-amber-500">
                 <Car className="w-5 h-5" />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-emerald-600 font-medium">
-              <span className="bg-emerald-50 px-2 py-0.5 rounded-full">92%</span>
-              <span className="text-slate-400">ready for deployment</span>
-            </div>
+           
           </div>
 
         </div>
@@ -184,46 +212,52 @@ export default function AdminDashboardLayout() {
           </div>
 
           {/* Curved Modern Area Line Graph (Pure SVG) */}
-          <div className="w-full h-48 relative">
-            <svg className="w-full h-full overflow-visible" viewBox="0 0 500 150" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0284c7" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#0284c7" stopOpacity="0.0" />
-                </linearGradient>
-              </defs>
-              
-              {/* Background Area Fill */}
-              <path
-                d="M 0 120 Q 80 40, 160 80 T 320 30 T 500 70 L 500 150 L 0 150 Z"
-                fill="url(#gradient)"
-              />
-              
-              {/* Smooth Trend Line */}
-              <path
-                d="M 0 120 Q 80 40, 160 80 T 320 30 T 500 70"
-                fill="none"
-                stroke="#0284c7"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
+         <div className="h-72">
+  <ResponsiveContainer width="100%" height="100%">
+    <AreaChart
+      data={months}
+      margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
+    >
+      <defs>
+        <linearGradient id="colorEnquiries" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.4} />
+          <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
+        </linearGradient>
+      </defs>
 
-              {/* Data Points */}
-              <circle cx="160" cy="80" r="4" fill="#ffffff" stroke="#0284c7" strokeWidth="3" />
-              <circle cx="320" cy="30" r="5" fill="#0284c7" stroke="#ffffff" strokeWidth="2" />
-            </svg>
-          </div>
+      <CartesianGrid
+        strokeDasharray="3 3"
+        vertical={false}
+        stroke="#e2e8f0"
+      />
 
-          {/* X Axis Labels */}
-          <div className="flex justify-between text-xs text-slate-400 mt-4 px-2">
-            <span>Jan</span>
-            <span>Feb</span>
-            <span>Mar</span>
-            <span>Apr</span>
-            <span>May</span>
-            <span>Jun</span>
-            <span>Jul</span>
-          </div>
+      <XAxis
+        dataKey="month"
+        tick={{ fontSize: 12 }}
+        axisLine={false}
+        tickLine={false}
+      />
+
+      <YAxis
+        allowDecimals={false}
+        tick={{ fontSize: 12 }}
+        axisLine={false}
+        tickLine={false}
+      />
+
+      <Tooltip />
+
+      <Area
+        type="monotone"
+        dataKey="enquiries"
+        stroke="#0284c7"
+        strokeWidth={3}
+        fill="url(#colorEnquiries)"
+      />
+    </AreaChart>
+  </ResponsiveContainer>
+</div>
+        
         </div>
 
         {/* BOTTOM SECTION: RECENT ENQUIRIES TABLE */}
@@ -246,49 +280,40 @@ export default function AdminDashboardLayout() {
                   <th className="pb-3 px-4">Client</th>
                   <th className="pb-3 px-4">Requested Package</th>
                   <th className="pb-3 px-4">Date</th>
-                  <th className="pb-3 px-4">Status</th>
-                  <th className="pb-3 px-4 text-right">Action</th>
+                  <th className="pb-3 px-4">Phone Number</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50 text-sm">
-                {recentEnquiries.map((enquiry) => (
-                  <tr key={enquiry.id} className="hover:bg-slate-50/50 transition-colors">
+                {dashboardData?.latestEnquiry?.map((enquiry) => (
+                  <tr key={enquiry._id} className="hover:bg-slate-50/50 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
-                        <img
-                          src={enquiry.avatar}
-                          alt={enquiry.name}
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
+                      <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs">
+  {enquiry.name?.charAt(0).toUpperCase()}
+</div>
                         <div>
                           <p className="font-semibold text-slate-800 text-xs">{enquiry.name}</p>
-                          <p className="text-[11px] text-slate-400">{enquiry.id}</p>
+                          <p className="text-[11px] text-slate-400">{enquiry._id.slice(-6)}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-3.5 px-4 font-medium text-slate-700 text-xs">
-                      {enquiry.package}
-                    </td>
+{enquiry.destination}                    </td>
                     <td className="py-3.5 px-4 text-slate-400 text-xs">
-                      {enquiry.date}
+{new Date(enquiry.date).toLocaleDateString()}
                     </td>
-                    <td className="py-3.5 px-4">
-                      <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${enquiry.statusBg}`}>
-                        {enquiry.status}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <button className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </button>
-                    </td>
+                  <td className="py-3.5 px-4 text-slate-600 text-xs font-medium">
+  {enquiry.phoneNumber}
+</td>
+                  
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-
+</>
+      )}
       </main>
     </div>
   );

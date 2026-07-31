@@ -72,6 +72,18 @@ export const getSearchData = async () => {
   }
 };
 
+export const bookVehicle = async (data) => {
+  const response = await api.post("/users/bookingVehicle", data);
+  return response.data;
+};
+
+export const sendEnquiry = async (data) => {
+  const response = await api.post("/users/sentEnquiry", data);
+  return response.data;
+};
+
+
+
 
 export const getSearchResults = async (filters) => {
   try {
