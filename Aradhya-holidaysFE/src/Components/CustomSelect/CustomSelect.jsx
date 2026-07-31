@@ -28,64 +28,65 @@ export default function CustomSelect({
     getLabel(options.find((opt) => getValue(opt) === value));
 
   return (
-    <div ref={wrapperRef} className="relative w-full">
-      {/* Trigger */}
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-2 w-full text-left"
-      >
-        {icon}
-        <span
-          className={`flex-1 text-[16px] font-[500] truncate ${
-            selectedLabel ? "text-[#0A3552]" : "text-[#0A3552]/70"
-          }`}
-        >
-          {selectedLabel || placeholder}
-        </span>
-        <ChevronDown
-          size={16}
-          className={`text-[#00263F] shrink-0 transition-transform duration-300 ${
-            open ? "rotate-180" : "rotate-0"
-          }`}
-        />
-      </button>
+<div ref={wrapperRef} className="relative w-full">
+  {/* Trigger */}
+  <button
+    type="button"
+    onClick={() => setOpen((prev) => !prev)}
+    className="flex w-full items-center gap-2 text-left"
+  >
+    {icon}
 
-      {/* Dropdown panel */}
-      <div
-        className={`absolute left-0 top-full mt-3 w-full min-w-[220px] origin-top rounded-2xl bg-white shadow-[0_12px_40px_rgba(0,38,63,0.18)] border border-[#00263F0D] overflow-hidden z-50 transition-all duration-300 ease-out ${
-          open
-            ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
+    <span
+      className={`flex-1 truncate text-[16px] font-[500] ${
+        selectedLabel ? "text-[#0A3552]" : "text-[#0A3552]/70"
+      }`}
+    >
+      {selectedLabel || placeholder}
+    </span>
+
+    <ChevronDown
+      size={16}
+      className={`shrink-0 text-[#00263F] transition-transform duration-300 ${
+        open ? "rotate-180" : "rotate-0"
+      }`}
+    />
+  </button>
+
+  {/* Dropdown */}
+  <div
+  className={`absolute right-0 top-full z-20 mt-3 min-w-[45%] md:min-w-[45%] lg:min-w-[200px]
+  max-h-64 overflow-y-auto rounded-[10px] bg-white shadow-xl
+  transition-all duration-500 ease-out
+  ${
+    open
+      ? "translate-y-0 opacity-100 visible"
+      : "-translate-y-2 opacity-0 invisible pointer-events-none"
+  }`}
+>
+  {options.map((opt, idx) => {
+    const optValue = getValue(opt);
+    const isSelected = optValue === value;
+
+    return (
+      <button
+        key={idx}
+        type="button"
+        onClick={() => {
+          onChange(optValue);
+          setOpen(false);
+        }}
+        className={`inter flex w-full cursor-pointer items-center justify-between px-8 py-3 text-left text-[15px] transition-colors hover:bg-[#F1F5F9] ${
+          isSelected
+            ? "font-[600] text-[#0B4F8A]"
+            : "text-[#00263F]"
         }`}
-        style={{ transformOrigin: "top" }}
       >
-        <ul className="max-h-[260px] overflow-y-auto py-2">
-          {options.map((opt, idx) => {
-            const optValue = getValue(opt);
-            const isSelected = optValue === value;
-            return (
-              <li key={idx}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onChange(optValue);
-                    setOpen(false);
-                  }}
-                  className={`w-full cursor-pointer flex items-center justify-between px-5 py-3 text-[15px] font-[400] transition-colors ${
-                    isSelected
-                      ? "bg-[#00263F0D] text-[#00263F] font-[600]"
-                      : "text-[#42474E] hover:bg-[#00263F0D]"
-                  }`}
-                >
-                  {getLabel(opt)}
-                  {isSelected && <Check size={16} className="text-[#D11115]" />}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
+        <span>{getLabel(opt)}</span>
+      </button>
+    );
+  })}
+</div>
+</div>
   );
 }

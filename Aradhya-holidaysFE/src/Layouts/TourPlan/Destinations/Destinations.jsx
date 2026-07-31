@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getPackages } from "../../../Api/userapi";
+import { getPackages, getSearchResults } from "../../../Api/userapi";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
@@ -9,35 +9,55 @@ export default function Destinations() {
 
   const [searchParams] = useSearchParams();
 
-  const selectedLocation = searchParams.get("location") || "";
-  const selectedDuration = searchParams.get("duration") || "";
+const state = searchParams.get("state");
+const duration = searchParams.get("duration");
+const packageType = searchParams.get("packageType");
+const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchPackages = async () => {
-      try {
-        const data = await getPackages();
-        console.log("Packages:", data);
-        setDestinations(data);
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      } finally {
+// console.log(window.location.href);
+console.log({
+  state,
+  duration,
+  packageType,
+});
+
+useEffect(() => {
+  let isCancelled = false;
+
+  const fetchPackages = async () => {
+    try {
+      setLoading(true);
+
+      let data;
+
+      if (state || duration || packageType) {
+        data = await getSearchResults({ state, duration, packageType });
+      } else {
+        data = await getPackages();
+      }
+
+      if (!isCancelled) {
+        setDestinations(data || []);
+      }
+    } catch (error) {
+      console.error(error);
+      if (!isCancelled) {
+        setDestinations([]);
+      }
+    } finally {
+      if (!isCancelled) {
         setLoading(false);
       }
-    };
+    }
+  };
 
-    fetchPackages();
-  }, []);
+  fetchPackages();
 
-  // Filter packages
-  const filteredPackages = destinations.filter((item) => {
-    const locationMatch =
-      !selectedLocation || item.Location === selectedLocation;
+  return () => {
+    isCancelled = true; // any in-flight request from this run is now stale
+  };
+}, [state, duration, packageType]);
 
-    const durationMatch =
-      !selectedDuration || item.Duration === selectedDuration;
-
-    return locationMatch && durationMatch;
-  });
 
   if (loading) {
     return (
@@ -50,8 +70,8 @@ export default function Destinations() {
   return (
     <section className="px-4 py-10 md:px-[60px] sm:pt-32 sm:pb-20">
       <div className="mx-auto grid grid-cols-1 gap-x-5 gap-y-11 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredPackages.length > 0 ? (
-          filteredPackages.map((item) => (
+        {destinations.length > 0 ? (
+  destinations.map((item) => (
             <DestinationCard
               key={item._id}
               id={item._id}
@@ -61,18 +81,46 @@ export default function Destinations() {
             />
           ))
         ) : (
-          <div className="col-span-full text-center py-20">
-            <h3 className="text-2xl font-semibold text-[#00263F]">
-              No Packages Found
-            </h3>
-            <p className="mt-2 text-gray-500">
-              Try selecting a different destination or duration.
-            </p>
-          </div>
+          <div className="col-span-full flex flex-col items-center justify-center py-4 px-6 text-center">
+  {/* Icon */}
+  <div className="w-20 h-20 rounded-full bg-[#EAF6FF] flex items-center justify-center mb-6">
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 21L15.8 15.8M17 10.5C17 14.09 14.09 17 10.5 17C6.91 17 4 14.09 4 10.5C4 6.91 6.91 4 10.5 4C14.09 4 17 6.91 17 10.5Z"
+        stroke="#00639A"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </div>
+
+  <h3 className="text-[30px] font-bold text-[#00263F] mb-3 poppins">
+    No Perfect Journey Found
+  </h3>
+
+  <p className="max-w-md text-[#6B7280] text-[16px] leading-7 inter">
+ We couldn't find any packages matching your selected filters.
+    Please try different options.
+  </p>
+
+  <button
+    onClick={() => navigate('/tour-plan')}
+    className="mt-8 px-8 py-3 rounded-full cursor-pointer bg-[#D11115] text-white font-semibold hover:bg-[#b50e12] transition-all duration-300"
+  >
+    Explore All Packages
+  </button>
+</div>
         )}
       </div>
 
-      {filteredPackages.length > 0 && (
+      {destinations.length > 0 && (
         <div className="mx-auto mt-10 sm:mt-20 flex max-w-[1200px] items-center justify-center gap-4">
           <span className="h-[1px] w-12 bg-[#72777E]" />
           <button

@@ -67,10 +67,10 @@ if (loading) {
           </div>
 
           <a
-            onClick={()=>handleNavigate("/service")}
-            className="inline-flex items-center gap-2 text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
+            onClick={() => navigate("/service")}
+            className="inline-flex items-center gap-2 cursor-pointer text-[#00639A] text-[15px] sm:text-[16px] font-bold hover:gap-3 transition-all"
           >
-            View All Destinations
+            View All Vehicles
 
             <svg
               width="16"
