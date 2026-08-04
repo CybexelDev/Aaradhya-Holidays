@@ -194,7 +194,7 @@ useEffect(() => {
           {/* Popular tags */}
           <div className="flex items-center gap-1 sm:gap-2 mt-5 font-[300] text-white text-sm inter">
             <span className="text-white/80 inter  text-[16px] leading-[24px]">Places:</span>
-             {locations.slice(0, 4).map((item, index) => (
+             {locations.slice(0, 3).map((item, index) => (
     <button
       key={index}
       // onClick={() => setSelectedLocation(item.destination)}

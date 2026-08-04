@@ -137,24 +137,42 @@ useEffect(() => {
       </button>
 
       {openField === "destination" && (
-        <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
-          {states.map((item) => (
-            <button
-              key={item.State}
-              type="button"
-              onClick={() => {
-                setSelectedState(item.State);
-                setOpenField(null);
-              }}
-              className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                item.State === selectedState ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
-              }`}
-            >
-              {item.State}
-            </button>
-          ))}
-        </div>
-      )}
+  <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl">
+    {/* All Destinations */}
+    <button
+      type="button"
+      onClick={() => {
+        setSelectedState("");
+        setOpenField(null);
+      }}
+      className={`inter block w-full cursor-pointer rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+        selectedState === ""
+          ? "text-[#0B4F8A] font-[600]"
+          : "text-[#00263F]"
+      }`}
+    >
+      All Destinations
+    </button>
+
+    {states.map((item) => (
+      <button
+        key={item.State}
+        type="button"
+        onClick={() => {
+          setSelectedState(item.State);
+          setOpenField(null);
+        }}
+        className={`inter block w-full rounded-xl cursor-pointer px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+          item.State === selectedState
+            ? "text-[#0B4F8A] font-[600]"
+            : "text-[#00263F]"
+        }`}
+      >
+        {item.State}
+      </button>
+    ))}
+  </div>
+)}
     </div>
 
     {/* Duration */}
@@ -179,25 +197,41 @@ useEffect(() => {
       </button>
 
       {openField === "duration" && (
-        <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
-          {durations.map((item) => (
-            <button
-              key={item.Duration}
-              type="button"
-              onClick={() => {
-                setSelectedDuration(item.Duration);
-               setOpenField(null);
-              }}
-              className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                item.Duration === selectedDuration? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
-              }`}
-            >
-              {item.Duration
-              }
-            </button>
-          ))}
-        </div>
-      )}
+  <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl">
+    <button
+      type="button"
+      onClick={() => {
+        setSelectedDuration("");
+        setOpenField(null);
+      }}
+      className={`inter block w-full rounded-xl px-4 py-2 cursor-pointer text-left text-[15px] hover:bg-[#F1F5F9] ${
+        selectedDuration === ""
+          ? "text-[#0B4F8A] font-[600]"
+          : "text-[#00263F]"
+      }`}
+    >
+      Any Length
+    </button>
+
+    {durations.map((item) => (
+      <button
+        key={item.Duration}
+        type="button"
+        onClick={() => {
+          setSelectedDuration(item.Duration);
+          setOpenField(null);
+        }}
+        className={`inter block w-full rounded-xl cursor-pointer  px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+          item.Duration === selectedDuration
+            ? "text-[#0B4F8A] font-[600]"
+            : "text-[#00263F]"
+        }`}
+      >
+        {item.Duration}
+      </button>
+    ))}
+  </div>
+)}
     </div>
 
 
@@ -222,24 +256,41 @@ useEffect(() => {
       </button>
 
       {openField === "category" && (
-        <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl origin-top animate-in fade-in zoom-in-95 duration-200">
-          {categories.map((item) => (
-            <button
-              key={item.packageType}
-              type="button"
-              onClick={() => {
-                setSelectedCategory(item.packageType);
-               setOpenField(null);
-              }}
-              className={`inter block w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
-                item.packageType === selectedCategory ? "text-[#0B4F8A] font-[600]" : "text-[#00263F]"
-              }`}
-            >
-              {item.packageType}
-            </button>
-          ))}
-        </div>
-      )}
+  <div className="absolute left-0 right-0 top-full z-20 mt-2 max-h-64 overflow-y-auto rounded-2xl bg-white p-2 shadow-xl">
+    <button
+      type="button"
+      onClick={() => {
+        setSelectedCategory("");
+        setOpenField(null);
+      }}
+      className={`inter block w-full cursor-pointer rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+        selectedCategory === ""
+          ? "text-[#0B4F8A] font-[600]"
+          : "text-[#00263F]"
+      }`}
+    >
+      Any Package
+    </button>
+
+    {categories.map((item) => (
+      <button
+        key={item.packageType}
+        type="button"
+        onClick={() => {
+          setSelectedCategory(item.packageType);
+          setOpenField(null);
+        }}
+        className={`inter block cursor-pointer w-full rounded-xl px-4 py-2 text-left text-[15px] hover:bg-[#F1F5F9] ${
+          item.packageType === selectedCategory
+            ? "text-[#0B4F8A] font-[600]"
+            : "text-[#00263F]"
+        }`}
+      >
+        {item.packageType}
+      </button>
+    ))}
+  </div>
+)}
     </div>
 
  

@@ -5,6 +5,7 @@ import { getPackages } from "../../../Api/userapi";
 import { Loader2 } from "lucide-react";
 
 
+
 export default function Trending() {
   const [destinations, setDestinations] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -33,13 +34,17 @@ const handleNavigate = (path) => {
   fetchPackages();
 }, []);
 
- if (loading) {
+if (loading) {
   return (
-    <section className="w-full  flex items-center justify-center min-h-[60vh]">
+    <section className="flex min-h-[60vh] items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <Loader2 className="w-12 h-12 text-[#3700ff] animate-spin" />
-        <p className="text-[#5B6B79] text-sm font-medium">
-          Loading Packages...
+        <Loader2
+          size={50}
+          className="animate-spin text-[#00639A]"
+        />
+        <p className="inter text-[16px] text-[#42474E]">
+          Loading...
+
         </p>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import bgImage from "../../../assets/Home/testimonial/bgimage.jpg"
 import { getTestimonials } from "../../../Api/userapi";
+import { Loader2 } from "lucide-react";
 
 
 function TestimonialCard({ testimonial, variant, setIsPaused }) {
@@ -118,10 +119,14 @@ export default function TestimonialSection() {
         </p>
 
         {loading ? (
-          <p className="text-slate-500 text-sm">Loading...</p>
-        ) : count === 0 ? (
-          <p className="text-slate-500 text-sm">No testimonials available.</p>
-        ) : (
+  <div className="flex items-center justify-center py-8">
+    <Loader2
+      className="h-8 w-8 animate-spin text-[#00639A]"
+    />
+  </div>
+) : count === 0 ? (
+  <p className="text-slate-500 text-sm">No testimonials available.</p>
+) : (
           <>
             {/* Carousel */}
             <div className="relative flex items-center justify-center">

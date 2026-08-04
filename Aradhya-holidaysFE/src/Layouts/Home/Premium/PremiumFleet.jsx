@@ -41,16 +41,21 @@ useEffect(() => {
 
  if (loading) {
   return (
-    <section className="w-full bg-[#F7F8FA] flex items-center justify-center min-h-[60vh]">
+    <section className="flex min-h-[60vh] items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <Loader2 className="w-12 h-12 text-[#3700ff] animate-spin" />
-        <p className="text-[#5B6B79] text-sm font-medium">
-          Loading vehicles...
+        <Loader2
+          size={50}
+          className="animate-spin text-[#00639A]"
+        />
+        <p className="inter text-[16px] text-[#42474E]">
+          Loading...
+
         </p>
       </div>
     </section>
   );
 }
+
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">

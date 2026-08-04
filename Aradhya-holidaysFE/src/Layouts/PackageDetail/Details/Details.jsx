@@ -184,7 +184,7 @@ const slides = galleryImages.map((img) => ({
            
           </div>
 
-          <div className="mt-5 sm:mt-8 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-3 md:gap-10">
+          <div className="mt-5 sm:mt-8 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-3 md:gap-4 lg:gap-10">
   {galleryImages.slice(0, 3).map((img, index) => (
     <div
       key={index}

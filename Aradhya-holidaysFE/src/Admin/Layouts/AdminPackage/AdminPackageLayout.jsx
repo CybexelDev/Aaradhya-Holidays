@@ -158,8 +158,8 @@ const handleSubmit = async (e) => {
   payload.append("Location", formData.Location);
   payload.append("Duration", formData.Duration);
   payload.append("Description", formData.Description);
-  payload.append("type", formData.type);
-payload.append("state", formData.state);
+  payload.append("packageType", formData.type);
+payload.append("State", formData.state);
   payload.append("Days", JSON.stringify(days));
 
   try {
