@@ -69,7 +69,7 @@ export default function PackageDetailHeader({ packageData }) {
                     GROUP
                   </p>
                   <p className="text-white text-[16px] sm:text-[24px] font-[500]">
-                    Max 8
+                    Max 52
                   </p>
                 </div>
               </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
 import { useNavigate } from "react-router-dom";
 import { getPackages } from "../../../Api/userapi";
+import { Loader2 } from "lucide-react";
 
 
 
@@ -33,13 +34,21 @@ const handleNavigate = (path) => {
   fetchPackages();
 }, []);
 
- if (loading) {
-    return (
-      <section className="py-20 text-center">
-        Loading...
-      </section>
-    );
-  }
+if (loading) {
+  return (
+    <section className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2
+          size={50}
+          className="animate-spin text-[#00639A]"
+        />
+        <p className="inter text-[16px] text-[#42474E]">
+          Loading...
+        </p>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">

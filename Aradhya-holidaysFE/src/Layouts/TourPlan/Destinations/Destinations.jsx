@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { getPackages, getSearchResults } from "../../../Api/userapi";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [searchParams] = useSearchParams();
+  const [visibleCount, setVisibleCount] = useState(9);
 
 const state = searchParams.get("state");
 const duration = searchParams.get("duration");
@@ -23,6 +25,7 @@ console.log({
 
 useEffect(() => {
   let isCancelled = false;
+    setVisibleCount(9);
 
   const fetchPackages = async () => {
     try {
@@ -59,20 +62,28 @@ useEffect(() => {
 }, [state, duration, packageType]);
 
 
-  if (loading) {
-    return (
-      <section className="py-20 text-center">
-        Loading...
-      </section>
-    );
-  }
+if (loading) {
+  return (
+    <section className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2
+          size={50}
+          className="animate-spin text-[#00639A]"
+        />
+        <p className="inter text-[16px] text-[#42474E]">
+          Loading...
+        </p>
+      </div>
+    </section>
+  );
+}
 
   return (
     <section className="px-4 py-10 md:px-[60px] sm:pt-32 sm:pb-20">
       <div className="mx-auto grid grid-cols-1 gap-x-5 gap-y-11 sm:grid-cols-2 lg:grid-cols-3">
         {destinations.length > 0 ? (
-  destinations.map((item) => (
-            <DestinationCard
+destinations.slice(0, visibleCount).map((item) => (
+              <DestinationCard
               key={item._id}
               id={item._id}
               image={item.Image?.[0]}
@@ -120,18 +131,21 @@ useEffect(() => {
         )}
       </div>
 
-      {destinations.length > 0 && (
-        <div className="mx-auto mt-10 sm:mt-20 flex max-w-[1200px] items-center justify-center gap-4">
-          <span className="h-[1px] w-12 bg-[#72777E]" />
-          <button
-            type="button"
-            className="inter text-[16px] font-[400] uppercase tracking-[1.6px] text-[#42474E] hover:text-[#00263F]"
-          >
-            Load More Journeys
-          </button>
-          <span className="h-[1px] w-12 bg-[#72777E]" />
-        </div>
-      )}
+      {visibleCount < destinations.length && (
+  <div className="mx-auto mt-10 sm:mt-20 flex max-w-[1200px] items-center justify-center gap-4">
+    <span className="h-[1px] w-12 bg-[#72777E]" />
+
+    <button
+      type="button"
+      onClick={() => setVisibleCount((prev) => prev + 9)}
+      className="inter text-[16px] cursor-pointer font-[400] uppercase tracking-[1.6px] text-[#42474E] hover:text-[#00263F]"
+    >
+      Load More Journeys
+    </button>
+
+    <span className="h-[1px] w-12 bg-[#72777E]" />
+  </div>
+)}
     </section>
   );
 }

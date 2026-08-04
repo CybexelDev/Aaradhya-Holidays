@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import bg from "../../assets/Home/footer/footerbg.jpg";
 import logo from "../../assets/Home/footer/logofooter2.png"
+import { Link } from "react-router-dom";
 
 // Custom X (formerly Twitter) icon since it's missing from standard lucide packs
 function XIcon({ className }) {
@@ -61,30 +62,32 @@ const socials = [
 const linkColumns = [
   {
     title: "Quick Link",
-    links: ["Home", "About Us", "Services", "Tour Plan", "Contact"],
-  },
-  {
-    title: "Explore",
     links: [
-      "Honeymoon Packages",
-      "Adventure Tours",
-      "Family Holidays",
-      "Corporate Travel",
-      "Custom Itineraries",
-      "Travel Insurance",
+      { name: "Home", path: "/" },
+      { name: "About Us", path: "/about" },
+      { name: "Services", path: "/service" },
+      { name: "Tour Plan", path: "/tour-plan" },
+      { name: "Contact", path: "/contact" },
     ],
   },
   {
     title: "Support",
     links: [
-      "FAQs",
-      "Cancellation Policy",
-      "Terms & Conditions",
-      "Privacy Policy",
-      "Customer Support",
+      { name: "FAQs", path: "/contact" },
+      { name: "Cancellation Policy", path: "/contact" },
+      { name: "Terms & Conditions", path: "/contact" },
+      { name: "Privacy Policy", path: "/contact" },
+      { name: "Customer Support", path: "/contact" },
     ],
   },
 ];
+
+const handleLinkClick = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant",
+  });
+};
 
 export default function Footer() {
   return (
@@ -171,7 +174,7 @@ export default function Footer() {
           </div>
 
           {/* Right Column: Links Grid */}
-          <div className="w-full lg:w-2/5 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8 sm:gap-8 poppins px-5 lg:px-0">
+          <div className="w-full lg:w-2/5 grid grid-cols-2  gap-x-4 gap-y-8 sm:gap-8 poppins px-5 lg:px-0">
             {linkColumns.map((col) => (
               <div key={col.title}>
                 <h3 className="text-[#D11115] font-semibold text-sm sm:text-base mb-[6px] tracking-wide">
@@ -179,15 +182,16 @@ export default function Footer() {
                 </h3>
                 <ul className="space-y-[6px]">
                   {col.links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="text-white text-xs sm:text-sm hover:text-orange-500 transition-colors font-[500]"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
+  <li key={link.name}>
+    <Link
+      to={link.path}
+      onClick={handleLinkClick}
+      className="text-white text-xs sm:text-sm hover:text-orange-500 transition-colors font-[500]"
+    >
+      {link.name}
+    </Link>
+  </li>
+))}
                 </ul>
               </div>
             ))}
