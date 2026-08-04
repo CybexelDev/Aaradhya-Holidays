@@ -39,6 +39,7 @@ function App() {
          <Route path='/admin-category' element={<AdminCategory/>}/>
          <Route path='/admin-testimonials' element={<AdminTestimonials/>}/>
          <Route path="/admin-enquiry" element={<AdminEnquiry/>}/>
+         
       </Routes>
     </BrowserRouter>
   );

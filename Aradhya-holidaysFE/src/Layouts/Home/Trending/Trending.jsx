@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DestinationCard from "../../../Components/DestinationCard/DestinationCard";
 import { useNavigate } from "react-router-dom";
 import { getPackages } from "../../../Api/userapi";
-
+import { Loader2 } from "lucide-react";
 
 
 export default function Trending() {
@@ -34,12 +34,17 @@ const handleNavigate = (path) => {
 }, []);
 
  if (loading) {
-    return (
-      <section className="py-20 text-center">
-        Loading...
-      </section>
-    );
-  }
+  return (
+    <section className="w-full  flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="w-12 h-12 text-[#3700ff] animate-spin" />
+        <p className="text-[#5B6B79] text-sm font-medium">
+          Loading Packages...
+        </p>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-15 py-10 sm:py-12 lg:py-14 inter">
       <div className="mx-auto">

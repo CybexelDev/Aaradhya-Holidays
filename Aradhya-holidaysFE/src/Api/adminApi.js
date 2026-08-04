@@ -1,6 +1,7 @@
 import adminApi from "./adminApiInstance";
 import api from "./axiosInstance";
 
+
 export const getCategory = async () => {
   const response = await adminApi.get("/admin/getCategory");
   return response.data;
@@ -13,6 +14,7 @@ export const addCategory = async (categoryName) => {
 
   return response.data;
 };
+
 export const deleteCategory = async (id) => {
   const response = await adminApi.delete(`/admin/deleteCategory/${id}`);
   return response.data;
@@ -35,8 +37,6 @@ export const addVehicle = async (vehicleData) => {
 
   return response.data;
 };
-
-
 
 export const getVehicle = async () => {
   const response = await adminApi.get("/admin/getVahicleData");
