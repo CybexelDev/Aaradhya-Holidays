@@ -97,3 +97,14 @@ export const getSearchResults = async (filters) => {
     throw error;
   }
 };
+
+
+export const getCategoryUser=async()=>{
+  try {
+    const response =await api.get("/users/getCategory")
+    return response.data
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}

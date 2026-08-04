@@ -4,7 +4,6 @@ import { getVehicles } from "../../../Api/userapi";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
-
 export default function PremiumFleet() {
 
 
@@ -40,7 +39,7 @@ useEffect(() => {
 }, []);
 
 
-if (loading) {
+ if (loading) {
   return (
     <section className="flex min-h-[60vh] items-center justify-center">
       <div className="flex flex-col items-center gap-4">
@@ -50,6 +49,7 @@ if (loading) {
         />
         <p className="inter text-[16px] text-[#42474E]">
           Loading...
+
         </p>
       </div>
     </section>

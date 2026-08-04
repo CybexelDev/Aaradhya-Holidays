@@ -1,6 +1,14 @@
 import ctaImage from "../../../src/assets/Home/cta/bg.jpg";
-
+import { useNavigate } from "react-router-dom";
 export default function CTASection() {
+  const navigate = useNavigate()
+const handleNavigate = (path) => {
+  navigate(path);
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // or "auto"
+  });
+};
   return (
     <section className="w-full px-4 sm:px-6 lg:px-[50px] py-10 sm:py-14 lg:py-16 bg-[#F7F8FA] inter">
       <div
@@ -29,11 +37,15 @@ export default function CTASection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-auto px-8 h-12 rounded-full bg-[#D11115] text-white font-semibold hover:scale-105 transition">
+              <button className="w-full sm:w-auto px-8 h-12 rounded-full bg-[#D11115] text-white font-semibold hover:scale-105 transition cursor-pointer"
+              onClick={()=>handleNavigate("/tour-plan")}
+              >
                 Plan My Trip
               </button>
 
-              <button className="w-full sm:w-auto px-8 h-12 rounded-full border-2 border-white text-white font-semibold hover:bg-white hover:text-[#003B57] transition">
+              <button className="w-full sm:w-auto px-8 h-12 rounded-full border-2 border-white text-white font-semibold hover:bg-white hover:text-[#003B57] transition cursor-pointer"
+               onClick={()=>handleNavigate("/contact")}
+              >
                 Contact Us
               </button>
             </div>

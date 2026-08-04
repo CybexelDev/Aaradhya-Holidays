@@ -86,6 +86,7 @@ function App() {
             </AdminProtectedRoute>
           }
         />
+
       </Routes>
     </BrowserRouter>
   );

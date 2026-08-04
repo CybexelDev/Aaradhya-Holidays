@@ -4,7 +4,7 @@ import {
   getPackageDetails,
   getPackages,
 } from "../../Api/userapi";
-
+import { Loader2 } from "lucide-react";
 import Details from "../../Layouts/PackageDetail/Details/Details";
 import PackageDetailHeader from "../../Layouts/PackageDetail/Header/TourDetailHeader";
 import DiscoverMore from "../../Layouts/PackageDetail/DiscoverMoreSection/DiscoverMoreSection";
@@ -42,9 +42,18 @@ function PackageDetail() {
     fetchData();
   }, [id]);
 
-  if (loading) {
-    return <div className="py-20 text-center">Loading...</div>;
-  }
+ if (loading) {
+  return (
+    <section className="w-full  flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="w-12 h-12 text-[#3700ff] animate-spin" />
+        <p className="text-[#5B6B79] text-sm font-medium">
+          Loading Package...
+        </p>
+      </div>
+    </section>
+  );
+}
 
   return (
     <>

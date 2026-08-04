@@ -44,6 +44,7 @@ if (loading) {
         />
         <p className="inter text-[16px] text-[#42474E]">
           Loading...
+
         </p>
       </div>
     </section>
