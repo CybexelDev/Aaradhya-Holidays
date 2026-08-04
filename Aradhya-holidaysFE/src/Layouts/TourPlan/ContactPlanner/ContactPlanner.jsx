@@ -1,8 +1,15 @@
 import { Phone } from "lucide-react";
 import bgimg from "../../../assets/TourPlan/bgimg.jpg";
-
+import { Navigate, useNavigate } from "react-router-dom";
 export default function ContactPlanner() {
-  return (
+const navigate = useNavigate()
+const handleNavigate = (path) => {
+  navigate(path);
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // or "auto"
+  });
+};  return (
     <section className="relative overflow-hidden">
       {/* Background image */}
       <img
@@ -26,6 +33,7 @@ export default function ContactPlanner() {
 
         <button
           type="button"
+          onClick={()=>handleNavigate("/contact")}
           className="inter cursor-pointer mt-2 sm:mt-4 flex items-center gap-2 sm:gap-3 rounded-full bg-gradient-to-r from-[#0254AD] to-[#01B3CE] backdrop-blur-lg px-6 py-3 sm:px-10 sm:py-4 text-[12px] sm:text-[14px] md:text-[16px] font-[600] uppercase text-white whitespace-nowrap"
         >
           <svg
