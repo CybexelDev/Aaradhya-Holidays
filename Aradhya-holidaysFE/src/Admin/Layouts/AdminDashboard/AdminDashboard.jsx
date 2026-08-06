@@ -117,37 +117,7 @@ const loading = dashboardLoading || enquiriesLoading;
             <p className="text-xs text-slate-400 mt-0.5">Welcome back, Admin!</p>
           </div>
 
-          <div className="flex items-center gap-4">
-            {/* Search Bar */}
-            <div className="relative flex items-center">
-              <Search className="w-4 h-4 absolute left-3 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search anything..."
-                className="bg-white border border-slate-200/80 rounded-full py-2 pl-9 pr-4 text-xs text-slate-700 outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 w-60 transition-all"
-              />
-            </div>
-
-            {/* Quick Action Button */}
-            <button className="w-9 h-9 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 hover:bg-slate-50 shadow-xs transition-colors">
-              <Plus className="w-4 h-4" />
-            </button>
-
-            {/* Notifications */}
-            <button className="w-9 h-9 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 hover:bg-slate-50 shadow-xs transition-colors relative">
-              <Bell className="w-4 h-4" />
-              <span className="w-2 h-2 bg-sky-500 rounded-full absolute top-2 right-2 border-2 border-white" />
-            </button>
-
-            {/* Profile Avatar */}
-            <div className="flex items-center gap-3 pl-2">
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60"
-                alt="Admin"
-                className="w-9 h-9 rounded-full object-cover border-2 border-white shadow-xs"
-              />
-            </div>
-          </div>
+    
         </header>
 
         {/* TOP SECTION: 3 STAT CARDS */}

@@ -121,14 +121,18 @@ const handleSubmit = async () => {
   </svg>
 </div>
 
-      <div className="min-w-0">
-        <h4 className="font-[700] text-[16px]">Office Address</h4>
-        <p className="text-white font-[300] text-[16px] break-words">
-          1200 Pacific Heights, Suite 400
-          <br />
-          Sydney, NSW 2000, Australia
-        </p>
-      </div>
+     <div className="min-w-0">
+  <h4 className="font-[700] text-[16px]">Office Address</h4>
+  <p className="text-white font-[300] text-[16px] break-words">
+    Dhaliyur,
+    <br />
+    Pannimadai Post,
+    <br />
+    Coimbatore - 641017,
+    <br />
+    Tamil Nadu, India
+  </p>
+</div>
     </div>
 
     <div className="flex gap-4">
@@ -142,8 +146,7 @@ const handleSubmit = async () => {
       <div className="min-w-0">
         <h4 className="font-[700] text-[16px]">Phone</h4>
         <p className="text-white font-[300] text-[16px]">
-          +61 (2) 5550-1234
-        </p>
+ 9080423872 / 9965696307        </p>
       </div>
     </div>
 
@@ -158,8 +161,7 @@ const handleSubmit = async () => {
       <div className="min-w-0">
         <h4 className="font-[700] text-[16px]">Email</h4>
         <p className="text-white font-[300] text-[16px] break-words">
-          expeditions@oceaniatravels.com
-        </p>
+Aaradhyaholidays2026@gmail.com        </p>
       </div>
     </div>
 
