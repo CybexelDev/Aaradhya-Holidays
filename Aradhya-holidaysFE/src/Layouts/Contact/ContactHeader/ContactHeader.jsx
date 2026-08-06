@@ -176,8 +176,7 @@ Aaradhyaholidays2026@gmail.com        </p>
       <div className="min-w-0">
         <h4 className="font-[700] text-[16px]">WhatsApp</h4>
         <p className="text-white font-[300] text-[16px]">
-          +61 400 123 456
-        </p>
+ 9080423872 / 9965696307          </p>
       </div>
     </div>
   </div>
