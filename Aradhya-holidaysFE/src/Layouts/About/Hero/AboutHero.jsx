@@ -1,6 +1,6 @@
 import React from "react";
 import { Mountain, ChevronDown } from "lucide-react";
-import heroVideo from "../../../assets/About/abouthero2.mp4";
+import heroVideo from "../../../assets/vid1.mp4";
 import mountain from "../../../assets/About/mount.png";
 import Navbar from "../../../Components/Navbar/Navbar";
 

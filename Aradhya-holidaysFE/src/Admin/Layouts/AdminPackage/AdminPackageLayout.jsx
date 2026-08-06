@@ -60,7 +60,44 @@ const INITIAL_PACKAGES = [
 ];
 
 const CATEGORIES = ["All", "Honeymoon", "Adventure", "Family", "Corporate", "Custom"];
-
+const INDIAN_STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry"
+];
 export default function PackageManagement() {
 const [packages, setPackages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -312,6 +349,8 @@ state: "",
         Location: pkg.Location,
         Duration: pkg.Duration,
         Description: pkg.Description,
+          type: pkg.type || pkg.packageType || "",
+  state: pkg.state || pkg.State || "",
       });
 
       setDays(pkg.Days || []);
@@ -588,19 +627,27 @@ state: "",
     />
   </div>
 
-  <div>
-    <label className="text-xs font-semibold text-slate-700 block mb-1">
-      State
-    </label>
-    <input
-      type="text"
-      name="state"
-      value={formData.state}
-      onChange={handleInputChange}
-      placeholder="e.g. Kerala"
-      className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
-    />
-  </div>
+ <div>
+  <label className="text-xs font-semibold text-slate-700 block mb-1">
+    State
+  </label>
+
+  <select
+    name="state"
+    value={formData.state}
+    onChange={handleInputChange}
+    className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    required
+  >
+    <option value="">Select State</option>
+
+    {INDIAN_STATES.map((state) => (
+      <option key={state} value={state}>
+        {state}
+      </option>
+    ))}
+  </select>
+</div>
 </div>
               {/* Multi-file Image Upload */}
               {editingPackage && existingImages.length > 0 && (

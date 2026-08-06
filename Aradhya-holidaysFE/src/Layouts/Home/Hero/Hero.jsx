@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapPin, CalendarDays, Wallet } from "lucide-react";
 import Navbar from "../../../Components/Navbar/Navbar";
-import heroVideo from "../../../assets/Home/hero.mp4";
+import heroVideo from "../../../assets/vidhome.mp4";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
