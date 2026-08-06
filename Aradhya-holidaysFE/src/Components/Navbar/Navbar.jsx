@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Phone, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png"
 export default function Navbar() {
  const navItems = [
   { name: "Home", path: "/" },
@@ -21,10 +22,16 @@ const location = useLocation();
       <nav className="flex items-center justify-between px-5 lg:px-10 py-2 sm:py-4 mt-0 mx-4 md:mx-[20px] lg:mx-[41px] xl:mx-[60px] rounded-[50px] bg-[#919191B2]  shadow-[0px_17px_23px_0px_rgba(0,0,0,0.25)]">
 
         {/* Logo */}
-        <div className="text-white text-[19px] sm:text-[24px] lg:text-[30px] leading-[30px] lg:leading-[40px] tracking-[-0.93px] font-[700] inter"   onClick={() => navigate("/")}
+       <div
+  onClick={() => navigate("/")}
+  className="cursor-pointer flex items-center"
 >
-          Aaradhya <span className="text-sky-400">Holidays</span>
-        </div>
+  <img
+    src={logo}
+    alt="Aaradhya Holidays"
+    className="h-10 sm:h-12 lg:h-10 w-auto object-contain"
+  />
+</div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-[1px] lg:gap-2 inter leading-[24px] text-[16px] md:text-[11px] lg:text-[16px]">

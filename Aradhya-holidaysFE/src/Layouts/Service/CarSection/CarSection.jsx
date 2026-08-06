@@ -107,41 +107,67 @@ const currentVehicles = filteredVehicles.slice(
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
-          {currentVehicles.map((vehicle) => (
-            <PremiumCard
-              key={vehicle._id}
-              image={vehicle.Image?.[0]}
-              category={vehicle.Location}
-              title={vehicle.vehicleName}
-              favorited={vehicle.Premium}
-              features={[
-                {
-                  icon: "seater",
-                  label: `${vehicle.SeatCapacity} Seater`,
-                },
-                {
-                  icon: "ac",
-                  label: vehicle.AC ? "A/C Available" : "No A/C",
-                },
-                {
-                  icon: "tv",
-                  label: vehicle.TV ? "TV Available" : "No TV",
-                },
-                {
-                  icon: "music",
-                  label: vehicle.MusicSystem
-                    ? "Music System / Bluetooth"
-                    : "No Music System",
-                },
-              ]}
-                  onClick={() => navigate(`/vehicle/${vehicle._id}`)}
-            />
-          ))}
-        </div>
+      {currentVehicles.length > 0 ? (
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
+    {currentVehicles.map((vehicle) => (
+      <PremiumCard
+        key={vehicle._id}
+        image={vehicle.Image?.[0]}
+        category={vehicle.Location}
+        title={vehicle.vehicleName}
+        favorited={vehicle.Premium}
+        features={[
+          {
+            icon: "seater",
+            label: `${vehicle.SeatCapacity} Seater`,
+          },
+          {
+            icon: "ac",
+            label: vehicle.AC ? "A/C Available" : "No A/C",
+          },
+          {
+            icon: "tv",
+            label: vehicle.TV ? "TV Available" : "No TV",
+          },
+          {
+            icon: "music",
+            label: vehicle.MusicSystem
+              ? "Music System / Bluetooth"
+              : "No Music System",
+          },
+        ]}
+        onClick={() => navigate(`/vehicle/${vehicle._id}`)}
+      />
+    ))}
+  </div>
+) : (
+  <div className="flex flex-col items-center justify-center py-24 text-center">
+    <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+      🚗
+    </div>
+
+    <h3 className="text-2xl font-semibold text-[#00263F]">
+      No Vehicles Found
+    </h3>
+
+    <p className="mt-2 text-[#5B6B79] max-w-sm">
+      We couldn't find any vehicles in this category. Please try another
+      category.
+    </p>
+
+    <button
+      onClick={() => setSelectedCategory("all")}
+      className="mt-6 px-6 py-3 rounded-full bg-[#FF7A00] text-white hover:bg-[#e86f00] transition"
+    >
+      View All Vehicles
+    </button>
+  </div>
+)}
 
         {/* Pagination */}
-      <div className="flex justify-center items-center gap-2 mt-14 flex-wrap">
+        {filteredVehicles.length > 0 && (
+
+      <div className="flex justify-center items-center gap-2 mt-14 flex-wrap host-grotesk">
 
   {/* First Page */}
   <button
@@ -195,6 +221,7 @@ const currentVehicles = filteredVehicles.slice(
   </button>
 
 </div>
+        )}
       </div>
     </section>
   );
