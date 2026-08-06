@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { User, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import { adminLogin } from "../../../Api/adminApi";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../../../assets/logo.png"; 
 export default function AdminLoginLayout() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -57,14 +57,16 @@ const handleSubmit = async (e) => {
      
 
         {/* Title & Subtitle */}
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-            Aaradhya <span className="text-sky-600">Holidays</span>
-          </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Admin Portal Management
-          </p>
-        </div>
+       <div className="text-center mb-6">
+  <img
+    src={logo}
+    alt="Aaradhya Holidays"
+    className="w-48 h-auto mx-auto object-contain"
+  />
+  <p className="text-xs text-slate-500 mt-3">
+    Admin Portal Management
+  </p>
+</div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">

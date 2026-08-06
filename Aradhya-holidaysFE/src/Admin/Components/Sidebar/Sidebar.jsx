@@ -10,7 +10,7 @@ import {
   LogOut,
   ListSortDescending,
 } from "lucide-react";
-
+import logo from "../../../assets/logo.png"
 export default function Sidebar() {
 const navItems = [
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
@@ -34,15 +34,13 @@ const handleLogout = () => {
       <aside className="hidden md:flex w-64 manrope bg-white border-r border-slate-100 flex-col justify-between p-6 shrink-0">
         <div>
           {/* Logo */}
-          <div className="flex items-center gap-2 mb-10 px-2">
-            <div className="w-8 h-8 rounded-xl bg-sky-500 flex items-center justify-center text-white font-bold text-lg">
-              A
-            </div>
-
-            <span className="font-bold text-lg tracking-tight text-slate-900">
-              Aaradhya <span className="text-sky-500">Holidays</span>
-            </span>
-          </div>
+        <div className="flex justify-center mb-10 px-2">
+  <img
+    src={logo}
+    alt="Aaradhya Holidays"
+    className="w-44 h-auto object-contain"
+  />
+</div>
 
           {/* Navigation */}
           <div>

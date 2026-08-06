@@ -98,6 +98,29 @@ const INDIAN_STATES = [
   "Lakshadweep",
   "Puducherry"
 ];
+
+const PACKAGE_TYPES = [
+  "Family Package",
+  "Honeymoon Package",
+  "Couple Package",
+  "Adventure Package",
+  "Friends Package",
+  "Group Tour",
+  "Solo Trip",
+  "Pilgrimage Package",
+  "Wildlife Safari",
+  "Beach Holiday",
+  "Hill Station Package",
+  "Luxury Package",
+  "Budget Package",
+  "Weekend Getaway",
+  "Corporate Tour",
+  "Educational Tour",
+  "Senior Citizen Package",
+  "Cruise Package",
+  "Camping Package",
+  "Customized Package"
+];
 export default function PackageManagement() {
 const [packages, setPackages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -617,14 +640,21 @@ state: "",
     <label className="text-xs font-semibold text-slate-700 block mb-1">
       Type
     </label>
-    <input
-      type="text"
-      name="type"
-      value={formData.type}
-      onChange={handleInputChange}
-      placeholder="e.g. Hill Station"
-      className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
-    />
+   <select
+  name="type"
+  value={formData.type}
+  onChange={handleInputChange}
+  className="w-full bg-slate-100/80 border border-slate-200 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+  required
+>
+  <option value="">Select Package Type</option>
+
+  {PACKAGE_TYPES.map((type) => (
+    <option key={type} value={type}>
+      {type}
+    </option>
+  ))}
+</select>
   </div>
 
  <div>
