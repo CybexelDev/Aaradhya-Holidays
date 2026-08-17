@@ -211,7 +211,7 @@ useEffect(() => {
   .map((vehicle) => (
     <button
       key={vehicle._id}
-      onClick={()=>navigate(`/cars/${vehicle._id}`)}
+      onClick={()=>navigate(`/vehicle/${vehicle._id}`)}
       className="bg-[#FFFFFF40] border border-[#FFFFFF33] hover:bg-white/30 transition px-3 md:px-4 py-2 md:py-1.5 rounded-full text-[11px] md:text-[12px] leading-none whitespace-nowrap"
     >
       {vehicle.vehicleName}
