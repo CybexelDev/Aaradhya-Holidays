@@ -280,6 +280,28 @@ const [loading, setLoading] = useState(true);
                  </strong></span>
                 </div>
               </div>
+              {/* Travel Route */}
+{activeTab === "car" && (
+  <div className="flex flex-col sm:flex-row gap-3 text-xs mt-2">
+    <div className="flex items-center gap-2 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-100">
+      <span className="font-semibold text-emerald-600">
+        Start Location:
+      </span>
+      <span className="text-slate-700 font-medium">
+        {item.startLocation || "N/A"}
+      </span>
+    </div>
+
+    <div className="flex items-center gap-2 bg-red-50 px-3 py-2 rounded-xl border border-red-100">
+      <span className="font-semibold text-red-600">
+        Destination:
+      </span>
+      <span className="text-slate-700 font-medium">
+        {item.destination || "N/A"}
+      </span>
+    </div>
+  </div>
+)}
 
               {/* Customer Message */}
               {item.message && (

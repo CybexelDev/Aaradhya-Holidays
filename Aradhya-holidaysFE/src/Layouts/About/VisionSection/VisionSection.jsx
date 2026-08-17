@@ -16,16 +16,12 @@ export default function VisionSection() {
 
             {/* Heading */}
             <h2 className="text-[30px] sm:text-[38px] lg:text-[46px] font-[400] text-[#00263F] leading-[38px] sm:leading-[46px] lg:leading-[52px] mb-6 poppins">
-              Dissolving the borders between Traveler &amp; Nature.
+Bringing You Closer to the Beauty of South India
             </h2>
 
             {/* Description */}
             <p className="text-[#5B6B79] text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0 inter">
-              At Oceania Travels, we don't just book trips; we curate moments
-              of profound connection with the wild. Our vision is to create
-              experiences that leave only footprints and take only memories,
-              fostering a lifelong stewardship of the world's most fragile
-              wonders.
+          Every traveler has a different idea of the perfect holiday. Some look for adventure, some for quiet mornings, and some simply want more time with family. At Aaradhya Holidays, we understand that there is no one way to travel. That is why we keep your preferences at the heart of every journey we put together.
             </p>
 
             {/* Divider */}

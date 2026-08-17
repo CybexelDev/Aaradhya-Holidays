@@ -108,3 +108,13 @@ export const getCategoryUser=async()=>{
     throw error;
   }
 }
+
+export const getVehcileName = async () => {
+  try {
+    const response = await api.get("/users/getVehicleNameAndId");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

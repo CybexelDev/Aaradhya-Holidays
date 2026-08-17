@@ -79,11 +79,9 @@ export default function AboutHero() {
           </p>
 
           {/* Card Heading */}
-          <h2 className="mt-4 sora text-[24px] sm:text-[27px] md:text-[30px] leading-8 sm:leading-9 md:leading-10 font-[500] text-white">
-            Where Journeys
-            <br />
-            Become Extraordinary
-          </h2>
+          <h2 className="mt-4 sora text-[24px] sm:text-[27px] md:text-[30px] leading-8 sm:leading-9 md:leading-10 font-[500] text-white ">
+Where Every Journey            <br />
+Feels Special          </h2>
 
           <p className="mt-6 inter text-[12px] font-[350] text-white">
             Dear Valued Traveler,
@@ -92,26 +90,21 @@ export default function AboutHero() {
           {/* Paragraphs */}
           <div className="inter font-[400] mt-9 space-y-7 text-[13px] sm:text-[14px] leading-5 text-white text-left sm:text-center">
             <p>
-              Welcome to Voyara, your gateway to curated experiences across
-              the world's most breathtaking destinations. We believe travel is
-              more than a getaway—it's a collection of moments that shape
-              memories for a lifetime.
+           
+Welcome to Aaradhya Holidays, your travel partner for discovering the beauty of South India. We believe a great holiday is more than just visiting new places; it is about enjoying new experiences, spending time with loved ones, and bringing home memories you will always cherish.
+
             </p>
 
             <p>
-              From serene beachfront escapes to vibrant cultural adventures,
-              every itinerary we design is crafted with precision, care, and a
-              deep understanding of what makes a journey truly exceptional.
+              From the peaceful backwaters and misty hills of Kerala to the rich heritage of Karnataka and the timeless temples, beaches, and landscapes of Tamil Nadu, we help you experience South India in a way that feels comfortable, personal, and memorable.
             </p>
 
             <p>
-              Our commitment to personalized service and seamless planning
-              ensures that your only focus is to explore, indulge, and immerse
-              yourself in the beauty of the world around you.
+             We take care of the planning, travel arrangements, and little details along the way, so you can simply enjoy your journey. Whether it is a family holiday, a relaxing getaway, a sightseeing trip, or a journey with friends, we are here to make it easy and enjoyable from start to finish
             </p>
 
             <p>
-              Thank you for choosing Voyara. We look forward to crafting your
+              Thank you for choosing Aradhya Holidays. We look forward to crafting your
               next unforgettable adventure.
             </p>
           </div>
@@ -126,11 +119,11 @@ export default function AboutHero() {
               className="mt-3 text-[26px] sm:text-[29px] md:text-[32px] font-[400] italic text-[#D11115]"
               style={{ fontFamily: "Arizonia" }}
             >
-              John Doe
+              Senthil Kumar
             </h3>
 
             <h4 className="inter mt-3 text-[16px] sm:text-[17px] md:text-[18px] font-[400] text-white">
-              John Doe
+              Aaradhya Holidays
             </h4>
 
             <p className="inter font-[400] mt-1 text-[12px] text-white">

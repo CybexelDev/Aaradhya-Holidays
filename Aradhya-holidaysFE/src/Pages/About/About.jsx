@@ -10,7 +10,6 @@ function About() {
     <div>
         <AboutHero />
                 <VisionSection/>
-                        <ArchitectureSection/>
 
         <CorePhilosophySection/>
         <Footer/>

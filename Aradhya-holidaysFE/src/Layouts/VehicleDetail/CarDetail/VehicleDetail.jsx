@@ -31,6 +31,8 @@ const [showBookingModal, setShowBookingModal] = useState(false);
 const [bookingData, setBookingData] = useState({
   name: "",
   phone: "",
+  startingLocation:"",
+  destination:""
 });
   const quickSpecs = [
   {
@@ -63,10 +65,15 @@ const leftFeatures = features.slice(0, half);
 const rightFeatures = features.slice(half);
 const handleBooking = async () => {
   try {
-    if (!bookingData.name.trim() || !bookingData.phone.trim()) {
-      alert("Please fill all fields");
-      return;
-    }
+   if (
+  !bookingData.name.trim() ||
+  !bookingData.phone.trim() ||
+  !bookingData.startingLocation.trim() ||
+  !bookingData.destination.trim()
+) {
+  alert("Please fill all fields");
+  return;
+}
 
     if (!pickupDate || !returnDate) {
       alert("Please select pickup and return dates");
@@ -79,6 +86,8 @@ const handleBooking = async () => {
       returnDate,
       customerName: bookingData.name,
       customerPhone: bookingData.phone,
+      startLocation:bookingData.startingLocation,
+      destination:bookingData.destination
     };
 
     const res = await bookVehicle(payload);
@@ -89,7 +98,9 @@ const handleBooking = async () => {
 
     setBookingData({
       name: "",
-      phone: "",
+  phone: "",
+  startingLocation: "",
+  destination: ""
     });
 
     setPickupDate("");
@@ -269,6 +280,44 @@ const handleBooking = async () => {
             }
             className="w-full border rounded-lg px-4 py-3 outline-none focus:border-red-500"
             placeholder="Enter phone number"
+          />
+        </div>
+
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Starting Location
+          </label>
+          <input
+            type="tel"
+            value={bookingData.startingLocation}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                startingLocation: e.target.value,
+              })
+            }
+            className="w-full border rounded-lg px-4 py-3 outline-none focus:border-red-500"
+            placeholder="Enter Starting Location"
+          />
+        </div>
+
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Destination
+          </label>
+          <input
+            type="tel"
+            value={bookingData.destination}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                destination: e.target.value,
+              })
+            }
+            className="w-full border rounded-lg px-4 py-3 outline-none focus:border-red-500"
+            placeholder="Enter Destination"
           />
         </div>
 
