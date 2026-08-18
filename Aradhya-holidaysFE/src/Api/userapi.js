@@ -118,3 +118,13 @@ export const getVehcileName = async () => {
     throw error;
   }
 };
+
+export const getPackageNameAndId= async () =>{
+  try {
+    const response = await api.get("/users/getPackageNameAndId")
+    return response.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}

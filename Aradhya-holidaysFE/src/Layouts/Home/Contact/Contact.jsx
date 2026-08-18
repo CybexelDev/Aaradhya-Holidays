@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import contact from "../../../assets/Home/contact/contact.jpg";
-import { sendEnquiry } from "../../../Api/userapi";
+import { sendEnquiry,getPackageNameAndId } from "../../../Api/userapi";
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -10,20 +10,60 @@ export default function Contact() {
     endDate: "",
     message: "",
   });
-
+const [destinations, setDestinations] = useState([]);
   const handleChange = (e) => {
     const { id, value } = e.target;
     setForm((prev) => ({ ...prev, [id]: value }));
   };
 
+
+useEffect(() => {
+  const fetchDestinations = async () => {
+    try {
+      const res = await getPackageNameAndId();
+
+      if (res?.success) {
+        setDestinations(res.packages || []);
+      }
+    } catch (error) {
+      console.log("Failed to fetch destinations:", error);
+    }
+  };
+
+  fetchDestinations();
+}, []);
   const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
+    // Send enquiry to dashboard
     const res = await sendEnquiry(form);
+
+    // WhatsApp number
+    const whatsappNumber = "919965696307";
+
+    // WhatsApp message
+    const message = `New Enquiry - Aaradhya Holidays
+
+Name: ${form.name}
+Phone: ${form.phoneNumber}
+Destination: ${form.destination}
+Start Date: ${form.startDate}
+End Date: ${form.endDate}
+
+Message:
+${form.message}`;
+
+    // Open WhatsApp with enquiry details
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(whatsappUrl, "_blank");
 
     alert(res.message);
 
+    // Clear form
     setForm({
       name: "",
       phoneNumber: "",
@@ -32,9 +72,12 @@ export default function Contact() {
       endDate: "",
       message: "",
     });
+
   } catch (err) {
     console.log(err);
-    alert(err?.response?.data?.message || "Failed to send enquiry");
+    alert(
+      err?.response?.data?.message || "Failed to send enquiry"
+    );
   }
 };
 
@@ -134,11 +177,14 @@ export default function Contact() {
                   <option value="" disabled>
                     Select a destination
                   </option>
-                  <option value="thailand">Thailand</option>
-                  <option value="bali">Bali</option>
-                  <option value="maldives">Maldives</option>
-                  <option value="japan">Japan</option>
-                  <option value="italy">Italy</option>
+       {destinations.map((destination) => (
+  <option
+    key={destination._id}
+    value={destination.packageName}
+  >
+    {destination.packageName}
+  </option>
+))}
                 </select>
               </div>
               <div className="flex flex-col flex-1 min-w-0 mb-4 sm:mb-4">

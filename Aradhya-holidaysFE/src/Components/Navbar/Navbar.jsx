@@ -14,7 +14,9 @@ export default function Navbar() {
 const navigate = useNavigate();
 const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-
+const handleCall = () => {
+  window.location.href = "tel:+919080423872";
+};
   return (
     // 1. Wrap everything in a relative container so the mobile menu
     //    can be absolutely positioned against it.
@@ -69,7 +71,7 @@ location.pathname === item.path          ? "text-[#D11115] font-[600]"
         </div>
 
         {/* Desktop Call Button */}
-        <button className="hidden md:flex inter items-center bg-[#D11115] text-white md:text-[14px] lg:text-[16px] font-[700] leading-[24px] md:px-6 lg:px-7 md:py-[6px] lg:py-2 rounded-[30px] hover:opacity-90 transition" onClick={()=>navigate("/contact")}>
+        <button className="hidden md:flex inter items-center bg-[#D11115] text-white md:text-[14px] lg:text-[16px] font-[700] leading-[24px] md:px-6 lg:px-7 md:py-[6px] lg:py-2 rounded-[30px] hover:opacity-90 transition hover" onClick={handleCall}>
           Call Now
         </button>
 
@@ -111,7 +113,10 @@ location.pathname === item.path        ? "bg-[#FFFFFF1A] border border-[#FFFFFF8
   </button>
 ))}
 
-              <button className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#D11115] py-3 text-white font-[700]">
+              <button className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#D11115] py-3 text-white font-[700]"
+                onClick={handleCall}
+
+              >
                 Call Now
               </button>
 

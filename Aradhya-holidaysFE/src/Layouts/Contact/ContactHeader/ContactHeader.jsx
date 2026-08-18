@@ -8,7 +8,7 @@ import {
 
 import bgImage from "../../../assets/Contact/contact1.jpg"; // Change to your image
 import Navbar from "../../../Components/Navbar/Navbar";
-import { sendEnquiry } from "../../../Api/userapi";
+import { sendEnquiry} from "../../../Api/userapi";
 
 export default function ContactHeader() {
 const [formData, setFormData] = useState({
@@ -40,10 +40,37 @@ const handleSubmit = async () => {
       return;
     }
 
+    // 1. Send enquiry to your dashboard
     const res = await sendEnquiry(formData);
 
+    // 2. WhatsApp number
+    const whatsappNumber = "916282980763";
+
+    // 3. Create WhatsApp message
+    const whatsappMessage = `
+Welcome to Aaradhya Holidays
+
+Name: ${formData.name}
+Phone: ${formData.phoneNumber}
+Destination: ${formData.destination}
+Start Date: ${formData.startDate}
+End Date: ${formData.endDate}
+
+Message:
+${formData.message}
+`;
+
+    // 4. Open WhatsApp
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    // 5. Success message
     alert(res.message);
 
+    // 6. Clear form
     setFormData({
       name: "",
       phoneNumber: "",
@@ -52,6 +79,7 @@ const handleSubmit = async () => {
       endDate: "",
       message: "",
     });
+
   } catch (err) {
     console.log(err);
     alert(err?.response?.data?.message || "Failed to send enquiry");
@@ -176,7 +204,7 @@ Aaradhyaholidays2026@gmail.com        </p>
       <div className="min-w-0">
         <h4 className="font-[700] text-[16px]">WhatsApp</h4>
         <p className="text-white font-[300] text-[16px]">
- 9080423872 / 9965696307          </p>
+ +91 99656 96307         </p>
       </div>
     </div>
   </div>

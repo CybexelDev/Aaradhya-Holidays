@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./hero.css";
-import { getSearchData,getVehcileName } from "../../../Api/userapi";
+import { getCategoryUser, getSearchData,getVehcileName } from "../../../Api/userapi";
 import { useNavigate } from "react-router-dom";
 import CustomSelect from "../../../Components/CustomSelect/CustomSelect";
 
@@ -61,11 +61,11 @@ useEffect(() => {
       setCategories(uniquePackageTypes);
 
       // Fetch vehicle names
-      const vehicleData = await getVehcileName();
+      const categoryData = await getCategoryUser();
 
-      if (vehicleData?.success) {
-        setVehicles(vehicleData.vehicles || []);
-      }
+if (categoryData?.categoryData) {
+  setVehicles(categoryData.categoryData);
+}
 
     } catch (error) {
       console.log(error);
@@ -200,24 +200,35 @@ useEffect(() => {
 
 
           {/* Popular tags */}
-          <div className="flex items-center gap-1 sm:gap-2 mt-5 font-[300] text-white text-sm inter">
-            <span className="text-white/80 inter  text-[16px] leading-[24px]">Vehciles:</span>
-           {vehicles
-  .filter(
-    (vehicle, index, self) =>
-      index === self.findIndex(v => v.vehicleName === vehicle.vehicleName)
-  )
-  .slice(0, 3)
-  .map((vehicle) => (
+          {/* Vehicle Categories */}
+<div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-5 font-[300] text-white inter">
+  
+  <span className="text-white/80 text-[14px] sm:text-[16px] leading-[24px] shrink-0">
+    Vehicles:
+  </span>
+
+  {vehicles.map((vehicle) => (
     <button
       key={vehicle._id}
-      onClick={()=>navigate(`/vehicle/${vehicle._id}`)}
-      className="bg-[#FFFFFF40] border border-[#FFFFFF33] hover:bg-white/30 transition px-3 md:px-4 py-2 md:py-1.5 rounded-full text-[11px] md:text-[12px] leading-none whitespace-nowrap"
+      onClick={() => navigate(`/vehicle/${vehicle._id}`)}
+      className="
+        bg-[#FFFFFF40]
+        border border-[#FFFFFF33]
+        hover:bg-white/30
+        transition-all duration-300
+        px-3 sm:px-4
+        py-2 sm:py-2
+        rounded-full
+        text-[11px] sm:text-[12px]
+        leading-none
+        whitespace-nowrap
+      "
     >
-      {vehicle.vehicleName}
+      {vehicle.categoryName?.trim()}
     </button>
   ))}
-          </div>
+
+</div>
         </div>
 
         {/* Stats bar */}
