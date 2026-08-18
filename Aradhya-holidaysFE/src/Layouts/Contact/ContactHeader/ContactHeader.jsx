@@ -44,7 +44,7 @@ const handleSubmit = async () => {
     const res = await sendEnquiry(formData);
 
     // 2. WhatsApp number
-    const whatsappNumber = "916282980763";
+    const whatsappNumber = "+919965696307";
 
     // 3. Create WhatsApp message
     const whatsappMessage = `
