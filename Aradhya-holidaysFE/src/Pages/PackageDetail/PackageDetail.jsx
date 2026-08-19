@@ -9,7 +9,7 @@ import Details from "../../Layouts/PackageDetail/Details/Details";
 import PackageDetailHeader from "../../Layouts/PackageDetail/Header/TourDetailHeader";
 import DiscoverMore from "../../Layouts/PackageDetail/DiscoverMoreSection/DiscoverMoreSection";
 import Footer from "../../Components/Footer/Footer";
-
+import Contact from "../../Layouts/Home/Contact/Contact";
 function PackageDetail() {
   const { id } = useParams();
 
@@ -60,6 +60,8 @@ function PackageDetail() {
       <PackageDetailHeader packageData={packageData} />
       <Details packageData={packageData} />
       <DiscoverMore packages={discoverPackages} />
+                      <Contact />
+      
       <Footer />
     </>
   );

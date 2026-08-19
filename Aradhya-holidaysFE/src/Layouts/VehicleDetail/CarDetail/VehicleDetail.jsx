@@ -209,6 +209,10 @@ const handleBooking = async () => {
                 <span className="text-[#0B1C30] font-semibold">₹{vehicle?.RentPerKLM}</span>
               </div>
               <div className="flex items-center justify-between text-sm sm:text-[16px]">
+                <span className="text-[#0B1C30]">Rate per Day:</span>
+                <span className="text-[#0B1C30] font-semibold">₹{vehicle?.RatePerDay}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm sm:text-[16px]">
                 <span className="text-[#0B1C30]">Advance Required:</span>
                 <span className="text-[#0B1C30] font-semibold">{vehicle?.AdvancePayment}%</span>
               </div>

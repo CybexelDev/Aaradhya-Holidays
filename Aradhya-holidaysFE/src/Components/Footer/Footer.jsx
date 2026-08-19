@@ -67,7 +67,7 @@ const linkColumns = [
     links: [
       { name: "Home", path: "/" },
       { name: "About Us", path: "/about" },
-      { name: "Services", path: "/service" },
+      { name: "Cars", path: "/service" },
       { name: "Tour Plan", path: "/tour-plan" },
       { name: "Contact", path: "/contact" },
     ],

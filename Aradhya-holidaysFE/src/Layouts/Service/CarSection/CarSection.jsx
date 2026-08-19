@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
 import { getVehicles,getCategoryUser } from "../../../Api/userapi";
-import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { useNavigate, useSearchParams } from "react-router-dom";import { Loader2 } from "lucide-react";
 export default function CarSection() {
     const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+const navigate = useNavigate();
+const [searchParams] = useSearchParams();
 
+const categoryFromUrl = searchParams.get("category");
+
+const [selectedCategory, setSelectedCategory] = useState(
+  categoryFromUrl || "all"
+);
   const [categories, setCategories] = useState([]);
-const [selectedCategory, setSelectedCategory] = useState("all");
 
 const [currentPage, setCurrentPage] = useState(1);
 const itemsPerPage = 6;
+useEffect(() => {
+  const category = searchParams.get("category");
 
+  setSelectedCategory(category || "all");
+  setCurrentPage(1);
+}, [searchParams]);
  useEffect(() => {
   const fetchData = async () => {
     try {
@@ -64,7 +73,16 @@ const currentVehicles = filteredVehicles.slice(
   indexOfFirstItem,
   indexOfLastItem
 );
+const handlePageChange = (page) => {
+  if (page < 1 || page > totalPages) return;
 
+  setCurrentPage(page);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
   return (
     <section className="w-full bg-[#F7F8FA] py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-15 inter">
       <div className=" mx-auto">

@@ -106,6 +106,7 @@ const [existingImages, setExistingImages] = useState([]);
     TV: "false",
     StarRating: "5",
     RentPerKLM: "",
+    RatePerDay:"",
     AdvancePayment: "",
     TollCharges: "Extra",
     Features: "",
@@ -170,6 +171,8 @@ const fetchVehicles = async () => {
   payload.append("TV", formData.TV);
   payload.append("StarRating", formData.StarRating);
   payload.append("RentPerKLM", formData.RentPerKLM);
+    payload.append("RatePerDay", formData.RatePerDay);
+
   payload.append("AdvancePayment", formData.AdvancePayment);
   payload.append("TollCharges", formData.TollCharges);
   payload.append("Features", formData.Features);
@@ -212,6 +215,7 @@ const fetchVehicles = async () => {
       TV: "false",
       StarRating: "5",
       RentPerKLM: "",
+      RatePerDay:"",
       AdvancePayment: "",
       TollCharges: "Extra",
       Features: "",
@@ -339,6 +343,7 @@ src={v.Image?.[0] || "/placeholder.png"}
     TV: v.TV ? "true" : "false",
     StarRating: v.StarRating,
     RentPerKLM: v.RentPerKLM,
+    RatePerDay:v.RatePerDay,
     AdvancePayment: v.AdvancePayment,
     TollCharges: v.TollCharges,
     Features: Array.isArray(v.Features)
@@ -471,13 +476,17 @@ src={selectedVehicle.Image?.[0] || "/placeholder.png"}
             </div>
 
             {/* Specifications Cards */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-4 gap-3 mb-6">
               <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
                 <span className="text-[10px] font-semibold text-slate-400 uppercase block">Rate per KM</span>
                 <span className="text-lg font-bold text-slate-800">₹{selectedVehicle.RentPerKLM}</span>
               </div>
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
+                <span className="text-[10px] font-semibold text-slate-400 uppercase block">Rate per Day</span>
+                <span className="text-lg font-bold text-slate-800">₹{selectedVehicle.RatePerDay}</span>
+              </div>
               <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
-                <span className="text-[10px] font-semibold text-slate-400 uppercase block">Advance</span>
+                <span className="text-[10px] font-semibold text-slate-400 uppercase block">Advance Price</span>
                 <span className="text-lg font-bold text-slate-800">₹{selectedVehicle.AdvancePayment}</span>
               </div>
               <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
@@ -554,49 +563,74 @@ src={selectedVehicle.Image?.[0] || "/placeholder.png"}
             <form onSubmit={handleSubmit} className="space-y-4">
               
               {/* Name, Reg Number & Category */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">Vehicle Name</label>
-                  <input
-                    type="text"
-                    name="vehicleName"
-                    required
-                    placeholder="e.g. Suzuki Swift"
-                    value={formData.vehicleName}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">Vehicle Number</label>
-                  <input
-                    type="text"
-                    name="vehicleNumber"
-                    required
-                    placeholder="e.g. KL 52 A 0707"
-                    value={formData.vehicleNumber}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">Category</label>
-                 <select
-  name="category"
-  value={formData.category}
-  onChange={handleInputChange}
-  className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
->
-  <option value="">Select Category</option>
+          {/* Rates, Advances & Toll */}
+<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-  {categories.map((category) => (
-    <option key={category._id} value={category._id}>
-      {category.categoryName}
-    </option>
-  ))}
-</select>
-                </div>
-              </div>
+  {/* Rent Per KLM */}
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Rent Per KLM (₹)
+    </label>
+    <input
+      type="text"
+      name="RentPerKLM"
+      required
+      placeholder="e.g. 50"
+      value={formData.RentPerKLM}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+
+  {/* Rent Per Day */}
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Rent Per Day (₹)
+    </label>
+    <input
+      type="text"
+      name="RatePerDay"
+      required
+      placeholder="e.g. 2500"
+      value={formData.RatePerDay}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+
+  {/* Advance Payment */}
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Advance Payment (₹)
+    </label>
+    <input
+      type="text"
+      name="AdvancePayment"
+      required
+      placeholder="e.g. 60"
+      value={formData.AdvancePayment}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+
+  {/* Toll Charges */}
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Toll Charges
+    </label>
+    <select
+      name="TollCharges"
+      value={formData.TollCharges}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    >
+      <option value="Extra">Extra</option>
+      <option value="Included">Included</option>
+    </select>
+  </div>
+
+</div>
 
               {/* Location, Capacity & Star Rating */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

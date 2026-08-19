@@ -210,8 +210,10 @@ if (categoryData?.categoryData) {
   {vehicles.map((vehicle) => (
     <button
       key={vehicle._id}
-      onClick={() => navigate(`/vehicle/${vehicle._id}`)}
-      className="
+onClick={() =>
+  navigate(`/cars?category=${vehicle._id}`)
+}
+     className="
         bg-[#FFFFFF40]
         border border-[#FFFFFF33]
         hover:bg-white/30

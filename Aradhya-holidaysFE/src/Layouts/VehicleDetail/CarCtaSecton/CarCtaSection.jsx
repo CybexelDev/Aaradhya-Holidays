@@ -2,8 +2,32 @@ import React from "react";
 import { ArrowRight, Phone } from "lucide-react";
 
 import carsImage from "../../../assets/About/CarDetail/ca.png"; 
+import { useNavigate } from "react-router-dom";
 
 export default function CarCtaSection() {
+  const navigate = useNavigate();
+const handleNavigate = (path) => {
+  navigate(path);
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // or "auto"
+  });
+};
+const handleWhatsApp = () => {
+  const phoneNumber = "919965696307";
+
+  const message = "Hi, I am interested in your Rolls-Royce fleet.";
+  
+  window.open(
+    `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
+};
+
+const handleCall = () => {
+  window.location.href = "tel:+919080423872";
+};
+
   return (
     <section className="bg-[#F8F9FB] pb-10 lg:py-12  overflow-hidden">
       <div className="px-4 sm:px-6 lg:px-15">
@@ -26,7 +50,7 @@ export default function CarCtaSection() {
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* Enquiry */}
-            <button className="py-4 px-8 rounded-full border  bg-white flex items-center gap-3 hover:bg-gray-50 transition">
+            <button className="py-4 px-8 rounded-full border  bg-white flex items-center gap-3 hover:bg-gray-50 transition " onClick={()=>handleNavigate("/contact")}>
               <span className="text-[16px] font-semibold text-[#101828] inter">
                 Send enquiry
               </span>
@@ -51,7 +75,7 @@ export default function CarCtaSection() {
              
 
               <span className="text-[16px] font-semibold text-black inter">
-                Call +971 56 526 6295
+                Call +91 9080423872
               </span>
             </button>
           </div>
