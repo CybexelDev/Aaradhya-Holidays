@@ -16,7 +16,7 @@ const handleNavigate = (path) => {
 const handleWhatsApp = () => {
   const phoneNumber = "919965696307";
 
-  const message = "Hi, I am interested in your Rolls-Royce fleet.";
+  const message = "Hi, I am interested in your Vehciles.";
   
   window.open(
     `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
