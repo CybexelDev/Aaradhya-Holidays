@@ -293,7 +293,7 @@ const handleBooking = async () => {
             Starting Location
           </label>
           <input
-            type="tel"
+            type="text"
             value={bookingData.startingLocation}
             onChange={(e) =>
               setBookingData({
@@ -312,7 +312,7 @@ const handleBooking = async () => {
             Destination
           </label>
           <input
-            type="tel"
+            type="text"
             value={bookingData.destination}
             onChange={(e) =>
               setBookingData({
