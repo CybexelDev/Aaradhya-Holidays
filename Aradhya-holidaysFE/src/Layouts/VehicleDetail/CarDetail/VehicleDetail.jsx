@@ -80,10 +80,24 @@ const handleBooking = async () => {
       return;
     }
 
-    // WhatsApp number
+    // Booking payload for backend
+    const payload = {
+      vehicleId: vehicle._id,
+      pickupDate,
+      returnDate,
+      customerName: bookingData.name,
+      customerPhone: bookingData.phone,
+      startLocation: bookingData.startingLocation,
+      destination: bookingData.destination,
+    };
+
+    // 1. Save booking in backend
+    const res = await bookVehicle(payload);
+
+    // 2. WhatsApp number
     const whatsappNumber = "919965696307";
 
-    // WhatsApp message
+    // 3. WhatsApp message
     const message = `New Vehicle Booking - Aaradhya Holidays
 
 Vehicle: ${vehicle?.vehicleName || "N/A"}
@@ -98,18 +112,18 @@ Return Date: ${returnDate}
 Starting Location: ${bookingData.startingLocation}
 Destination: ${bookingData.destination}`;
 
-    // Create WhatsApp URL
+    // 4. Create WhatsApp URL
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       message
     )}`;
 
-    // Open WhatsApp
+    // 5. Open WhatsApp
     window.open(whatsappUrl, "_blank");
 
-    // Close modal
+    // 6. Close modal
     setShowBookingModal(false);
 
-    // Clear form
+    // 7. Clear form
     setBookingData({
       name: "",
       phone: "",
@@ -119,9 +133,16 @@ Destination: ${bookingData.destination}`;
 
     setPickupDate("");
     setReturnDate("");
+
+    // Backend success message
+    alert(res?.message || "Booking successful");
   } catch (err) {
-    console.error(err);
-    alert("Failed to process booking");
+    console.error("Booking error:", err);
+
+    alert(
+      err?.response?.data?.message ||
+        "Booking failed. Please try again."
+    );
   }
 };
   return (
