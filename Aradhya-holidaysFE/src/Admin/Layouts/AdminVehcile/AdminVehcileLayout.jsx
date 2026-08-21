@@ -573,7 +573,7 @@ src={selectedVehicle.Image?.[0] || "/placeholder.png"}
       type="text"
       name="vehicleName"
       required
-      placeholder="e.g. 50"
+      placeholder="Suzuki Swift"
       value={formData.vehicleName}
       onChange={handleInputChange}
       className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
@@ -586,9 +586,9 @@ src={selectedVehicle.Image?.[0] || "/placeholder.png"}
     </label>
     <input
       type="text"
-      name="vehicleName"
+      name="vehicleNumber"
       required
-      placeholder="e.g. 50"
+      placeholder="e.g. TN50AB4545"
       value={formData.vehicleNumber}
       onChange={handleInputChange}
       className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
