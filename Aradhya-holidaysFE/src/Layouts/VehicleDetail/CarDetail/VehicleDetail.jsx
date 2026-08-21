@@ -65,51 +65,63 @@ const leftFeatures = features.slice(0, half);
 const rightFeatures = features.slice(half);
 const handleBooking = async () => {
   try {
-   if (
-  !bookingData.name.trim() ||
-  !bookingData.phone.trim() ||
-  !bookingData.startingLocation.trim() ||
-  !bookingData.destination.trim()
-) {
-  alert("Please fill all fields");
-  return;
-}
+    if (
+      !bookingData.name.trim() ||
+      !bookingData.phone.trim() ||
+      !bookingData.startingLocation.trim() ||
+      !bookingData.destination.trim()
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
 
     if (!pickupDate || !returnDate) {
       alert("Please select pickup and return dates");
       return;
     }
 
-    const payload = {
-      vehicleId: vehicle._id,
-      pickupDate,
-      returnDate,
-      customerName: bookingData.name,
-      customerPhone: bookingData.phone,
-      startLocation:bookingData.startingLocation,
-      destination:bookingData.destination
-    };
+    // WhatsApp number
+    const whatsappNumber = "919965696307";
 
-    const res = await bookVehicle(payload);
+    // WhatsApp message
+    const message = `New Vehicle Booking - Aaradhya Holidays
 
-    alert(res.message);
+Vehicle: ${vehicle?.vehicleName || "N/A"}
+Vehicle Number: ${vehicle?.vehicleNumber || "N/A"}
 
+Name: ${bookingData.name}
+Phone: ${bookingData.phone}
+
+Pickup Date: ${pickupDate}
+Return Date: ${returnDate}
+
+Starting Location: ${bookingData.startingLocation}
+Destination: ${bookingData.destination}`;
+
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, "_blank");
+
+    // Close modal
     setShowBookingModal(false);
 
+    // Clear form
     setBookingData({
       name: "",
-  phone: "",
-  startingLocation: "",
-  destination: ""
+      phone: "",
+      startingLocation: "",
+      destination: "",
     });
 
     setPickupDate("");
     setReturnDate("");
   } catch (err) {
     console.error(err);
-    alert(
-      err?.response?.data?.message || "Booking failed"
-    );
+    alert("Failed to process booking");
   }
 };
   return (
@@ -119,7 +131,7 @@ const handleBooking = async () => {
           {/* Left Column */}
           <div>
             <h1 className="text-2xl sm:text-[38px] font-bold text-[#101828] poppins mb-6">
-              {vehicle?.vehicleName}
+              {vehicle?.vehicleName} <span className="font-semibold text-[28px]"> ({vehicle?.vehicleNumber})</span>
             </h1>
 
             {/* Quick Specs */}

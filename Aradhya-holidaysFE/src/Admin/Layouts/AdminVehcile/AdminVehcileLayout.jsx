@@ -564,7 +564,38 @@ src={selectedVehicle.Image?.[0] || "/placeholder.png"}
               
               {/* Name, Reg Number & Category */}
           {/* Rates, Advances & Toll */}
-<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 ">
+  <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Vehcile Name
+    </label>
+    <input
+      type="text"
+      name="vehicleName"
+      required
+      placeholder="e.g. 50"
+      value={formData.vehicleName}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+
+    <div>
+    <label className="text-xs font-semibold text-slate-700 block mb-1">
+      Vehcile Registration
+    </label>
+    <input
+      type="text"
+      name="vehicleName"
+      required
+      placeholder="e.g. 50"
+      value={formData.vehicleNumber}
+      onChange={handleInputChange}
+      className="w-full bg-slate-100/80 border border-slate-200/80 rounded-xl py-2.5 px-3 text-xs outline-none focus:bg-white focus:border-sky-400"
+    />
+  </div>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-4 gap-4  ">
 
   {/* Rent Per KLM */}
   <div>
