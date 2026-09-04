@@ -113,8 +113,8 @@ if (categoryData?.categoryData) {
 </p>
 
          
-<div className="w-full max-w-[900px] mx-auto px-4 md:px-0">
-  <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 md:gap-[16px] rounded-[24px] md:rounded-[32px] bg-[#FFFFFF99] backdrop-blur-[12px] border border-[#FFFFFF33] p-4 md:p-[22px]">
+<div className="relative z-[100] w-full max-w-[900px] mx-auto px-4 md:px-0">  
+  <div className="relative z-[100] flex flex-col md:flex-row items-stretch md:items-center gap-4 md:gap-[16px] rounded-[24px] md:rounded-[32px] bg-[#FFFFFF99] backdrop-blur-[12px] border border-[#FFFFFF33] p-4 md:p-[22px]">
 
     {/* Location */}
     <div className="w-full md:flex-1 px-2 md:px-4 py-3 md:py-2 border-b md:border-b-0 md:border-r border-[#191C1E1A] flex justify-center">
@@ -234,7 +234,7 @@ onClick={() =>
         </div>
 
         {/* Stats bar */}
-<div className="inter mx-6 lg:mx-26 mb-8 bg-[#FFFFFF33] backdrop-blur-[12px] rounded-2xl shadow-xl px-4 md:px-12 py-6 md:py-8 grid grid-cols-2 md:flex md:flex-nowrap md:justify-between items-center text-center gap-6">
+<div className="relative z-10 inter mx-6 lg:mx-26 mb-8 bg-[#FFFFFF33] backdrop-blur-[12px] rounded-2xl shadow-xl px-4 md:px-12 py-6 md:py-8 grid grid-cols-2 md:flex md:flex-nowrap md:justify-between items-center text-center gap-6">
 
   <div className="flex flex-col items-center">
     <h3 className="text-[20px] md:text-[25px]  lg:text-[32px] leading-[32px] md:leading-[40px] font-[700] text-[#00263F]">

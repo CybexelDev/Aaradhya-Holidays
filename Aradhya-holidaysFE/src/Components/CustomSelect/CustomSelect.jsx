@@ -55,9 +55,9 @@ export default function CustomSelect({
 
   {/* Dropdown */}
   <div
-  className={`absolute right-0 top-full z-20 mt-3 min-w-[45%] md:min-w-[45%] lg:min-w-[200px]
+  className={`absolute right-0 top-full  mt-3 min-w-[45%] md:min-w-[45%] lg:min-w-[200px]
   max-h-64 overflow-y-auto rounded-[10px] bg-white shadow-xl
-  transition-all duration-500 ease-out
+  transition-all duration-500 ease-out  z-[99999]
   ${
     open
       ? "translate-y-0 opacity-100 visible"

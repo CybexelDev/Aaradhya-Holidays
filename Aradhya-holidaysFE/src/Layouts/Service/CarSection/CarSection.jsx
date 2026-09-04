@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PremiumCard from "../../../Components/PremiumCard/PremiumCard";
 import { getVehicles,getCategoryUser } from "../../../Api/userapi";
+import { ChevronDown } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";import { Loader2 } from "lucide-react";
 export default function CarSection() {
     const [vehicles, setVehicles] = useState([]);
@@ -102,26 +103,34 @@ const handlePageChange = (page) => {
 
           {/* Sort */}
           <div className="flex items-center gap-3 self-start lg:self-auto">
-            <span className="text-[14px] text-[#5B6B79] ">
-              Sort by:
-            </span>
-<select
-  value={selectedCategory}
-  onChange={(e) => {
-    setSelectedCategory(e.target.value);
-    setCurrentPage(1);
-  }}
-  className="h-[40px] rounded-full border border-[#D9DDE3] bg-white px-3 pr-16 text-[14px] text-[#00263F] outline-none"
->
-  <option value="all">All Categories</option>
+  <span className="text-[14px] text-[#5B6B79]">
+    Sort by:
+  </span>
 
-  {categories.map((category) => (
-    <option key={category._id} value={category._id}>
-      {category.categoryName}
-    </option>
-  ))}
-</select>
-          </div>
+  <div className="relative">
+    <select
+      value={selectedCategory}
+      onChange={(e) => {
+        setSelectedCategory(e.target.value);
+        setCurrentPage(1);
+      }}
+      className="h-[40px] appearance-none rounded-full border border-[#D9DDE3] bg-white pl-6 pr-12 text-[14px] text-[#00263F] outline-none"
+    >
+      <option value="all">All Categories</option>
+
+      {categories.map((category) => (
+        <option key={category._id} value={category._id}>
+          {category.categoryName}
+        </option>
+      ))}
+    </select>
+
+    <ChevronDown
+      size={18}
+      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#00263F]"
+    />
+  </div>
+</div>
         </div>
 
         {/* Cards */}
